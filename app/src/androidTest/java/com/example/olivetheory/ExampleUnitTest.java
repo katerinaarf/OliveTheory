@@ -1,4 +1,4 @@
-package com.example.olivetheoryapp;
+package com.example.olivetheory;
 
 import org.junit.Test;
 

@@ -1,5 +1,6 @@
 package com.example.olivetheory;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -94,6 +95,10 @@ public class SignUpActivity extends AppCompatActivity {
                 User user = new User(0, name, email, password, userType);
                 db.addUser(user);
                 Toast.makeText(this, "Ο χρήστης εγγράφηκε επιτυχώς.", Toast.LENGTH_SHORT).show();
+
+                // Navigate to MenuActivity
+                Intent intent = new Intent(SignUpActivity.this, MenuActivity.class);
+                startActivity(intent);
             }
         }
     }
@@ -110,6 +115,9 @@ public class SignUpActivity extends AppCompatActivity {
             // Check if user exists in the database
             if (db.checkUser(email, password)) {
                 Toast.makeText(this, "Ο χρήστης συνδέθηκε επιτυχώς.", Toast.LENGTH_SHORT).show();
+                // Navigate to MenuActivity
+                Intent intent = new Intent(SignUpActivity.this, MenuActivity.class);
+                startActivity(intent);
             } else {
                 Toast.makeText(this, "Λανθασμένο email ή κωδικός.", Toast.LENGTH_SHORT).show();
             }
