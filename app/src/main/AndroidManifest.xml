@@ -24,6 +24,9 @@
         <activity
             android:name=".SignUpActivity"
             android:exported="false"></activity>
+        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".MapsActivity"/>
+
     </application>
 
 </manifest>

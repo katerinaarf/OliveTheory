@@ -13,15 +13,16 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        // Button to navigate to another activity (Example)
-        Button goToNewActivityButton = findViewById(R.id.goToNewActivityButton);
-        goToNewActivityButton.setOnClickListener(new View.OnClickListener() {
+        // Button to navigate to ForumActivity
+        Button forumButton = findViewById(R.id.forumButton);
+        forumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, newActivity.class);
+                Intent intent = new Intent(MenuActivity.this, ForumActivity.class);
                 startActivity(intent);
             }
         });
     }
 }
+
 

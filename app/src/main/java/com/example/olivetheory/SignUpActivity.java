@@ -7,9 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.olivetheory.R;
 import com.example.olivetheory.User;
+import com.example.olivetheory.UserDatabaseHelper;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -96,9 +99,10 @@ public class SignUpActivity extends AppCompatActivity {
                 db.addUser(user);
                 Toast.makeText(this, "Ο χρήστης εγγράφηκε επιτυχώς.", Toast.LENGTH_SHORT).show();
 
-                // Navigate to MenuActivity
-                Intent intent = new Intent(SignUpActivity.this, MenuActivity.class);
-                startActivity(intent);
+                // Navigate to MapsActivity
+                Intent maps = new Intent(SignUpActivity.this, MapsActivity.class);
+                startActivity(maps);
+                finish();
             }
         }
     }
@@ -115,9 +119,10 @@ public class SignUpActivity extends AppCompatActivity {
             // Check if user exists in the database
             if (db.checkUser(email, password)) {
                 Toast.makeText(this, "Ο χρήστης συνδέθηκε επιτυχώς.", Toast.LENGTH_SHORT).show();
-                // Navigate to MenuActivity
-                Intent intent = new Intent(SignUpActivity.this, MenuActivity.class);
-                startActivity(intent);
+                // Navigate to MapsActivity
+                Intent maps = new Intent(SignUpActivity.this, MapsActivity.class);
+                startActivity(maps);
+                finish();
             } else {
                 Toast.makeText(this, "Λανθασμένο email ή κωδικός.", Toast.LENGTH_SHORT).show();
             }
