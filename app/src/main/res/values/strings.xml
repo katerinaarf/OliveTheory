@@ -22,4 +22,7 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="activity_maps">Maps Activity</string>
+
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAdE_38Qvtj9lKTAV_9iERwakL5X3cVyyc</string>-->
+
 </resources>

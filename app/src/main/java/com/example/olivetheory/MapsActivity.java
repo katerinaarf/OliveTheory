@@ -1,86 +1,111 @@
 package com.example.olivetheory;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.util.Arrays;
 
-    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+
     private GoogleMap mMap;
-    private boolean locationPermissionGranted;
+    private Marker marker;
+    private LatLng selectedLatLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        // Check location permissions
-        getLocationPermission();
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapFragment);
-        mapFragment.getMapAsync(this);
+        // Initialize Places SDK
+        String apiKey = getString(R.string.google_maps_key);
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), apiKey);
+        }
+
+        setUpSearchBar();
     }
 
-    private void getLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            locationPermissionGranted = true;
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-        }
+    private void setUpSearchBar() {
+        // Initialize the AutocompleteSupportFragment.
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
+
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                // Get the selected place
+                selectedLatLng = place.getLatLng();
+                if (selectedLatLng != null) {
+                    // Move the marker to the selected place
+                    marker.setPosition(selectedLatLng);
+                    // Animate camera to the selected place
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(selectedLatLng, 15));
+                }
+            }
+
+            @Override
+            public void onError(@NonNull com.google.android.gms.common.api.Status status) {
+                // Handle the error.
+                Toast.makeText(MapsActivity.this, "Error: " + status.getStatusMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Set the initial spot to Athens city center
-        LatLng athensCenter = new LatLng(37.9838, 23.7275);
-        mMap.addMarker(new MarkerOptions().position(athensCenter).title("Marker in Athens Center"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(athensCenter, 12)); // Adjust the zoom level as needed
+        // Add a marker in default location and move the camera
+        LatLng defaultLocation = new LatLng(-34, 151);
+        marker = mMap.addMarker(new MarkerOptions().position(defaultLocation).draggable(true));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10));
 
-        // Check if location permissions are granted
-        if (locationPermissionGranted) {
-            // You can enable the user location layer if needed
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
+        // Set up the onMapClickListener to handle map clicks
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                // When user clicks on the map, update selectedLatLng and move the marker
+                selectedLatLng = latLng;
+                marker.setPosition(selectedLatLng);
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(selectedLatLng));
             }
-            mMap.setMyLocationEnabled(true);
-        }
+        });
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        locationPermissionGranted = false;
-        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                locationPermissionGranted = true;
-            }
+    public void onBackPressed() {
+        if (selectedLatLng != null) {
+            // If a location is selected, return the result
+            Intent intent = new Intent();
+            intent.putExtra("latitude", selectedLatLng.latitude);
+            intent.putExtra("longitude", selectedLatLng.longitude);
+            setResult(RESULT_OK, intent);
         }
+        super.onBackPressed();
     }
 }

@@ -5,34 +5,36 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "user_database";
-    private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "users";
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_NAME = "name";
-    private static final String COLUMN_EMAIL = "email";
-    private static final String COLUMN_PASSWORD = "password";
-    private static final String COLUMN_USER_TYPE = "user_type";
+    private static final String DATABASE_NAME = "user.db";
+    private static final String TABLE_NAME = "user_table";
+    private static final String COL_1 = "ID";
+    private static final String COL_2 = "NAME";
+    private static final String COL_3 = "EMAIL";
+    private static final String COL_4 = "PASSWORD";
+    private static final String COL_5 = "USER_TYPE";
+    private static final String COL_6 = "LATITUDE";
+    private static final String COL_7 = "LONGITUDE";
+    private static final String COL_8 = "PLACE_NAME";
 
     public UserDatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
-                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_NAME + " TEXT,"
-                + COLUMN_EMAIL + " TEXT,"
-                + COLUMN_PASSWORD + " TEXT,"
-                + COLUMN_USER_TYPE + " TEXT"
-                + ")";
-        db.execSQL(CREATE_TABLE);
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "NAME TEXT," +
+                "EMAIL TEXT," +
+                "PASSWORD TEXT," +
+                "USER_TYPE TEXT," +
+                "LATITUDE REAL," +
+                "LONGITUDE REAL," +
+                "PLACE_NAME TEXT" +
+                ")");
     }
 
     @Override
@@ -41,60 +43,47 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addUser(com.example.olivetheory.User user) {
+    public boolean addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME, user.getName());
-        values.put(COLUMN_EMAIL, user.getEmail());
-        values.put(COLUMN_PASSWORD, user.getPassword());
-        values.put(COLUMN_USER_TYPE, user.getUserType());
-        db.insert(TABLE_NAME, null, values);
-        db.close();
-    }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_2, user.getName());
+        contentValues.put(COL_3, user.getEmail());
+        contentValues.put(COL_4, user.getPassword());
+        contentValues.put(COL_5, user.getUserType());
+        contentValues.put(COL_6, user.getLatitude());
+        contentValues.put(COL_7, user.getLongitude());
+        contentValues.put(COL_8, user.getPlaceName());
 
-    public boolean checkUser(String email, String password) {
-        String[] columns = {
-                COLUMN_ID
-        };
-        SQLiteDatabase db = this.getReadableDatabase();
-        String selection = COLUMN_EMAIL + " = ?" + " AND " + COLUMN_PASSWORD + " = ?";
-        String[] selectionArgs = {email, password};
-        Cursor cursor = db.query(TABLE_NAME,
-                columns,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null);
-        int cursorCount = cursor.getCount();
-        cursor.close();
-        db.close();
-        if (cursorCount > 0) {
-            return true;
-        }
-        return false;
+        long result = db.insert(TABLE_NAME, null, contentValues);
+
+        return result != -1;
     }
 
     public boolean checkUser(String email) {
-        String[] columns = {
-                COLUMN_ID
-        };
         SQLiteDatabase db = this.getReadableDatabase();
-        String selection = COLUMN_EMAIL + " = ?";
-        String[] selectionArgs = {email};
-        Cursor cursor = db.query(TABLE_NAME,
-                columns,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null);
-        int cursorCount = cursor.getCount();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE EMAIL=?", new String[]{email});
+        boolean exists = cursor.getCount() > 0;
         cursor.close();
-        db.close();
-        if (cursorCount > 0) {
-            return true;
+        return exists;
+    }
+
+    public boolean checkUser(String email, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE EMAIL=? AND PASSWORD=?", new String[]{email, password});
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        return exists;
+    }
+
+    public String getUserType(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COL_5 + " FROM " + TABLE_NAME + " WHERE EMAIL=?", new String[]{email});
+        if (cursor.moveToFirst()) {
+            String userType = cursor.getString(0);
+            cursor.close();
+            return userType;
         }
-        return false;
+        cursor.close();
+        return "";
     }
 }

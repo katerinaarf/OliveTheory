@@ -1,23 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MapsActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MAP"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"/>
-
-    <fragment
-        android:id="@+id/mapFragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:layout="@layout/support_simple_spinner_dropdown_item" />
 
+    <fragment
+        android:id="@+id/autocomplete_fragment"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        tools:layout="@layout/support_simple_spinner_dropdown_item" />
+
+    <EditText
+        android:id="@+id/place_name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:hint="Enter place name"
+        android:inputType="text"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/place_name_edit_text"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:text="Save"
+        tools:ignore="UnknownId" />
 
 </RelativeLayout>
