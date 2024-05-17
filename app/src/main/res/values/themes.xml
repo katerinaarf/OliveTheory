@@ -1,25 +1,39 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!--  Base application theme.  -->
+    <!-- Base application theme. -->
     <style name="Theme.OliveTheoryApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!--  Primary brand color.  -->
+        <!-- Primary brand color. -->
         <item name="colorPrimary">@color/first</item>
         <item name="colorPrimaryVariant">@color/second</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!--  Secondary brand color.  -->
+        <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/grey</item>
         <item name="colorSecondaryVariant">@color/second_white</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!--  Status bar color.  -->
+        <!-- Status bar color. -->
         <item name="android:statusBarColor">#00FFFFFF</item>
-        <!--  Customize your theme here.  -->
+        <!-- Font family -->
+        <item name="android:fontFamily">@font/jura</item>
+        <item name="fontFamily">@font/jura</item>
+        <!-- Customize your theme here. -->
     </style>
 
     <style name="Theme.OliveTheoryApp.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!-- Font family -->
+        <item name="android:fontFamily">@font/jura</item>
+        <item name="fontFamily">@font/jura</item>
     </style>
 
-    <style name="Theme.OliveTheoryApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.OliveTheoryApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- Font family -->
+        <item name="android:fontFamily">@font/jura</item>
+        <item name="fontFamily">@font/jura</item>
+    </style>
 
-    <style name="Theme.OliveTheoryApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.OliveTheoryApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <!-- Font family -->
+        <item name="android:fontFamily">@font/jura</item>
+        <item name="fontFamily">@font/jura</item>
+    </style>
 </resources>
