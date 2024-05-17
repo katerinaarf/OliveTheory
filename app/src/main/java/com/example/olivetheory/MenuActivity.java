@@ -14,7 +14,13 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         // Button to navigate to ForumActivity
-        Button forumButton = findViewById(R.id.forumButton);
+        Button settingButton = findViewById(R.id.settings);
+        Button calendarButton = findViewById(R.id.calendar);
+        Button weatherButton = findViewById(R.id.weather);
+        Button problemsButton = findViewById(R.id.problems);
+        Button messageButton = findViewById(R.id.message);
+        Button forumButton = findViewById(R.id.forum);
+
         forumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

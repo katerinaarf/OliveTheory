@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#608A70"
+    android:background="#D0EEDC"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -24,7 +24,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="monospace"
             android:text="@string/app_name"
-            android:textColor="@color/white"
+            android:textColor="@color/first"
             android:textSize="40sp"
             android:textStyle="bold" />
 
