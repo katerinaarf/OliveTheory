@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/settings" />
 
     <TextView
-        android:id="@+id/weather"
+        android:id="@+id/weatherText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="116dp"
@@ -81,10 +81,10 @@
         app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintMarginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather" />
+        app:layout_constraintTop_toBottomOf="@+id/weatherText" />
 
     <TextView
-        android:id="@+id/problems"
+        android:id="@+id/problemsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="124dp"
@@ -115,8 +115,8 @@
             android:background="@drawable/calendar" />
 
         <View
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="16dp"
+            android:layout_height="134dp" />
 
         <Button
             android:id="@+id/weather"
@@ -131,8 +131,8 @@
 
         <Button
             android:id="@+id/problems"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="65dp"
+            android:layout_height="73dp"
             android:background="@drawable/olivetheory"
             tools:ignore="DuplicateIds" />
 
@@ -140,7 +140,7 @@
             android:layout_width="30dp"
             android:layout_height="wrap_content" />
 
-        <ImageButton
+        <Button
             android:id="@+id/message"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -148,10 +148,10 @@
 
 
         <View
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="20dp"
+            android:layout_height="103dp" />
 
-        <ImageButton
+        <Button
             android:id="@+id/forum"
             android:layout_width="45dp"
             android:layout_height="45dp"
