@@ -156,3 +156,5 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@drawable/forum" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
