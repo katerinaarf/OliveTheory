@@ -24,10 +24,6 @@ public class SignUpActivity extends AppCompatActivity {
     boolean isSigningUp = true;
     UserDatabaseHelper db;
 
-    // Variables to store selected place details
-    double latitude, longitude;
-    String placeName;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,12 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
         String name = nameEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        String userType = "";
-        if (farmerRadioButton.isChecked()) {
-            userType = "Farmer";
-        } else if (expertRadioButton.isChecked()) {
-            userType = "Expert";
-        }
+        String userType = farmerRadioButton.isChecked() ? "Farmer" : "Expert";
 
         // Validate inputs
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || userType.isEmpty()) {
@@ -100,33 +91,36 @@ public class SignUpActivity extends AppCompatActivity {
             if (db.checkUser(email)) {
                 Toast.makeText(this, "Αυτός ο χρήστης υπάρχει ήδη.Παρακαλώ συνδεθείτε.", Toast.LENGTH_SHORT).show();
             } else {
-                // Save user profile to the database
-                User user = new User(name, email, password, userType);
-                // Set selected place details
-                user.setLatitude(latitude);
-                user.setLongitude(longitude);
-                user.setPlaceName(placeName);
+                User user = new User(0, name, email, password, userType);
+                if (db.addUser(user)) {
+                    Toast.makeText(this, "Ο χρήστης εγγράφηκε επιτυχώς.", Toast.LENGTH_SHORT).show();
 
-                // Start MapsActivity to select location
-                Intent mapsIntent = new Intent(SignUpActivity.this, MapsActivity.class);
-                startActivityForResult(mapsIntent, REQUEST_CODE_MAP);
+                    // Start MapsActivity to select location
+                    Intent mapsIntent = new Intent(SignUpActivity.this, MapsActivity.class);
+                    mapsIntent.putExtra("USER", user);  // Pass the user object
+                    startActivity(mapsIntent);
+                    finish();
+                } else {
+                    Toast.makeText(this, "Αποτυχία εγγραφής του χρήστη.", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
 
     private void login() {
         // Get user inputs
-        String email = emailEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+
 
         // Validate inputs
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Παρακαλώ συμπληρώστε όλα τα πεδία.", Toast.LENGTH_SHORT).show();
         } else {
             // Check if user exists in the database
-            if (db.checkUser(email, password)) {
+            if (db.checkUser(email)) {
                 String userType = db.getUserType(email);
-                Toast.makeText(this, "Ο χρήστης συνδέθηκε επιτυχώς.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Ο χρήστης συνδέθηκε επιτυχώς.", Toast.LENGTH_SHORT).show(); //me petaei DEN TO KANEI
                 // Show the selection popup and navigate to MapsActivity
                 showMapSelectionPopup(userType);
             } else {
@@ -148,7 +142,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int id) {
                 // Navigate to MapsActivity for selecting the place
                 Intent maps = new Intent(SignUpActivity.this, MapsActivity.class);
-                startActivityForResult(maps, REQUEST_CODE_MAP);
+                startActivity(maps);
             }
         });
         builder.create().show();
@@ -162,25 +156,19 @@ public class SignUpActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_MAP && resultCode == RESULT_OK && data != null) {
             double latitude = data.getDoubleExtra("latitude", 0);
             double longitude = data.getDoubleExtra("longitude", 0);
+            User user = (User) data.getSerializableExtra("USER");
 
-            // Create a user with the selected location
-            String name = nameEditText.getText().toString();
-            String email = emailEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
-            String userType = farmerRadioButton.isChecked() ? "Farmer" : "Expert";
+            if (user != null) {
+                // Create a Location object and save it to the database
+                Location location = new Location(latitude, longitude, user.getId());
+                db.addLocation(location);
 
-            User user = new User(name, email, password, userType);
-            user.setLatitude(latitude);
-            user.setLongitude(longitude);
-
-            // Save user to the database
-            db.addUser(user);
-            Toast.makeText(this, "Ο χρήστης εγγράφηκε επιτυχώς.", Toast.LENGTH_SHORT).show();
-
-            // Proceed to the next activity or finish sign-up process
+                Toast.makeText(this, "Ο χρήστης εγγράφηκε επιτυχώς.", Toast.LENGTH_SHORT).show();
+            } else {
+                    Toast.makeText(this, "Σφάλμα κατά την εγγραφή του χρήστη.", Toast.LENGTH_SHORT).show();
+                }
+                // Proceed to the next activity or finish sign-up process
+            }
         }
     }
 
-
-
-}

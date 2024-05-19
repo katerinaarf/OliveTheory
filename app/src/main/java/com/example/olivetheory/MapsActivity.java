@@ -26,11 +26,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private Marker marker;
     private LatLng selectedLatLng;
+    private User user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        // Retrieve the user object from the Intent
+        user = (User) getIntent().getSerializableExtra("KEY_USERNAME");
+        if (user == null) {
+            // Handle the case where user object is not passed correctly
+            Toast.makeText(this, "User data missing", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -44,6 +55,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         setUpSearchBar();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        mMap.setOnMapClickListener(latLng -> {
+            mMap.clear();
+            mMap.addMarker(new MarkerOptions().position(latLng).title("Selected Location"));
+            selectedLatLng = latLng;
+        });
+
     }
 
     private void setUpSearchBar() {
@@ -62,7 +85,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 selectedLatLng = place.getLatLng();
                 if (selectedLatLng != null) {
                     // Move the marker to the selected place
-                    marker.setPosition(selectedLatLng);
+                    if (marker != null) {
+                        marker.setPosition(selectedLatLng);
+                    } else {
+                        marker = mMap.addMarker(new MarkerOptions().position(selectedLatLng).title("Selected Location"));
+                    }
                     // Animate camera to the selected place
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(selectedLatLng, 15));
                 }
@@ -77,35 +104,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in default location and move the camera
-        LatLng defaultLocation = new LatLng(-34, 151);
-        marker = mMap.addMarker(new MarkerOptions().position(defaultLocation).draggable(true));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10));
-
-        // Set up the onMapClickListener to handle map clicks
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                // When user clicks on the map, update selectedLatLng and move the marker
-                selectedLatLng = latLng;
-                marker.setPosition(selectedLatLng);
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(selectedLatLng));
-            }
-        });
-    }
-
-    @Override
     public void onBackPressed() {
-        if (selectedLatLng != null) {
-            // If a location is selected, return the result
-            Intent intent = new Intent();
-            intent.putExtra("latitude", selectedLatLng.latitude);
-            intent.putExtra("longitude", selectedLatLng.longitude);
-            setResult(RESULT_OK, intent);
-        }
         super.onBackPressed();
+        Intent resultIntent = new Intent();
+        if (selectedLatLng != null) {
+            resultIntent.putExtra("latitude", selectedLatLng.latitude);
+            resultIntent.putExtra("longitude", selectedLatLng.longitude);
+        }
+        resultIntent.putExtra("USER", user);
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
 }

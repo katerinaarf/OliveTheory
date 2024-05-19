@@ -20,23 +20,23 @@
         android:layout_alignParentTop="true"
         tools:layout="@layout/support_simple_spinner_dropdown_item" />
 
-    <EditText
-        android:id="@+id/place_name_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:hint="Enter place name"
-        android:inputType="text"
-        android:padding="8dp" />
+<!--    <EditText-->
+<!--        android:id="@+id/place_name_edit_text"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:hint="Enter place name"-->
+<!--        android:inputType="text"-->
+<!--        android:padding="8dp" />-->
 
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/place_name_edit_text"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"
-        android:text="Save"
-        tools:ignore="UnknownId" />
+<!--    <Button-->
+<!--        android:id="@+id/save_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignBottom="@id/place_name_edit_text"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:text="Save"-->
+<!--        tools:ignore="UnknownId" />-->
 
 </RelativeLayout>
