@@ -86,4 +86,17 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return "";
     }
+
+    public String getUserName(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COL_2 + " FROM " + TABLE_NAME + " WHERE " + COL_3 + "=?", new String[]{email});
+        String userName = null;
+        if (cursor.moveToFirst()) {
+            userName = cursor.getString(0);
+        }
+        cursor.close();
+        return userName;
+    }
+
+
 }

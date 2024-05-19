@@ -108,7 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
                 user.setPlaceName(placeName);
 
                 // Start MapsActivity to select location
-                Intent mapsIntent = new Intent(SignUpActivity.this, MapsActivity.class);
+                Intent mapsIntent = new Intent(SignUpActivity.this, MenuActivity.class);
                 startActivityForResult(mapsIntent, REQUEST_CODE_MAP);
             }
         }
@@ -147,7 +147,7 @@ public class SignUpActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Navigate to MapsActivity for selecting the place
-                Intent maps = new Intent(SignUpActivity.this, MapsActivity.class);
+                Intent maps = new Intent(SignUpActivity.this, MenuActivity.class);
                 startActivityForResult(maps, REQUEST_CODE_MAP);
             }
         });

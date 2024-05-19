@@ -7,7 +7,6 @@
     android:background="@color/second"
     tools:context=".MenuActivity">
 
-    <!-- Top row with settings and user buttons -->
     <Button
         android:id="@+id/settings"
         android:layout_width="45dp"
@@ -19,14 +18,14 @@
         android:layout_marginTop="16dp" />
 
     <TextView
-        android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="16dp"
+        android:text="Ρυθμίσεις  "
+        android:textSize="30dp"
         android:textColor="@color/first"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="72dp"
-        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@+id/settings"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -39,51 +38,72 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp" />
 
+    <!-- Bottom icons -->
+
     <TextView
-        android:id="@+id/suggest"
+        android:id="@+id/usertext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Προτείνεται Σήμερα  >"
+        android:layout_marginTop="96dp"
+        android:text="Ο Λογαριασμός μου  >"
         android:textColor="@color/first"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.082"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="32dp"
         app:layout_constraintTop_toBottomOf="@id/settings" />
 
     <TextView
-        android:id="@+id/weatherText"
+        android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Καιρός  >"
+        android:layout_marginTop="56dp"
+        android:text="Η Τοποθεσία μου   >"
         android:textColor="@color/first"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@id/suggest" />
-
-    <!-- Bottom icons -->
-    <ImageView
-        android:id="@+id/weather_image"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weatherText" />
+        app:layout_constraintTop_toBottomOf="@+id/usertext" />
 
     <TextView
-        android:id="@+id/problemsText"
+        android:id="@+id/history_sick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Διάγνωση Προβλήματος  >"
+        android:layout_marginTop="56dp"
+        android:text="Ιστορικό Ασθενειών   >"
         android:textColor="@color/first"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@id/weather_image" />
+        app:layout_constraintTop_toBottomOf="@id/location" />
+
+    <TextView
+        android:id="@+id/history_work"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Ιστορικό Εργασιών   >"
+        android:textColor="@color/first"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/history_sick" />
+
+    <TextView
+        android:id="@+id/center_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Κέντρο Πληροφοριών   >"
+        android:textColor="@color/first"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/history_work"/>
 
     <LinearLayout
         android:id="@+id/bottom_icons"

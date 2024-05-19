@@ -7,51 +7,62 @@
     android:background="@color/second"
     tools:context=".SignUpActivity">
 
-
     <ImageView
+        android:id="@+id/logoImageView"
         android:layout_width="68dp"
         android:layout_height="68dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/olivetheory"
-        tools:layout_editor_absoluteX="336dp"
-        tools:layout_editor_absoluteY="14dp" />
+        android:layout_marginTop="24dp" />
 
     <EditText
         android:id="@+id/nameEditText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_edittext"
         android:hint="Όνομα Χρήστη"
         android:padding="10dp"
         android:textColorHint="@color/first"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="112dp" />
+        app:layout_constraintTop_toBottomOf="@id/logoImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <EditText
         android:id="@+id/emailEditText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nameEditText"
         android:background="@drawable/custom_edittext"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="10dp"
         android:textColorHint="@color/first"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="172dp" />
+        app:layout_constraintTop_toBottomOf="@id/nameEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <EditText
         android:id="@+id/passwordEditText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/emailEditText"
         android:background="@drawable/custom_edittext"
         android:hint="Κωδικός"
         android:inputType="textPassword"
         android:padding="10dp"
         android:textColorHint="@color/first"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="228dp" />
-
+        app:layout_constraintTop_toBottomOf="@id/emailEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <RadioButton
         android:id="@+id/remindMeCheckBox"
@@ -59,65 +70,78 @@
         android:layout_height="wrap_content"
         android:textColor="@color/first"
         android:text="Remind me"
-        tools:layout_editor_absoluteX="296dp"
-        tools:layout_editor_absoluteY="279dp" />
+        app:layout_constraintTop_toBottomOf="@id/passwordEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="341dp">
+        app:layout_constraintTop_toBottomOf="@id/remindMeCheckBox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
         <RadioButton
             android:id="@+id/farmerRadioButton"
-            android:layout_width="205dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:textColor="@color/first"
-            android:layout_below="@id/passwordEditText"
             android:text="Αγρότης" />
 
         <RadioButton
             android:id="@+id/expertRadioButton"
-            android:layout_width="147dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/farmerRadioButton"
-            android:text="Γεωπόνος"
-            android:textColor="@color/first" />
+            android:layout_weight="1"
+            android:textColor="@color/first"
+            android:text="Γεωπόνος" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/signUpButton"
-        android:layout_width="307dp"
-        android:layout_height="51dp"
-        android:layout_below="@id/expertRadioButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/custom_button"
         android:text="Εγγραφή"
         android:textColor="#FFFFFF"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="426dp" />
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginEnd="52dp" />
 
     <TextView
         android:id="@+id/already"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/signUpButton"
         android:text="Έχετε ήδη λογαριασμό ;"
         android:textColor="#888888"
-        tools:layout_editor_absoluteX="124dp"
-        tools:layout_editor_absoluteY="540dp" />
+        app:layout_constraintTop_toBottomOf="@id/signUpButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp" />
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="307dp"
-        android:layout_height="51dp"
-        android:layout_below="@id/already"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/custom_button"
         android:text="Σύνδεση"
         android:textColor="#FFFFFF"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="576dp" />
-
+        app:layout_constraintTop_toBottomOf="@id/already"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginEnd="52dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
