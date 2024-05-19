@@ -87,8 +87,8 @@ public class MenuActivity extends AppCompatActivity {
         forumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, ForumActivity.class);
-                startActivity(intent);
+                Intent forumActivity = new Intent(MenuActivity.this, ForumActivity.class);
+                startActivity(forumActivity);
             }
         });
     }

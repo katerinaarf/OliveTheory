@@ -77,8 +77,8 @@ public class SettingsActivity extends AppCompatActivity {
         forumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, ForumActivity.class);
-                startActivity(intent);
+                Intent forumActivity = new Intent(SettingsActivity.this, ForumActivity.class);
+                startActivity(forumActivity);
             }
         });
     }
