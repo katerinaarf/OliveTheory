@@ -8,10 +8,10 @@
     tools:context=".MenuActivity">
 
     <Button
-        android:id="@+id/settings"
+        android:id="@+id/calendar_second"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:background="@drawable/settings"
+        android:background="@drawable/calendar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
@@ -22,11 +22,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
-        android:text="Ρυθμίσεις  "
+        android:text="Ημερολόγιο  "
         android:textSize="30dp"
         android:textColor="@color/first"
-        app:layout_constraintStart_toEndOf="@+id/settings"
+        app:layout_constraintStart_toEndOf="@+id/calendar_second"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/user"
@@ -40,76 +41,49 @@
 
     <!-- Bottom icons -->
 
+
     <TextView
-        android:id="@+id/usertext"
+        android:id="@+id/suggest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:text="Ο Λογαριασμός μου  >"
+        android:layout_marginTop="88dp"
+        android:text="Προτείνεται Σήμερα  >"
         android:textColor="@color/first"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.082"
+        app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings" />
+        app:layout_constraintTop_toBottomOf="@+id/calendar_second" />
+
+
+    <ImageButton
+        android:id="@+id/add"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/suggest" />
+
 
     <TextView
-        android:id="@+id/location"
+        android:id="@+id/addText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Η Τοποθεσία μου   >"
+        android:layout_marginTop="44dp"
+        android:text="Προσθήκη Εργασίας  >"
         android:textColor="@color/first"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usertext" />
-
-    <TextView
-        android:id="@+id/history_sick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Ιστορικό Ασθενειών   >"
-        android:textColor="@color/first"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.095"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location" />
-
-    <TextView
-        android:id="@+id/history_work"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Ιστορικό Εργασιών   >"
-        android:textColor="@color/first"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/history_sick" />
-
-    <TextView
-        android:id="@+id/center_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Κέντρο Πληροφοριών   >"
-        android:textColor="@color/first"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/history_work" />
-
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toEndOf="@+id/add"
+        app:layout_constraintTop_toBottomOf="@+id/suggest" />
 
     <LinearLayout
         android:id="@+id/bottom_icons"
-        android:layout_width="389dp"
-        android:layout_height="134dp"
+        android:layout_width="397dp"
+        android:layout_height="124dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="16dp"
@@ -163,5 +137,28 @@
             android:layout_height="45dp"
             android:background="@drawable/forum" />
     </LinearLayout>
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="411dp"
+        android:layout_height="286dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addText" />
+
+
+
+    <TextView
+        android:id="@+id/history_work"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Ιστορικό Εργασιών   >"
+        android:textColor="@color/first"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
