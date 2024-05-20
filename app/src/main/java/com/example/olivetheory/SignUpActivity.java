@@ -1,174 +1,199 @@
 package com.example.olivetheory;
 
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    // Define REQUEST_CODE_MAP constant
-    private static final int REQUEST_CODE_MAP = 101;
+    private EditText inputEmail, inputPassword, inputName;
+    private Button btnSignUp, btnLogin;
+    private ProgressBar progressBar;
+    private FirebaseAuth auth;
+    private RadioGroup userTypeGroup;
+    private RadioButton farmerRadioButton, expertRadioButton;
 
-    EditText nameEditText, emailEditText, passwordEditText;
-    RadioButton farmerRadioButton, expertRadioButton;
-    Button signUpButton, loginButton;
-    boolean isSigningUp = true;
-    UserDatabaseHelper db;
-
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_sign_up);
 
-        nameEditText = findViewById(R.id.nameEditText);
-        emailEditText = findViewById(R.id.emailEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
+        // Get Firebase auth instance
+        auth = FirebaseAuth.getInstance();
+
+        inputEmail = findViewById(R.id.emailEditText);
+        inputPassword = findViewById(R.id.passwordEditText);
+        inputName = findViewById(R.id.nameEditText);
+        userTypeGroup = findViewById(R.id.userTypeRadioGroup);
         farmerRadioButton = findViewById(R.id.farmerRadioButton);
         expertRadioButton = findViewById(R.id.expertRadioButton);
-        signUpButton = findViewById(R.id.signUpButton);
-        loginButton = findViewById(R.id.loginButton);
+        btnSignUp = findViewById(R.id.signUpButton);
+        btnLogin = findViewById(R.id.loginButton);
+        progressBar = findViewById(R.id.progressBar);
 
-        db = new UserDatabaseHelper(this);
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isSigningUp) {
-                    signUp();
-                } else {
-                    login();
+                String email = inputEmail.getText().toString().trim();
+                String password = inputPassword.getText().toString().trim();
+                String name = inputName.getText().toString().trim();
+                int selectedUserTypeId = userTypeGroup.getCheckedRadioButtonId();
+
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(getApplicationContext(), "Εισάγετε το email σας!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(getApplicationContext(), "Εισάγετε τον κωδικό σας!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (password.length() < 6) {
+                    Toast.makeText(getApplicationContext(), "Πολύ μικρός κωδικός, εισάγετε τουλάχιστον 6 χαρακτήρες!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(name)) {
+                    Toast.makeText(getApplicationContext(), "Εισάγετε το όνομά σας!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (selectedUserTypeId == -1) {
+                    Toast.makeText(getApplicationContext(), "Επιλέξτε τον τύπο χρήστη!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                // Convert the selected radio button ID to user type
+                String userType;
+                if (selectedUserTypeId == R.id.farmerRadioButton) {
+                    userType = "Αγρότης";
+                } else if (selectedUserTypeId == R.id.expertRadioButton) {
+                    userType = "Γεωπόνος";
+                } else {
+                    // This should never happen, but if it does, handle it accordingly
+                    userType = "Unknown";
+                }
+
+
+                progressBar.setVisibility(View.VISIBLE);
+                auth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressBar.setVisibility(View.GONE);
+                                if (!task.isSuccessful()) {
+                                    Exception e = task.getException();
+                                    if (e != null) {
+                                        Log.e("SignUpActivity", "Sign-up error: " + e.getMessage(), e);
+                                        Toast.makeText(SignUpActivity.this, "Sign-up error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Log.e("SignUpActivity", "Sign-up error: Unknown error occurred");
+                                        Toast.makeText(SignUpActivity.this, "Sign-up error: Unknown error occurred", Toast.LENGTH_SHORT).show();
+                                    }
+                                    return;                                } else {
+                                    Toast.makeText(SignUpActivity.this, "Επιτυχία εγγραφής!", Toast.LENGTH_SHORT).show();
+                                    saveUserInfo(name, email, userType);
+                                    startActivity(new Intent(SignUpActivity.this, MapsActivity.class));
+                                    finish();
+                                }
+                            }
+                        });
             }
         });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleSignUpLogin();
+                String email = inputEmail.getText().toString().trim();
+                String password = inputPassword.getText().toString().trim();
+
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(getApplicationContext(), "Εισάγετε το email σας!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(getApplicationContext(), "Εισάγετε τον κωδικό σας!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                progressBar.setVisibility(View.VISIBLE);
+
+                auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressBar.setVisibility(View.GONE);
+                                if (!task.isSuccessful()) {
+                                    if (password.length() < 6) {
+                                        inputPassword.setError(getString(R.string.minimum_password));
+                                    } else {
+                                        Toast.makeText(SignUpActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                    }
+                                } else {
+                                    Intent intent = new Intent(SignUpActivity.this, MapsActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                        });
             }
         });
     }
 
-    private void toggleSignUpLogin() {
-        if (isSigningUp) {
-            isSigningUp = false;
-            signUpButton.setText("Σύνδεση");
-            loginButton.setText("Εγγραφή");
-            nameEditText.setVisibility(View.GONE);
-            farmerRadioButton.setVisibility(View.GONE);
-            expertRadioButton.setVisibility(View.GONE);
-        } else {
-            isSigningUp = true;
-            signUpButton.setText("Εγγραφή");
-            loginButton.setText("Σύνδεση");
-            nameEditText.setVisibility(View.VISIBLE);
-            farmerRadioButton.setVisibility(View.VISIBLE);
-            expertRadioButton.setVisibility(View.VISIBLE);
-        }
+    private void saveUserInfo(String name, String email, String userType) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = auth.getCurrentUser().getUid();
+        User user = new User(name, email, userType);
+
+        db.collection("users").document(userId)
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("SignUpActivity", "User profile is created for " + userId);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("SignUpActivity", "Error adding document", e);
+                    }
+                });
     }
 
-    private void signUp() {
-        // Get user inputs
-        String name = nameEditText.getText().toString();
-        String email = emailEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
-        String userType = farmerRadioButton.isChecked() ? "Farmer" : "Expert";
+    class User {
+        String name;
+        String email;
+        String userType;
 
-        // Validate inputs
-        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || userType.isEmpty()) {
-            Toast.makeText(this, "Παρακαλώ συμπληρώστε όλα τα πεδία.", Toast.LENGTH_SHORT).show();
-        } else {
-            // Check if user already exists in the database
-            if (db.checkUser(email)) {
-                Toast.makeText(this, "Αυτός ο χρήστης υπάρχει ήδη.Παρακαλώ συνδεθείτε.", Toast.LENGTH_SHORT).show();
-            } else {
-                User user = new User(0, name, email, password, userType);
-                if (db.addUser(user)) {
-                    Toast.makeText(this, "Ο χρήστης εγγράφηκε επιτυχώς.", Toast.LENGTH_SHORT).show();
-
-                    // Start MapsActivity to select location
-                    Intent mapsIntent = new Intent(SignUpActivity.this, MapsActivity.class);
-                    mapsIntent.putExtra("USER", user);  // Pass the user object
-                    startActivity(mapsIntent);
-                    finish();
-                } else {
-                    Toast.makeText(this, "Αποτυχία εγγραφής του χρήστη.", Toast.LENGTH_SHORT).show();
-                }
-            }
+        User(String name, String email, String userType) {
+            this.name = name;
+            this.email = email;
+            this.userType = userType;
         }
     }
-
-    private void login() {
-        // Get user inputs
-        String email = emailEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
-
-
-        // Validate inputs
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Παρακαλώ συμπληρώστε όλα τα πεδία.", Toast.LENGTH_SHORT).show();
-        } else {
-            // Check if user exists in the database
-            if (db.checkUser(email)) {
-                String userType = db.getUserType(email);
-                Toast.makeText(this, "Ο χρήστης συνδέθηκε επιτυχώς.", Toast.LENGTH_SHORT).show(); //me petaei DEN TO KANEI
-                // Show the selection popup and navigate to MapsActivity
-                showMapSelectionPopup(userType);
-            } else {
-                Toast.makeText(this, "Λανθασμένο email ή κωδικός.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    //pop up message for every user
-    private void showMapSelectionPopup(String userType) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if (userType.equals("Farmer")) {
-            builder.setMessage("Παρακαλώ επιλέξτε το μέρος στο οποίο έχετε κάποια γεωγραφική καλλιεργίσιμη έκταση.");
-        } else if (userType.equals("Expert")) {
-            builder.setMessage("Παρακαλώ επιλέξτε την τοποθεσία που βρίσκεται το γραφείο σας.");
-        }
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // Navigate to MapsActivity for selecting the place
-                Intent maps = new Intent(SignUpActivity.this, MapsActivity.class);
-                startActivity(maps);
-            }
-        });
-        builder.create().show();
-    }
-
-    // Method to receive selected place details from MapsActivity
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_MAP && resultCode == RESULT_OK && data != null) {
-            double latitude = data.getDoubleExtra("latitude", 0);
-            double longitude = data.getDoubleExtra("longitude", 0);
-            User user = (User) data.getSerializableExtra("USER");
-
-            if (user != null) {
-                // Create a Location object and save it to the database
-                Location location = new Location(latitude, longitude, user.getId());
-                db.addLocation(location);
-
-                Toast.makeText(this, "Ο χρήστης εγγράφηκε επιτυχώς.", Toast.LENGTH_SHORT).show();
-            } else {
-                    Toast.makeText(this, "Σφάλμα κατά την εγγραφή του χρήστη.", Toast.LENGTH_SHORT).show();
-                }
-                // Proceed to the next activity or finish sign-up process
-            }
-        }
-    }
-
+}

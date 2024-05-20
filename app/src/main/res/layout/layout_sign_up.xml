@@ -1,123 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/second"
-    tools:context=".SignUpActivity">
-
-
-    <ImageView
-        android:layout_width="68dp"
-        android:layout_height="68dp"
-        android:background="@drawable/olivetheory"
-        tools:layout_editor_absoluteX="336dp"
-        tools:layout_editor_absoluteY="14dp" />
+    android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/nameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_edittext"
-        android:hint="Όνομα Χρήστη"
-        android:padding="10dp"
-        android:textColorHint="@color/first"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="112dp" />
+        android:hint="Όνομα"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/nameEditText"
-        android:background="@drawable/custom_edittext"
+        android:layout_marginTop="16dp"
         android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:textColorHint="@color/first"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="172dp" />
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/emailEditText"
-        android:background="@drawable/custom_edittext"
+        android:layout_marginTop="16dp"
         android:hint="Κωδικός"
         android:inputType="textPassword"
-        android:padding="10dp"
-        android:textColorHint="@color/first"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="228dp" />
+        android:minHeight="48dp" />
 
-
-    <RadioButton
-        android:id="@+id/remindMeCheckBox"
+    <RadioGroup
+        android:id="@+id/userTypeRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/first"
-        android:text="Remind me"
-        tools:layout_editor_absoluteX="296dp"
-        tools:layout_editor_absoluteY="279dp" />
+        android:layout_below="@id/passwordEditText"
+        android:layout_marginTop="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RadioButton
+        android:id="@+id/farmerRadioButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="341dp">
+        android:layout_below="@id/userTypeRadioGroup"
+        android:layout_marginTop="16dp"
+        android:text="Αγρότης"/>
 
-        <RadioButton
-            android:id="@+id/farmerRadioButton"
-            android:layout_width="205dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/first"
-            android:layout_below="@id/passwordEditText"
-            android:text="Αγρότης" />
-
-        <RadioButton
-            android:id="@+id/expertRadioButton"
-            android:layout_width="147dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/farmerRadioButton"
-            android:text="Γεωπόνος"
-            android:textColor="@color/first" />
-
-    </LinearLayout>
+    <RadioButton
+        android:id="@+id/expertRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/farmerRadioButton"
+        android:layout_marginTop="16dp"
+        android:text="Γεωπόνος"/>
+    </RadioGroup>
 
     <Button
         android:id="@+id/signUpButton"
-        android:layout_width="307dp"
-        android:layout_height="51dp"
-        android:layout_below="@id/expertRadioButton"
-        android:background="@drawable/custom_button"
-        android:text="Εγγραφή"
-        android:textColor="#FFFFFF"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="426dp" />
-
-    <TextView
-        android:id="@+id/already"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/signUpButton"
-        android:text="Έχετε ήδη λογαριασμό ;"
-        android:textColor="#888888"
-        tools:layout_editor_absoluteX="124dp"
-        tools:layout_editor_absoluteY="540dp" />
+        android:layout_below="@id/userTypeRadioGroup"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#4B7A5D"
+        android:text="Εγγραφή" />
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="307dp"
-        android:layout_height="51dp"
-        android:layout_below="@id/already"
-        android:background="@drawable/custom_button"
-        android:text="Σύνδεση"
-        android:textColor="#FFFFFF"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="576dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signUpButton"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#4B7A5D"
+        android:text="Σύνδεση" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

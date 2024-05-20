@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "564891728009",
+    "firebase_url": "https://olivetheory-d8d87-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "olivetheory-d8d87",
+    "storage_bucket": "olivetheory-d8d87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991905895346:android:023ffdc54459ce1b10caab",
+        "android_client_info": {
+          "package_name": "com.example.olivetheory"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-azACmi5r_Xv3rEgbkbp2cQ6oTwZytJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
