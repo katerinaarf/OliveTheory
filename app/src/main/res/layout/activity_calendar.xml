@@ -46,7 +46,7 @@
         android:id="@+id/suggest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="52dp"
         android:text="Προτείνεται Σήμερα  >"
         android:textColor="@color/first"
         android:textSize="20sp"
@@ -54,7 +54,6 @@
         app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendar_second" />
-
 
     <ImageButton
         android:id="@+id/add"
@@ -140,9 +139,10 @@
 
     <CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="411dp"
-        android:layout_height="286dp"
+        android:layout_width="368dp"
+        android:layout_height="269dp"
         android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addText" />
 
