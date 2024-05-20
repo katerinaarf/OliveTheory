@@ -17,6 +17,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="CalendarDateWithTask">
+        <item name="android:drawableRight">@drawable/tick</item>
+    </style>
+
     <style name="Theme.OliveTheoryApp.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
