@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.w3c.dom.Text;
 
-public class CalendarActivty extends AppCompatActivity {
+public class CalendarActivity extends AppCompatActivity {
 
 
     @Override
@@ -39,7 +39,7 @@ public class CalendarActivty extends AppCompatActivity {
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent calendarsecActivity = new Intent(CalendarActivty.this, CalendarActivty.class);
+                Intent calendarsecActivity = new Intent(CalendarActivity.this, CalendarActivity.class);
                 startActivity(calendarsecActivity);
             }
         });
@@ -47,7 +47,7 @@ public class CalendarActivty extends AppCompatActivity {
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent calendarActivity = new Intent(CalendarActivty.this, CalendarActivty.class);
+                Intent calendarActivity = new Intent(CalendarActivity.this, CalendarActivity.class);
                 startActivity(calendarActivity);
             }
         });
@@ -55,7 +55,7 @@ public class CalendarActivty extends AppCompatActivity {
         weatherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent weatherActivity = new Intent(CalendarActivty.this, WeatherActivity.class);
+                Intent weatherActivity = new Intent(CalendarActivity.this, WeatherActivity.class);
                 startActivity(weatherActivity);
             }
         });
@@ -63,7 +63,7 @@ public class CalendarActivty extends AppCompatActivity {
         problemsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent problemsActivity = new Intent(CalendarActivty.this, MapsActivity.class);
+                Intent problemsActivity = new Intent(CalendarActivity.this, MapsActivity.class);
                 startActivity(problemsActivity);
             }
         });
@@ -71,7 +71,7 @@ public class CalendarActivty extends AppCompatActivity {
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent messageActivity = new Intent(CalendarActivty.this, MenuActivity.class);
+                Intent messageActivity = new Intent(CalendarActivity.this, MenuActivity.class);
                 startActivity(messageActivity);
             }
         });
@@ -79,7 +79,7 @@ public class CalendarActivty extends AppCompatActivity {
         forumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent forumActivity = new Intent(CalendarActivty.this, ForumActivity.class);
+                Intent forumActivity = new Intent(CalendarActivity.this, ForumActivity.class);
                 startActivity(forumActivity);
             }
         });
