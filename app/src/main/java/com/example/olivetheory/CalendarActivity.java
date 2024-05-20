@@ -63,7 +63,7 @@ public class CalendarActivity extends AppCompatActivity {
         problemsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent problemsActivity = new Intent(CalendarActivity.this, MapsActivity.class);
+                Intent problemsActivity = new Intent(CalendarActivity.this, ProblemsActivity.class);
                 startActivity(problemsActivity);
             }
         });
@@ -71,7 +71,7 @@ public class CalendarActivity extends AppCompatActivity {
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent messageActivity = new Intent(CalendarActivity.this, MenuActivity.class);
+                Intent messageActivity = new Intent(CalendarActivity.this, MessageActivity.class);
                 startActivity(messageActivity);
             }
         });

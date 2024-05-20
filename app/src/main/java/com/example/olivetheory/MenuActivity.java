@@ -33,13 +33,13 @@ public class MenuActivity extends AppCompatActivity {
         Button messageButton = findViewById(R.id.message);
         Button forumButton = findViewById(R.id.forum);
 
-        UserDatabaseHelper db = new UserDatabaseHelper(this);
-        String userEmail = getIntent().getStringExtra("userEmail");
-        if (userEmail != null) {
-            String userName = db.getUserName(userEmail);
-            TextView userNameTextView = findViewById(R.id.user_name);
-            userNameTextView.setText(userName);
-        }
+//        UserDatabaseHelper db = new UserDatabaseHelper(this);
+//        String userEmail = getIntent().getStringExtra("userEmail");
+//        if (userEmail != null) {
+//            String userName = db.getUserName(userEmail);
+//            TextView userNameTextView = findViewById(R.id.user_name);
+//            userNameTextView.setText(userName);
+//        }
 
 
         //Change Activity
@@ -71,7 +71,7 @@ public class MenuActivity extends AppCompatActivity {
         problemsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent problemsActivity = new Intent(MenuActivity.this, MapsActivity.class);
+                Intent problemsActivity = new Intent(MenuActivity.this, ProblemsActivity.class);
                 startActivity(problemsActivity);
             }
         });
@@ -79,7 +79,7 @@ public class MenuActivity extends AppCompatActivity {
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent messageActivity = new Intent(MenuActivity.this, MenuActivity.class);
+                Intent messageActivity = new Intent(MenuActivity.this, MessageActivity.class);
                 startActivity(messageActivity);
             }
         });

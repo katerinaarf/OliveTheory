@@ -6,8 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -18,19 +16,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OliveTheoryApp"
         tools:targetApi="31">
-         <activity
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SignUpActivity"
-            android:exported="false"></activity>
+
+        <activity android:name=".SignUpActivity" android:exported="false"></activity>
         <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".CalendarActivity"></activity>
+        <activity android:name=".WeatherActivity"></activity>
+        <activity android:name=".ProblemsActivity"></activity>
+        <activity android:name=".MessageActivity"></activity>
+        <activity android:name=".ForumActivity"></activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAdE_38Qvtj9lKTAV_9iERwakL5X3cVyyc" />
@@ -41,7 +45,6 @@
             android:label="@string/activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

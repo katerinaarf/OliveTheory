@@ -61,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
         problemsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent problemsActivity = new Intent(SettingsActivity.this, MapsActivity.class);
+                Intent problemsActivity = new Intent(SettingsActivity.this, ProblemsActivity.class);
                 startActivity(problemsActivity);
             }
         });
@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent messageActivity = new Intent(SettingsActivity.this, MenuActivity.class);
+                Intent messageActivity = new Intent(SettingsActivity.this, MessageActivity.class);
                 startActivity(messageActivity);
             }
         });
