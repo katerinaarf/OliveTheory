@@ -26,17 +26,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private Marker marker;
     private LatLng selectedLatLng;
-    private User user;
+    //private User user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
+        int user=1;
         // Retrieve the user object from the Intent
-        user = (User) getIntent().getSerializableExtra("KEY_USERNAME");
-        if (user == null) {
+        //user = (User) getIntent().getSerializableExtra("KEY_USERNAME");
+        if (1 == user) {
             // Handle the case where user object is not passed correctly
             Toast.makeText(this, "User data missing", Toast.LENGTH_SHORT).show();
             finish();
@@ -102,17 +102,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent resultIntent = new Intent();
-        if (selectedLatLng != null) {
-            resultIntent.putExtra("latitude", selectedLatLng.latitude);
-            resultIntent.putExtra("longitude", selectedLatLng.longitude);
-        }
-        resultIntent.putExtra("USER", user);
-        setResult(RESULT_OK, resultIntent);
-        finish();
-    }
+//
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent resultIntent = new Intent();
+//        if (selectedLatLng != null) {
+//            resultIntent.putExtra("latitude", selectedLatLng.latitude);
+//            resultIntent.putExtra("longitude", selectedLatLng.longitude);
+//        }
+//        resultIntent.putExtra("USER", user);
+//        setResult(RESULT_OK, resultIntent);
+//        finish();
+//    }
 }

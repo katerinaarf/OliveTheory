@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".OliveTheoryApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -27,14 +28,22 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SignUpActivity" android:exported="false"></activity>
-        <activity android:name=".MenuActivity"></activity>
-        <activity android:name=".SettingsActivity"></activity>
-        <activity android:name=".CalendarActivity"></activity>
-        <activity android:name=".WeatherActivity"></activity>
-        <activity android:name=".ProblemsActivity"></activity>
-        <activity android:name=".MessageActivity"></activity>
-        <activity android:name=".ForumActivity"></activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".CalendarActivity" />
+        <activity
+            android:name=".WeatherActivity"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".ProblemsActivity"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".MessageActivity"
+            tools:ignore="Instantiatable" />
+        <activity android:name=".ForumActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

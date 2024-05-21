@@ -1,5 +1,7 @@
 package com.example.olivetheory;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -113,11 +115,11 @@ public class SignUpActivity extends AppCompatActivity {
                                         Log.e("SignUpActivity", "Sign-up error: Unknown error occurred");
                                         Toast.makeText(SignUpActivity.this, "Sign-up error: Unknown error occurred", Toast.LENGTH_SHORT).show();
                                     }
-                                    return;                                } else {
-                                    Toast.makeText(SignUpActivity.this, "Επιτυχία εγγραφής!", Toast.LENGTH_SHORT).show();
+                                } else {
+//                                    Toast.makeText(SignUpActivity.this, "Επιτυχία εγγραφής!", Toast.LENGTH_SHORT).show();
                                     saveUserInfo(name, email, userType);
-                                    startActivity(new Intent(SignUpActivity.this, MapsActivity.class));
-                                    finish();
+//                                    startActivity(new Intent(SignUpActivity.this, MenuActivity.class));
+//                                    finish();
                                 }
                             }
                         });
@@ -154,7 +156,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         Toast.makeText(SignUpActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    Intent intent = new Intent(SignUpActivity.this, MapsActivity.class);
+                                    Intent intent = new Intent(SignUpActivity.this, MenuActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }
@@ -169,31 +171,29 @@ public class SignUpActivity extends AppCompatActivity {
         String userId = auth.getCurrentUser().getUid();
         User user = new User(name, email, userType);
 
+        Log.d(TAG, "saveUserInfo: Attempting to save user info to Firestore...");
         db.collection("users").document(userId)
                 .set(user)
+
+//ERROR
+//Firebase Installations can not communicate with Firebase server APIs due to invalid configuration.
+// Please update your Firebase initialization process and set valid Firebase options (API key, Project ID, Application ID) when initializing Firebase.
+
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("SignUpActivity", "User profile is created for " + userId);
+                        Log.d(TAG, "User information saved successfully");
+                        Toast.makeText(SignUpActivity.this, "Επιτυχία εγγραφής!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SignUpActivity.this, MenuActivity.class));
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("SignUpActivity", "Error adding document", e);
+                        Log.e(TAG, "Error saving user information: " + e.getMessage(), e);
+                        Toast.makeText(SignUpActivity.this, "Σφάλμα στην καταχώρηση των πληροφοριών. " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-    class User {
-        String name;
-        String email;
-        String userType;
-
-        User(String name, String email, String userType) {
-            this.name = name;
-            this.email = email;
-            this.userType = userType;
-        }
     }
 }
