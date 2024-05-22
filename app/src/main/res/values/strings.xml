@@ -26,5 +26,5 @@
     <string name="minimum_password">Πολύ μικρός κωδικός, εισάγετε τουλάχιστον 6 χαρακτήρες!</string>
     <string name="auth_failed">Αποτυχία ταυτοποίησης. Ελέγξτε τον κωδικό ή το email σας. Αλλιώς κάντε εγγραφή!</string>
 
-
+    <string name="google_maps_key" translatable="false">AIzaSyAdE_38Qvtj9lKTAV_9iERwakL5X3cVyyc</string>
 </resources>

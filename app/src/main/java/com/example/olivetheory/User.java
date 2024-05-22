@@ -1,14 +1,18 @@
 package com.example.olivetheory;
 
+import java.util.List;
+
 public class User {
     private String name;
     private String email;
     private String userType;
+    private String userId;
+    private List<SavedLocation> savedLocations;
 
     // Public no-argument constructor required for Firestore serialization
     public User() {}
 
-    public User(String name, String email, String userType) {
+    public User(String name, String email, String userType, String userId) {
         this.name = name;
         this.email = email;
         this.userType = userType;
@@ -38,4 +42,21 @@ public class User {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userType = userId;
+    }
+    public List<SavedLocation> getSavedLocations() {
+        return savedLocations;
+    }
+
+    public void setSavedLocations(List<SavedLocation> savedLocations) {
+        this.savedLocations = savedLocations;
+    }
+
+
 }

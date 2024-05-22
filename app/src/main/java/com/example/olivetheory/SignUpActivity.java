@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -32,8 +33,10 @@ public class SignUpActivity extends AppCompatActivity {
     private Button btnSignUp, btnLogin;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
+    private FirebaseFirestore db;
     private RadioGroup userTypeGroup;
     private RadioButton farmerRadioButton, expertRadioButton;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -43,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         inputEmail = findViewById(R.id.emailEditText);
         inputPassword = findViewById(R.id.passwordEditText);
@@ -106,20 +110,12 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
-                                if (!task.isSuccessful()) {
-                                    Exception e = task.getException();
-                                    if (e != null) {
-                                        Log.e("SignUpActivity", "Sign-up error: " + e.getMessage(), e);
-                                        Toast.makeText(SignUpActivity.this, "Sign-up error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Log.e("SignUpActivity", "Sign-up error: Unknown error occurred");
-                                        Toast.makeText(SignUpActivity.this, "Sign-up error: Unknown error occurred", Toast.LENGTH_SHORT).show();
-                                    }
+                                if (task.isSuccessful()) {
+                                    // Create user profile in Firestore
+                                    String userId = auth.getCurrentUser().getUid();
+                                    saveUserInfo(name, email, userType, userId);
                                 } else {
-//                                    Toast.makeText(SignUpActivity.this, "Επιτυχία εγγραφής!", Toast.LENGTH_SHORT).show();
-                                    saveUserInfo(name, email, userType);
-//                                    startActivity(new Intent(SignUpActivity.this, MenuActivity.class));
-//                                    finish();
+                                    // Handle signup failure
                                 }
                             }
                         });
@@ -156,7 +152,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         Toast.makeText(SignUpActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    Intent intent = new Intent(SignUpActivity.this, MenuActivity.class);
+                                    Intent intent = new Intent(SignUpActivity.this, MapsActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }
@@ -166,33 +162,24 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void saveUserInfo(String name, String email, String userType) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = auth.getCurrentUser().getUid();
-        User user = new User(name, email, userType);
-
-        Log.d(TAG, "saveUserInfo: Attempting to save user info to Firestore...");
+    private void saveUserInfo(String name, String email, String userType, String userId) {
+        User currentUser = new User(name, email, userType, userId);
+        // Save user information to Firestore
         db.collection("users").document(userId)
-                .set(user)
-
-//ERROR
-//Firebase Installations can not communicate with Firebase server APIs due to invalid configuration.
-// Please update your Firebase initialization process and set valid Firebase options (API key, Project ID, Application ID) when initializing Firebase.
-
+                .set(currentUser)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "User information saved successfully");
-                        Toast.makeText(SignUpActivity.this, "Επιτυχία εγγραφής!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignUpActivity.this, MenuActivity.class));
+                        // Profile created successfully, redirect to MapsActivity
+                        Intent intent = new Intent(SignUpActivity.this, MapsActivity.class);
+                        startActivity(intent);
                         finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Error saving user information: " + e.getMessage(), e);
-                        Toast.makeText(SignUpActivity.this, "Σφάλμα στην καταχώρηση των πληροφοριών. " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        // Handle profile creation failure
                     }
                 });
     }

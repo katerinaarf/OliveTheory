@@ -1,9 +1,9 @@
 {
   "project_info": {
-    "project_number": "564891728009",
-    "firebase_url": "https://olivetheory-d8d87-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_number": "991905895346",
+    "firebase_url": "https://olivetheory-default-rtdb.firebaseio.com",
     "project_id": "olivetheory-d8d87",
-    "storage_bucket": "olivetheory-d8d87.appspot.com"
+    "storage_bucket": "olivetheory.appspot.com"
   },
   "client": [
     {
@@ -16,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD-azACmi5r_Xv3rEgbkbp2cQ6oTwZytJE"
+          "current_key": "AIzaSyAdE_38Qvtj9lKTAV_9iERwakL5X3cVyyc"
         }
       ],
       "services": {
