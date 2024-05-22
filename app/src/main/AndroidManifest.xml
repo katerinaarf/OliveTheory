@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.olivetheory">
 
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,8 +20,8 @@
         android:theme="@style/Theme.OliveTheoryApp"
         tools:targetApi="31">
 
-        <activity
-            android:name=".MainActivity"
+        <!-- MainActivity -->
+        <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,38 +29,27 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".SignUpActivity"
-            android:exported="false" />
-
+        <!-- Other Activities -->
+        <activity android:name=".LogOutActivity" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".MenuActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".CalendarActivity" />
-        <activity
-            android:name=".WeatherActivity"
+        <activity android:name=".WeatherActivity"
             tools:ignore="Instantiatable" />
-        <activity
-            android:name=".ProblemsActivity"
+        <activity android:name=".ProblemsActivity"
             tools:ignore="Instantiatable" />
-        <activity
-            android:name=".MessageActivity"
+        <activity android:name=".MessageActivity"
             tools:ignore="Instantiatable" />
         <activity android:name=".ForumActivity" />
-        <activity android:name=".SavedLocationsActivity"/>
+        <activity android:name=".SavedLocationsActivity" />
+        <activity android:name=".MapsActivity" />
 
+        <!-- Google Maps API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"/>
-
-        <activity
-            android:name=".MapsActivity"
-            android:exported="true"
-            android:label="@string/activity_maps">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:value="@string/google_maps_key" />
 
     </application>
 

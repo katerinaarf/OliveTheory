@@ -38,8 +38,12 @@
         android:id="@+id/fab_saved_locations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:src="@drawable/settings"
-        app:fabSize="normal" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/search_location"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/settings"
+        tools:ignore="RelativeOverlap" />
 
 </RelativeLayout>

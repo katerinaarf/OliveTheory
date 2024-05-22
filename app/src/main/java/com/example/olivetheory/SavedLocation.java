@@ -9,8 +9,7 @@ public class SavedLocation {
         // Default constructor required for Firestore
     }
 
-    public SavedLocation(String name, double latitude, double longitude) {
-        this.name = name;
+    public SavedLocation( double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -37,5 +36,10 @@ public class SavedLocation {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public String toString() {
+        return "Lat: " + latitude + ", Lng: " + longitude;
     }
 }

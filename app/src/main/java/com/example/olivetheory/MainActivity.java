@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent signUp = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(signUp);
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
                 finish();
             }
         }, SPLASH_DURATION);

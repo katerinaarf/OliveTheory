@@ -27,8 +27,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "MapsActivity";
@@ -41,6 +44,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        // Load the service account key file path from the environment variable
+        String serviceAccountKeyFilePath = System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
+
+        // Check if the environment variable is set
+        if (serviceAccountKeyFilePath == null) {
+            throw new IllegalArgumentException("GOOGLE_APPLICATION_CREDENTIALS environment variable is not set");
+        }
 
         // Initialize FirebaseFirestore
         db = FirebaseFirestore.getInstance();
@@ -55,13 +66,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         // Initialize Places SDK
-        Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
-        PlacesClient placesClient = Places.createClient(this);
+        try {
+            initializePlacesSDK();
+        } catch (IOException e) {
+            Log.e(TAG, "Error initializing Places SDK", e);
+            Toast.makeText(this, "Error initializing Places SDK", Toast.LENGTH_SHORT).show();
+        }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
         // Set up the FloatingActionButton
         FloatingActionButton fabSavedLocations = findViewById(R.id.fab_saved_locations);
@@ -69,10 +86,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 // Open an activity or fragment to display saved locations
-                 Intent intent = new Intent(MapsActivity.this, SavedLocationsActivity.class);
-                 startActivity(intent);
+                Intent intent = new Intent(MapsActivity.this, SavedLocationsActivity.class);
+                startActivity(intent);
             }
         });
+    }
+
+    private void initializePlacesSDK() throws IOException {
+        // Load the API key from the properties file
+        Properties properties = new Properties();
+//        //try (InputStream inputStream = getResources().openRawResource(R.raw.api_keys)) {
+//            properties.load(inputStream);
+//        }
+
+        // Initialize Places SDK
+        Places.initialize(getApplicationContext(), properties.getProperty("google_maps_key"));
     }
 
     @Override

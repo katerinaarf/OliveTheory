@@ -45,20 +45,23 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.places)
     implementation(libs.firebase.auth)
+    implementation(libs.activity)
+    implementation(libs.firebase.inappmessaging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.20")
 
-    implementation("com.google.android.gms:play-services-maps:18.0.2")
-    implementation ("com.google.android.libraries.places:places:2.4.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation ("com.google.android.gms:play-services-location:21.2.0")
+    implementation ("com.google.android.libraries.places:places:3.4.0")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
 
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
-    implementation ("com.google.firebase:firebase-firestore:24.0.0")
-    implementation("com.google.firebase:firebase-auth:21.0.1")
+    implementation ("com.google.firebase:firebase-firestore:25.0.0")
+    implementation("com.google.firebase:firebase-auth:23.0.0")
 
 }
 
