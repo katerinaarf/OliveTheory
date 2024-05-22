@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,14 +28,18 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class SignUpActivity extends AppCompatActivity {
     TextInputEditText nameEditText, emailEditText, passwordEditText;
-    //RadioButton farmerRadioButton, expertRadioButton;
     Button btnSignUp;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textview;
+    private RadioGroup userTypeGroup;
+    private RadioButton farmerRadioButton, expertRadioButton;
 
     @Override
     public void onStart() {
@@ -59,6 +64,9 @@ public class SignUpActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         btnSignUp = findViewById(R.id.signUpButton);
+        userTypeGroup = findViewById(R.id.userTypeRadioGroup);
+        farmerRadioButton = findViewById(R.id.farmerRadioButton);
+        expertRadioButton = findViewById(R.id.expertRadioButton);
         progressBar = findViewById(R.id.progresBar);
         textview = findViewById(R.id.loginNow);
         textview.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
                 name = String.valueOf(nameEditText.getText());
                 email = String.valueOf(emailEditText.getText());
                 password = String.valueOf(passwordEditText.getText());
-                //int type = userTypeGroup.getCheckedRadioButtonId();
+                int type = userTypeGroup.getCheckedRadioButtonId();
 
                 if (TextUtils.isEmpty(name)) {
                     Toast.makeText(SignUpActivity.this, "Εισάγετε το όνομά σας!", Toast.LENGTH_SHORT).show();
@@ -100,21 +108,41 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-//                if (selectedUserTypeId == -1) {
-//                    Toast.makeText(getApplicationContext(), "Επιλέξτε τον τύπο χρήστη!", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                if (type == -1) {
+                    Toast.makeText(getApplicationContext(), "Επιλέξτε τον τύπο χρήστη!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Convert the selected radio button ID to user type
+                String userType;
+                if (type == R.id.farmerRadioButton) {
+                    userType = "Αγρότης";
+                } else if (type == R.id.expertRadioButton) {
+                    userType = "Γεωπόνος";
+                } else {
+                    // This should never happen, but if it does, handle it accordingly
+                    userType = "Unknown";
+                }
+
+
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(SignUpActivity.this, "Επιτυχής εγγραφή χρήστη!",
-                                            Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                                    if (firebaseUser != null) {
+                                        // Save additional user data to database
+                                        User user = new User(name, email, password, userType);
+                                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
+                                        userRef.setValue(user);
+
+                                        Toast.makeText(SignUpActivity.this, "Επιτυχής εγγραφή χρήστη!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(SignUpActivity.this, "Ανεπιτυχής εγγραφή χρήστη.",

@@ -57,22 +57,24 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.radiobutton.MaterialRadioButton
-        android:id="@+id/farmerRadioButton"
-        android:layout_width="wrap_content"
+    <RadioGroup
+        android:id="@+id/userTypeRadioGroup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/passwordEditText"
-        android:layout_marginTop="16dp"
-        android:text="Αγρότης"/>
+        android:orientation="vertical">
 
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/farmerRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Αγρότης"/>
 
-    <com.google.android.material.radiobutton.MaterialRadioButton
-        android:id="@+id/expertRadioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/farmerRadioButton"
-        android:layout_marginTop="16dp"
-        android:text="Γεωπόνος"/>
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/expertRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Γεωπόνος"/>
+    </RadioGroup>
     
     <ProgressBar
         android:id="@+id/progresBar"
