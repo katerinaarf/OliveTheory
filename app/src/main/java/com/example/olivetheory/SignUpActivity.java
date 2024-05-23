@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -41,17 +42,20 @@ public class SignUpActivity extends AppCompatActivity {
     private RadioGroup userTypeGroup;
     private RadioButton farmerRadioButton, expertRadioButton;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(SignUpActivity.this, LogOutActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+
+// opote anoigei h efarmogh tha zhtaei aposundesh
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null){
+//            Intent intent = new Intent(SignUpActivity.this, LogOutActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -133,15 +137,25 @@ public class SignUpActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                     if (firebaseUser != null) {
-                                        // Save additional user data to database
-                                        User user = new User(name, email, password, userType);
-                                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
-                                        userRef.setValue(user);
-
-                                        Toast.makeText(SignUpActivity.this, "Επιτυχής εγγραφή χρήστη!", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                        startActivity(intent);
-                                        finish();
+                                        // Save additional user data to Firestore
+                                        User user = new User(name, email, userType);
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        db.collection("users")
+                                                .document(firebaseUser.getUid())
+                                                .set(user)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(SignUpActivity.this, "Επιτυχής εγγραφή χρήστη!", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(SignUpActivity.this, MenuActivity.class);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        } else {
+                                                            Toast.makeText(SignUpActivity.this, "Ανεπιτυχής εγγραφή χρήστη.", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
                                     }
                                 } else {
                                     // If sign in fails, display a message to the user.
