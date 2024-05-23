@@ -12,10 +12,11 @@ public class User {
     // Public no-argument constructor required for Firestore serialization
     public User() {}
 
-    public User(String name, String email, String userType) {
+    public User(String name, String email, String userType, String userId) {
         this.name = name;
         this.email = email;
         this.userType = userType;
+        this.userId = userId;
     }
 
     // Getters and setters

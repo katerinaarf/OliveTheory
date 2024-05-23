@@ -1,14 +1,20 @@
 package com.example.olivetheory;
 
+import static android.content.ContentValues.TAG;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -19,58 +25,42 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
-    private static final String TAG = "MapsActivity";
 
     private GoogleMap mMap;
     private FirebaseFirestore db;
     private User currentUser;
+    private PlacesClient placesClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        // Load the service account key file path from the environment variable
-        String serviceAccountKeyFilePath = System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
-
-        // Check if the environment variable is set
-        if (serviceAccountKeyFilePath == null) {
-            throw new IllegalArgumentException("GOOGLE_APPLICATION_CREDENTIALS environment variable is not set");
-        }
-
         // Initialize FirebaseFirestore
         db = FirebaseFirestore.getInstance();
+
+        // Initialize Places SDK
+        Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
+        placesClient = Places.createClient(this);
 
         // Retrieve current user information from Firestore
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
             String userId = firebaseUser.getUid();
             getUserInfo(userId);
-        } else {
-            // Handle the case where there's no logged-in user
-        }
-
-        // Initialize Places SDK
-        try {
-            initializePlacesSDK();
-        } catch (IOException e) {
-            Log.e(TAG, "Error initializing Places SDK", e);
-            Toast.makeText(this, "Error initializing Places SDK", Toast.LENGTH_SHORT).show();
         }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -90,18 +80,55 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(intent);
             }
         });
+
+        // Set up the search bar
+        setUpSearchBar();
     }
 
-    private void initializePlacesSDK() throws IOException {
-        // Load the API key from the properties file
-        Properties properties = new Properties();
-//        //try (InputStream inputStream = getResources().openRawResource(R.raw.api_keys)) {
-//            properties.load(inputStream);
-//        }
+    @SuppressLint("ClickableViewAccessibility")
+    private void setUpSearchBar() {
+        // Initialize the AutocompleteSupportFragment.
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
-        // Initialize Places SDK
-        Places.initialize(getApplicationContext(), properties.getProperty("google_maps_key"));
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
+
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                // Move the camera to the selected place
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15f));
+
+                // Add a marker at the selected place
+                mMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName()));
+            }
+
+            @Override
+            public void onError(@NonNull Status status) {
+                // Handle errors
+                Log.e(TAG, "An error occurred: " + status);
+            }
+        });
+
+        // Intercept touch events on the search input EditText to retain focus
+        View searchInput = autocompleteFragment.getView().findViewById(com.google.android.libraries.places.R.id.places_autocomplete_search_input);
+        if (searchInput instanceof EditText) {
+            EditText searchEditText = (EditText) searchInput;
+            searchEditText.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    // Retain focus on the search input EditText
+                    v.requestFocus();
+                    return false;
+                }
+            });
+        }
     }
+
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -140,15 +167,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "User location updated successfully");
-                                    Toast.makeText(getApplicationContext(), "Location saved successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Η τοποθεσία αποθηκεύτηκε επιτυχώς!", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.e(TAG, "Error updating user location", e);
-                                    Toast.makeText(getApplicationContext(), "Failed to save location", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Αποτυχία αποθήκευσης τοποθεσίας", Toast.LENGTH_SHORT).show();
                                 }
                             });
                 }
@@ -166,10 +191,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         if (documentSnapshot.exists()) {
                             // User exists, populate currentUser object
                             currentUser = documentSnapshot.toObject(User.class);
-                            Toast.makeText(getApplicationContext(), "User data retrieved successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Επιτυχής ενημέρωση στοιχείων χρήστη", Toast.LENGTH_SHORT).show();
                         } else {
                             // Handle the case where user document doesn't exist
-                            Toast.makeText(getApplicationContext(), "User document doesn't exist", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Παρουσιάστηκε σφάλμα κατά την ενημέρωση στοιχείων χρήστη", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -177,8 +202,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // Handle the failure to retrieve user information
-                        Toast.makeText(getApplicationContext(), "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
-                        Log.e(TAG, "Error getting user data", e);
+                        Toast.makeText(getApplicationContext(), "Παρουσιάστηκε σφάλμα κατά την ενημέρωση στοιχείων χρήστη", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

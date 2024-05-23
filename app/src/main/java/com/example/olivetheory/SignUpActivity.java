@@ -137,11 +137,14 @@ public class SignUpActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                     if (firebaseUser != null) {
+                                        // Generate a unique userid
+                                        String userid = firebaseUser.getUid();
+
                                         // Save additional user data to Firestore
-                                        User user = new User(name, email, userType);
+                                        User user = new User(name, email, userType, userid);
                                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                                         db.collection("users")
-                                                .document(firebaseUser.getUid())
+                                                .document(userid)
                                                 .set(user)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override

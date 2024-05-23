@@ -23,6 +23,7 @@ public class MenuActivity extends AppCompatActivity {
         Button weatherButton = findViewById(R.id.weather);
         ImageButton logoutButton = findViewById(R.id.logout);
         Button messageButton = findViewById(R.id.message);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView maps = findViewById(R.id.mapsselection);
         Button forumButton = findViewById(R.id.forum);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +74,13 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startNewActivity(ForumActivity.class);
+            }
+        });
+
+        maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(MapsActivity.class);
             }
         });
     }

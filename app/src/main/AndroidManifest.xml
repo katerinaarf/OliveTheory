@@ -44,7 +44,8 @@
             tools:ignore="Instantiatable" />
         <activity android:name=".ForumActivity" />
         <activity android:name=".SavedLocationsActivity" />
-        <activity android:name=".MapsActivity" />
+        <activity android:name=".MapsActivity"
+            android:label="@string/activity_maps"/>
 
         <!-- Google Maps API Key -->
         <meta-data
