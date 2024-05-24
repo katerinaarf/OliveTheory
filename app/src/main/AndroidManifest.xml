@@ -40,8 +40,8 @@
             tools:ignore="Instantiatable" />
         <activity android:name=".ProblemsActivity"
             tools:ignore="Instantiatable" />
-        <activity android:name=".MessageActivity"
-            tools:ignore="Instantiatable" />
+        <activity android:name=".MessageActivity"/>
+        <activity android:name=".ChatListActivity" />
         <activity android:name=".ForumActivity" />
         <activity android:name=".SavedLocationsActivity" />
         <activity android:name=".MapsActivity"

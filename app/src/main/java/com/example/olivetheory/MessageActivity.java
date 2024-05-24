@@ -1,9 +1,16 @@
 package com.example.olivetheory;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,6 +64,21 @@ public class MessageActivity extends AppCompatActivity {
 
         loadMessages();
 
+        View appbarView = LayoutInflater.from(this).inflate(R.layout.app_bar, null);
+        RelativeLayout mainAppBar = findViewById(R.id.main_app_bar);
+        mainAppBar.addView(appbarView);
+
+        ImageView circleImageView = appbarView.findViewById(R.id.circleImageView);
+        TextView textViewDisplayName = appbarView.findViewById(R.id.textView3);
+        Button backButton = appbarView.findViewById(R.id.back_button);
+
+        // Προσθήκη λειτουργικότητας για το κουμπί back_button
+        backButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MessageActivity.this, ChatListActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
         mSendButton.setOnClickListener(view -> sendMessage());
     }
 
@@ -86,7 +108,7 @@ public class MessageActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        showError("Αποτυχία φόρτωσης του μηνύματος . Παρακαλώ ελέγξτε την σύνδεσή σας.");
+                        showError("Αποτυχία φόρτωσης του μηνύματος. Παρακαλώ ελέγξτε τη σύνδεσή σας.");
                     }
                 });
     }
