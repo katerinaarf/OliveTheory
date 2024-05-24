@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/second">
+
+    <!-- ListView to display chat messages -->
+    <ListView
+        android:id="@+id/chat_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/linearLayout"
+        android:padding="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:stackFromBottom="true"
+        android:transcriptMode="normal" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:background="@color/second">
+
+        <ImageButton
+            android:id="@+id/chatAddButton"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:layout_marginBottom="2dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/add" />
+
+        <EditText
+            android:id="@+id/chatMessageView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/custom_edittext"
+            android:hint="Enter the message"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
+            android:maxHeight="300dp" />
+
+        <ImageButton
+            android:id="@+id/chatSendButton"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_margin="2dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/send" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -5,29 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/second"
-    tools:context=".MenuActivity">
+    tools:context=".ForumActivity">
 
 
     <!-- Top row with settings and user buttons -->
     <Button
-        android:id="@+id/settings"
+        android:id="@+id/weather2"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:background="@drawable/settings"
+        android:background="@drawable/weather"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp" />
 
+
     <TextView
-        android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Καιρός  "
         android:textColor="@color/first"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="72dp"
-        android:layout_marginTop="32dp"
+        android:textSize="30dp"
+        app:layout_constraintStart_toEndOf="@+id/weather2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -39,66 +40,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp" />
-
-    <TextView
-        android:id="@+id/suggest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Προτείνεται Σήμερα  >"
-        android:textColor="@color/first"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@id/settings" />
-
-    <TextView
-        android:id="@+id/weatherText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Καιρός  >"
-        android:textColor="@color/first"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@id/suggest" />
-
-    <!-- Bottom icons -->
-    <ImageView
-        android:id="@+id/weather_image"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weatherText" />
-
-    <TextView
-        android:id="@+id/problemsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:text="Διάγνωση Προβλήματος  >"
-        android:textColor="@color/first"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weather_image" />
-
-    <TextView
-        android:id="@+id/mapsselection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Επιλογή τοποθεσίας  >"
-        android:textColor="@color/first"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@id/problemsText" />
-
 
     <LinearLayout
         android:id="@+id/bottom_icons"
@@ -136,7 +77,7 @@
 
 
         <ImageButton
-            android:id="@+id/logout"
+            android:id="@+id/problems"
             android:layout_width="65dp"
             android:layout_height="73dp"
             android:background="@drawable/olivetheory" />
@@ -162,7 +103,6 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@drawable/forum" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
