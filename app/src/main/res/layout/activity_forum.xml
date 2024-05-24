@@ -17,11 +17,13 @@
     <!-- Chat List View -->
 
     <!-- Message Input Section -->
+
+
     <ListView
         android:id="@+id/group_chat_list_view"
         android:layout_width="409dp"
         android:layout_height="599dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="36dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp"
         android:padding="10dp"
@@ -29,49 +31,41 @@
 
         android:transcriptMode="alwaysScroll"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/group_main_app_bar" />
 
-    <RelativeLayout
-        android:id="@+id/group_chat_input_layout"
-        android:layout_width="416dp"
-        android:layout_height="49dp"
-        android:background="@android:color/darker_gray"
+    <EditText
+        android:id="@+id/group_chat_message_view"
+        android:layout_width="345dp"
+        android:layout_height="27dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="73dp"
+        android:layout_marginEnd="303dp"
+        android:layout_toStartOf="@+id/group_chat_send_button"
+        android:background="@drawable/custom_edittext"
+        android:hint="Πληκτρολογήστε το μήνυμά σας"
+        android:maxLines="3"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/group_chat_send_button"
+        app:layout_constraintHorizontal_bias="0.167"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.981" />
+
+    <ImageButton
+        android:id="@+id/group_chat_send_button"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+
+        android:layout_margin="5dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/send"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <EditText
-            android:id="@+id/group_chat_message_view"
-            android:layout_width="25dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="73dp"
-            android:layout_marginEnd="303dp"
-            android:layout_toStartOf="@+id/group_chat_send_button"
-            android:background="@drawable/custom_edittext"
-            android:hint="Πληκτρολογήστε το μήνυμά σας"
-            android:maxLines="3"
-            android:padding="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/group_chat_send_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/group_chat_send_button"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentEnd="true"
-
-            android:layout_margin="5dp"
-            android:layout_marginEnd="372dp"
-            android:background="@drawable/send"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </RelativeLayout>
+        app:layout_constraintTop_toBottomOf="@+id/group_chat_list_view"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

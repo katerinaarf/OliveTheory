@@ -1,5 +1,6 @@
 package com.example.olivetheory;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +48,7 @@ public class ForumActivity extends AppCompatActivity {
         mChatListView = findViewById(R.id.group_chat_list_view);
         mMessageEditText = findViewById(R.id.group_chat_message_view);
         mSendButton = findViewById(R.id.group_chat_send_button);
+        Button user = findViewById(R.id.user);
 
         mMessageListAdapter = new MessageAdapter(this, mMessageList);
         mChatListView.setAdapter(mMessageListAdapter);
@@ -63,7 +65,17 @@ public class ForumActivity extends AppCompatActivity {
         backButton.setOnClickListener(view -> finish());
 
         mSendButton.setOnClickListener(view -> sendMessage());
+
+        user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent user = new Intent(ForumActivity.this, UserProfile.class);
+                startActivity(user);
+            }
+        });
     }
+
+
 
     private void loadMessages() {
         mDatabaseReference.addChildEventListener(new ChildEventListener() {

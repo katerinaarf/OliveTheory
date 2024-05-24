@@ -10,7 +10,7 @@
         android:id="@+id/savedLocationsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@android:color/darker_gray"
+        android:divider="@color/second"
         android:dividerHeight="1dp" />
 
 </RelativeLayout>
