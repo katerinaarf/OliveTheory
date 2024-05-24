@@ -4,106 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/second"
-    tools:context=".ForumActivity">
+    android:background="@color/second">
 
-
-    <!-- Top row with settings and user buttons -->
-    <Button
-        android:id="@+id/forum2"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:background="@drawable/forum"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- App Bar -->
+    <include
+        android:id="@+id/group_main_app_bar"
+        layout="@layout/app_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Forum  "
-        android:textColor="@color/first"
-        android:textSize="30dp"
-        app:layout_constraintStart_toEndOf="@+id/forum2"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/add"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:background="@drawable/add"
-        app:layout_constraintTop_toTopOf="parent"
+    <!-- Chat List View -->
+
+    <!-- Message Input Section -->
+    <ListView
+        android:id="@+id/group_chat_list_view"
+        android:layout_width="409dp"
+        android:layout_height="599dp"
+        android:layout_marginTop="4dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:padding="10dp"
+        android:stackFromBottom="true"
+
+        android:transcriptMode="alwaysScroll"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/group_main_app_bar" />
 
-
-    <LinearLayout
-        android:id="@+id/bottom_icons"
-        android:layout_width="389dp"
-        android:layout_height="134dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="16dp"
+    <RelativeLayout
+        android:id="@+id/group_chat_input_layout"
+        android:layout_width="416dp"
+        android:layout_height="49dp"
+        android:background="@android:color/darker_gray"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-
-        <Button
-            android:id="@+id/calendar"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/calendar" />
-
-        <View
-            android:layout_width="16dp"
-            android:layout_height="134dp" />
-
-
-        <Button
-            android:id="@+id/weather"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/weather" />
-
-
-        <View
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
-
+        <EditText
+            android:id="@+id/group_chat_message_view"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="73dp"
+            android:layout_marginEnd="303dp"
+            android:layout_toStartOf="@+id/group_chat_send_button"
+            android:background="@drawable/custom_edittext"
+            android:hint="Πληκτρολογήστε το μήνυμά σας"
+            android:maxLines="3"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/group_chat_send_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/problems"
-            android:layout_width="65dp"
-            android:layout_height="73dp"
-            android:background="@drawable/olivetheory" />
+            android:id="@+id/group_chat_send_button"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
 
-
-        <View
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/message"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/message" />
-
-
-        <View
-            android:layout_width="20dp"
-            android:layout_height="103dp" />
-
-        <Button
-            android:id="@+id/forum"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/forum" />
-    </LinearLayout>
+            android:layout_margin="5dp"
+            android:layout_marginEnd="372dp"
+            android:background="@drawable/send"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
