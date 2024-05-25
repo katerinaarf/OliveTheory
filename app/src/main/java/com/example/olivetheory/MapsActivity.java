@@ -1,7 +1,5 @@
 package com.example.olivetheory;
 
-import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,15 +32,17 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private static final String TAG = "MapsActivity";
     private GoogleMap mMap;
     private FirebaseFirestore db;
     private User currentUser;
     private PlacesClient placesClient;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
+
+        
 
         // Set up the FloatingActionButton
         FloatingActionButton fabSavedLocations = findViewById(R.id.fab_saved_locations);
@@ -98,18 +100,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                // Move the camera to the selected place
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15f));
-
-                // Add a marker at the selected place
-                mMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName()));
+                if (place.getLatLng() != null) {
+                    Log.d(TAG, "Place selected: " + place.getName());
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15f));
+                    mMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName()));
+                } else {
+                    Log.e(TAG, "Selected place has no LatLng");
+                }
             }
 
             @Override
             public void onError(@NonNull Status status) {
-                // Handle errors
                 Log.e(TAG, "An error occurred: " + status);
             }
+
         });
 
         // Intercept touch events on the search input EditText to retain focus
@@ -126,9 +130,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             });
         }
     }
-
-
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -158,6 +159,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 // Add the saved location to the user's list of saved locations
                 if (currentUser != null) {
+                    if (currentUser.getSavedLocations() == null) {
+                        currentUser.setSavedLocations(new ArrayList<SavedLocation>());
+                    }
                     currentUser.getSavedLocations().add(savedLocation);
 
                     // Save the updated user object to Firestore
@@ -191,6 +195,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         if (documentSnapshot.exists()) {
                             // User exists, populate currentUser object
                             currentUser = documentSnapshot.toObject(User.class);
+                            if (currentUser.getSavedLocations() == null) {
+                                currentUser.setSavedLocations(new ArrayList<SavedLocation>());
+                            }
                             Toast.makeText(getApplicationContext(), "Επιτυχής ενημέρωση στοιχείων χρήστη", Toast.LENGTH_SHORT).show();
                         } else {
                             // Handle the case where user document doesn't exist
