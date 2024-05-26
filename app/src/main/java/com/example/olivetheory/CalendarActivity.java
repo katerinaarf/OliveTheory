@@ -75,14 +75,14 @@ public class CalendarActivity extends AppCompatActivity {
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNewActivity(MessageActivity.class);
+                startNewActivity(ChatListActivity.class);
             }
         });
 
         forumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNewActivity(ForumActivity.class);
+                startNewActivity(ForumListActivity.class);
             }
         });
     }

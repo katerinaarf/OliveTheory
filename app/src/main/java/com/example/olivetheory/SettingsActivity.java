@@ -37,50 +37,49 @@ public class SettingsActivity extends AppCompatActivity {
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent settingsActivity = new Intent(SettingsActivity.this, SettingsActivity.class);
-                startActivity(settingsActivity);
+                startNewActivity(SettingsActivity.class);
             }
         });
 
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent calendarActivity = new Intent(SettingsActivity.this, CalendarActivity.class);
-                startActivity(calendarActivity);
+                startNewActivity(CalendarActivity.class);
             }
         });
 
         weatherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent weatherActivity = new Intent(SettingsActivity.this, WeatherActivity.class);
-                startActivity(weatherActivity);
+                startNewActivity(WeatherActivity.class);
             }
         });
 
         problemsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent problemsActivity = new Intent(SettingsActivity.this, ProblemsActivity.class);
-                startActivity(problemsActivity);
+                startNewActivity(ProblemsActivity.class);
             }
         });
 
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent messageActivity = new Intent(SettingsActivity.this, MessageActivity.class);
-                startActivity(messageActivity);
+                startNewActivity(ChatListActivity.class);
             }
         });
 
         forumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent forumActivity = new Intent(SettingsActivity.this, ForumActivity.class);
-                startActivity(forumActivity);
+                startNewActivity(ForumListActivity.class);
             }
         });
+    }
+
+    private void startNewActivity(Class<?> cls) {
+        Intent intent = new Intent(SettingsActivity.this, cls);
+        startActivity(intent);
     }
 }
 

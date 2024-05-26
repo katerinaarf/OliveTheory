@@ -1,13 +1,10 @@
 package com.example.olivetheory;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,21 +18,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ForumActivity extends AppCompatActivity {
 
-    private ListView mChatListView;
-    private EditText mMessageEditText;
-    private ImageButton mSendButton;
-
+    private ListView mForumListView;
+    private EditText mForumEditText;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseReference;
+    private String mPostId;
 
-    private final List<Message> mMessageList = new ArrayList<>();
-    private MessageAdapter mMessageListAdapter;
+    private final List<Post> mForumList = new ArrayList<>();
+    private ForumAdapter mForumListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,49 +37,36 @@ public class ForumActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forum);
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("group_messages");
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("forum_posts");
 
-        mChatListView = findViewById(R.id.group_chat_list_view);
-        mMessageEditText = findViewById(R.id.group_chat_message_view);
-        mSendButton = findViewById(R.id.group_chat_send_button);
-        Button user = findViewById(R.id.user);
+        mForumListView = findViewById(R.id.forum_list_view);
+        mForumEditText = findViewById(R.id.answer_view);
+        Button mPostButton = findViewById(R.id.post_button);
+        Button back = findViewById(R.id.back);
 
-        mMessageListAdapter = new MessageAdapter(this, mMessageList);
-        mChatListView.setAdapter(mMessageListAdapter);
+        mForumListAdapter = new ForumAdapter(this, mForumList);
+        mForumListView.setAdapter(mForumListAdapter);
 
-        loadMessages();
+        if (getIntent().hasExtra("post_id")) {
+            mPostId = getIntent().getStringExtra("post_id");
+        }
 
-        View appbarView = getLayoutInflater().inflate(R.layout.app_bar, null);
-        RelativeLayout mainAppBar = findViewById(R.id.group_main_app_bar);
-        mainAppBar.addView(appbarView);
+        loadForum();
 
-        Button backButton = appbarView.findViewById(R.id.back_button);
+        back.setOnClickListener(view -> finish());
 
-
-        backButton.setOnClickListener(view -> finish());
-
-        mSendButton.setOnClickListener(view -> sendMessage());
-
-        user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent user = new Intent(ForumActivity.this, UserProfile.class);
-                startActivity(user);
-            }
-        });
+        mPostButton.setOnClickListener(view -> sendPost());
     }
 
-
-
-    private void loadMessages() {
-        mDatabaseReference.addChildEventListener(new ChildEventListener() {
+    private void loadForum() {
+        mDatabaseReference.child(mPostId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
-                Message message = dataSnapshot.getValue(Message.class);
-                if (message != null) {
-                    mMessageList.add(message);
-                    mMessageListAdapter.notifyDataSetChanged();
-                    mChatListView.setSelection(mMessageListAdapter.getCount() - 1);
+                Post forum = dataSnapshot.getValue(Post.class);
+                if (forum != null) {
+                    mForumList.add(forum);
+                    mForumListAdapter.notifyDataSetChanged();
+                    mForumListView.setSelection(mForumListAdapter.getCount() - 1);
                 } else {
                     showError("Δεν υπάρχουν δεδομένα.");
                 }
@@ -102,30 +83,30 @@ public class ForumActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                showError("Αποτυχία φόρτωσης του μηνύματος. Παρακαλώ ελέγξτε τη σύνδεσή σας.");
+                showError("Αποτυχία φόρτωσης της δημοσίευσης. Παρακαλώ ελέγξτε τη σύνδεσή σας.");
             }
         });
     }
 
-    private void sendMessage() {
-        String messageText = mMessageEditText.getText().toString().trim();
-        if (messageText.isEmpty()) {
-            mMessageEditText.setError("Κενό μήνυμα");
+    private void sendPost() {
+        String forumText = mForumEditText.getText().toString().trim();
+        if (forumText.isEmpty()) {
+            mForumEditText.setError("Κενή δημοσίευση");
             return;
         }
 
-        DatabaseReference newMessageRef = mDatabaseReference.push();
+        DatabaseReference newForumRef = mDatabaseReference.child(mPostId).push();
 
-        String pushId = newMessageRef.getKey();
+        String pushId = newForumRef.getKey();
 
-        Message message = new Message(pushId, mAuth.getCurrentUser().getUid(), messageText, System.currentTimeMillis());
+        Post forum = new Post(pushId, mAuth.getCurrentUser().getUid(), forumText, System.currentTimeMillis());
 
-        newMessageRef.setValue(message)
+        newForumRef.setValue(forum)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        mMessageEditText.setText("");
+                        mForumEditText.setText("");
                     } else {
-                        showError("Αποτυχία αποστολής μηνύματος. Παρακαλώ προσπαθήστε ξανά.");
+                        showError("Αποτυχία δημοσίευσης στο forum. Παρακαλώ προσπαθήστε ξανά.");
                     }
                 });
     }

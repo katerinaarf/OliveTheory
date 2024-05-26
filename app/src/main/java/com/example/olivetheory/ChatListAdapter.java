@@ -30,7 +30,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatListItem> {
         TextView textViewLastMessage = convertView.findViewById(R.id.text_view_last_message);
 
         ChatListItem item = chatListItems.get(position);
-        textViewUsername.setText(item.getUsername());
+        textViewUsername.setText(item.getName());
         textViewLastMessage.setText(item.getLastMessage());
 
         return convertView;

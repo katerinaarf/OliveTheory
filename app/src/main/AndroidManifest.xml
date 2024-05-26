@@ -43,6 +43,7 @@
         <activity android:name=".MessageActivity"/>
         <activity android:name=".ChatListActivity" />
         <activity android:name=".ForumActivity" />
+        <activity android:name=".ForumListActivity"/>
         <activity android:name=".UserProfile" />
         <activity android:name=".SavedLocationsActivity" />
         <activity android:name=".MapsActivity"

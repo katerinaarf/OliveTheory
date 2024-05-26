@@ -91,7 +91,7 @@ public class MenuActivity extends AppCompatActivity {
         forumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNewActivity(ForumActivity.class);
+                startNewActivity(ForumListActivity.class);
             }
         });
 

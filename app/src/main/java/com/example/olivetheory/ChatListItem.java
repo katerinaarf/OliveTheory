@@ -2,12 +2,12 @@ package com.example.olivetheory;
 
 public class ChatListItem {
     private String userId;
-    private String username;
+    private String name;
     private String lastMessage;
 
-    public ChatListItem(String userId, String username, String lastMessage) {
+    public ChatListItem(String userId, String name, String lastMessage) {
         this.userId = userId;
-        this.username = username;
+        this.name = name;
         this.lastMessage = lastMessage;
     }
 
@@ -15,8 +15,8 @@ public class ChatListItem {
         return userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
     public String getLastMessage() {

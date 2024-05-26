@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="7dp"
+        android:background="@color/second" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+
+            <ImageView
+                android:id="@+id/user"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/userprof"
+                android:layout_marginLeft="4dp"/>
+
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/custom_edittext"
+                android:text="'Ονομα χρήστη"
+                android:textColor="@color/first"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/settings_current_password"
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Answer"
+                android:text="Απαντηση"
+                android:textColor="@color/first"
+                android:background="@drawable/custom_edittext"
+                android:textSize="12sp"
+                android:layout_marginLeft="3dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="1dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/simple_text"
+                    android:text="Απάντησε στις "
+                    android:layout_below="@+id/Answer"
+                    android:textColor="@color/first"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="3dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/date"
+                    android:text="Ημερομηνία"
+                    android:textSize="14sp"
+                    android:textColor="@color/first"
+                    android:layout_marginLeft="3dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/time"
+                    android:text="Ώρα"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/first"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="3dp"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

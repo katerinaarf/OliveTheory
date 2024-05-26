@@ -72,7 +72,7 @@ public class ChatListActivity extends AppCompatActivity {
 
         weatherButton.setOnClickListener(v -> startNewActivity(WeatherActivity.class));
 
-        forumButton.setOnClickListener(v -> startNewActivity(ForumActivity.class));
+        forumButton.setOnClickListener(v -> startNewActivity(ForumListActivity.class));
 
         search.setOnClickListener(v -> showSearchDialog());
 
