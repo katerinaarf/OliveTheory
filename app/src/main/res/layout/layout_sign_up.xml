@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/second"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SignUpActivity">
 
+
+
     <TextView
         android:text="@string/signup"
+        android:textColor="@color/first"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -20,6 +24,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameEditText"
+            android:background="@drawable/custom_edittext"
+            android:textColor="@color/first"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/nameEditText"
@@ -37,6 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/nameEditText"
+            android:background="@drawable/custom_edittext"
+            android:textColor="@color/first"
             android:layout_marginTop="16dp"
             android:hint="Email"
             android:minHeight="48dp" />
@@ -50,6 +58,8 @@
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/custom_edittext"
+            android:textColor="@color/first"
             android:layout_below="@id/nameEditText"
             android:layout_marginTop="16dp"
             android:hint="Κωδικός"
@@ -67,15 +77,17 @@
             android:id="@+id/farmerRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/first"
             android:text="Αγρότης"/>
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/expertRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Γεωπόνος"/>
+            android:text="Γεωπόνος"
+            android:textColor="@color/first" />
     </RadioGroup>
-    
+
     <ProgressBar
         android:id="@+id/progresBar"
         android:visibility="gone"
@@ -88,11 +100,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/expertRadioButton"
         android:layout_marginTop="16dp"
+        android:background="@drawable/custom_edittext"
+        android:textColor="@color/second"
         android:backgroundTint="#4B7A5D"
         android:text="Εγγραφή" />
 
     <TextView
         android:id="@+id/loginNow"
+        android:textColor="@color/first"
         android:text="Έχετε ήδη λογαριασμό; Συνδεθείτε εδώ!"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

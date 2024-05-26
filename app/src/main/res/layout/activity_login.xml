@@ -6,12 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/second"
     tools:context=".LoginActivity">
 
     <TextView
         android:text="@string/login"
         android:layout_gravity="center"
         android:layout_width="match_parent"
+        android:textColor="@color/first"
         android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -22,6 +24,8 @@
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/custom_edittext"
+            android:textColor="@color/first"
             android:layout_below="@id/nameEditText"
             android:layout_marginTop="16dp"
             android:hint="Email"
@@ -34,6 +38,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditText"
+            android:background="@drawable/custom_edittext"
+            android:textColor="@color/first"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/nameEditText"
@@ -53,12 +59,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/passwordEditText"
+        android:background="@drawable/custom_button"
         android:layout_marginTop="16dp"
         android:backgroundTint="#4B7A5D"
         android:text="Σύνδεση" />
 
     <TextView
         android:id="@+id/signupNow"
+        android:textColor="@color/first"
         android:text="Δεν έχετε λογαριασμό; Εγγραφείτε εδώ!"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
