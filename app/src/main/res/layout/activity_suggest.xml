@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/first"
+        android:text="Προτείνεται Σήμερα"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/suggestText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/custom_edittext"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Πρόταση...."
+        />
+
+
+
+    <Button
+        android:id="@+id/close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:background="@drawable/custom_edittext"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:text="Κλείσιμο"
+        android:textColor="@color/second" />
+
+</LinearLayout>
