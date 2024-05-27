@@ -96,8 +96,8 @@
             android:layout_marginRight="10dp"
             android:padding="5dp"
             android:textSize="14sp"
-            android:textColor="@color/first"
-            />
+            android:textColor="@color/first" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

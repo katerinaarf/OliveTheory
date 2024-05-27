@@ -2,6 +2,7 @@ package com.example.olivetheory;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -10,30 +11,31 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class ForumListActivity extends AppCompatActivity {
 
+    private static final String TAG = "ForumListActivity";
+
     private ListView mForumListView;
     private ForumListAdapter mForumListAdapter;
-    private List<ForumListItem> mForumListItems;
 
-    private DatabaseReference mDatabaseReference;
+    private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private String mCurrentUserId;
 
@@ -42,82 +44,72 @@ public class ForumListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forum_place);
 
-        mForumListView = findViewById(R.id.forum_list_view);
-        mForumListItems = new ArrayList<>();
-        mForumListAdapter = new ForumListAdapter(this, mForumListItems);
-        mForumListView.setAdapter(mForumListAdapter);
+        initializeViews();
+        setupListeners();
 
-        Button add = findViewById(R.id.add);
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+        if (mAuth.getCurrentUser() != null) {
+            mCurrentUserId = mAuth.getCurrentUser().getUid();
+        } else {
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadForumList();
+    }
+
+    private void initializeViews() {
+        mForumListView = findViewById(R.id.forum_list_view);
+        mForumListAdapter = new ForumListAdapter(this, new ArrayList<>());
+        mForumListView.setAdapter(mForumListAdapter);
+    }
+
+    private void setupListeners() {
         Button user = findViewById(R.id.user);
         Button calendarButton = findViewById(R.id.calendar);
         Button weatherButton = findViewById(R.id.weather);
-        ImageButton logoutButton = findViewById(R.id.logout);
         Button messageButton = findViewById(R.id.message);
-
-        mAuth = FirebaseAuth.getInstance();
-        mCurrentUserId = mAuth.getCurrentUser().getUid();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        ImageButton logoutButton = findViewById(R.id.logout);
+        Button add = findViewById(R.id.add);
 
         user.setOnClickListener(v -> startNewActivity(UserProfile.class));
         calendarButton.setOnClickListener(v -> startNewActivity(CalendarActivity.class));
         weatherButton.setOnClickListener(v -> startNewActivity(WeatherActivity.class));
         messageButton.setOnClickListener(v -> startNewActivity(ChatListActivity.class));
         add.setOnClickListener(v -> showAddDialog());
-
-        mForumListView.setOnItemClickListener((parent, view, position, id) -> {
-            ForumListItem item = mForumListItems.get(position);
-            Intent forumIntent = new Intent(ForumListActivity.this, ForumActivity.class);
-            forumIntent.putExtra("post_id", item.getUserId());
-            startActivity(forumIntent);
-        });
-
-        loadForumList();
     }
 
     private void loadForumList() {
-        mDatabaseReference.child("forumitems").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mForumListItems.clear();
-                if (snapshot.getChildrenCount() == 0) {
-                    showStartNewForumPost();
-                } else {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        String userId = dataSnapshot.getKey();
-                        String name = dataSnapshot.child("name").getValue(String.class);
-                        String userImage = dataSnapshot.child("userImage").getValue(String.class);
-                        String post = dataSnapshot.child("post").getValue(String.class);
-                        String time = dataSnapshot.child("time").getValue(String.class);
-                        String date = dataSnapshot.child("date").getValue(String.class);
-                        String dislikes = dataSnapshot.child("dislikes").getValue(String.class);
-
-                        if (name != null && userImage != null && post != null && time != null && date != null && dislikes != null) {
-                            mForumListItems.add(new ForumListItem(userId, name, userImage, post, time, date, dislikes));
+        db.collection("forumitems")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<ForumListItem> forumListItems = new ArrayList<>();
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        ForumListItem item = document.toObject(ForumListItem.class);
+                        if (item != null) {
+                            forumListItems.add(item);
                         }
                     }
-                    mForumListAdapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ForumListActivity.this, "Αποτυχία φόρτωσης δημοσιεύσεων. Προσπαθήστε ξανά.", Toast.LENGTH_SHORT).show();
-            }
-        });
+                    Log.d(TAG, "Number of items retrieved: " + forumListItems.size());
+                    mForumListAdapter.setData(forumListItems);
+                    Log.d(TAG, "Forum list loaded successfully");
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(ForumListActivity.this, "Failed to load forum posts", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Error getting documents", e);
+                });
     }
 
-    private void showStartNewForumPost() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Δεν έχετε καμία δημοσίευση");
-        builder.setMessage("Θα θέλατε να ξεκινήσετε;");
-        builder.setPositiveButton("Ναι", (dialog, which) -> showAddDialog());
-        builder.setNegativeButton("Όχι", null);
-        builder.show();
-    }
 
     private void showAddDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
+        LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.add_post, null);
         dialogBuilder.setView(dialogView);
 
@@ -132,7 +124,7 @@ public class ForumListActivity extends AppCompatActivity {
                 addNewPost(postContent);
                 alertDialog.dismiss();
             } else {
-                postText.setError("Παρακαλώ εισάγετε κείμενο για τη δημοσίευση");
+                postText.setError("Please enter text for the post");
             }
         });
 
@@ -140,33 +132,24 @@ public class ForumListActivity extends AppCompatActivity {
     }
 
     private void addNewPost(String postContent) {
-        DatabaseReference newPostRef = mDatabaseReference.child("forumitems").push();
-        String postId = newPostRef.getKey();
-        if (postId != null) {
-            String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
-            String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        Map<String, Object> post = new HashMap<>();
+        post.put("userId", mCurrentUserId);
+        post.put("post", postContent);
+        post.put("time", new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date()));
+        post.put("date", new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
+        post.put("dislikes", "0");
 
-            // Assuming you have stored the user's name and image URL in the database and you can retrieve them
-            mDatabaseReference.child("users").child(mCurrentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String userName = snapshot.child("name").getValue(String.class);
-                    String userImageUrl = snapshot.child("userImage").getValue(String.class);
-
-                    if (userName != null && userImageUrl != null) {
-                        ForumListItem newPost = new ForumListItem(mCurrentUserId, userName, userImageUrl, postContent, currentTime, currentDate, "0");
-                        newPostRef.setValue(newPost)
-                                .addOnSuccessListener(aVoid -> Toast.makeText(ForumListActivity.this, "Η δημοσίευση προστέθηκε επιτυχώς", Toast.LENGTH_SHORT).show())
-                                .addOnFailureListener(e -> Toast.makeText(ForumListActivity.this, "Αποτυχία προσθήκης δημοσίευσης. Προσπαθήστε ξανά.", Toast.LENGTH_SHORT).show());
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(ForumListActivity.this, "Αποτυχία λήψης στοιχείων χρήστη. Προσπαθήστε ξανά.", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+        db.collection("forumitems")
+                .add(post)
+                .addOnSuccessListener(documentReference -> {
+                    Toast.makeText(ForumListActivity.this, "Post added successfully", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "New post added successfully");
+                    loadForumList();  // Reload the forum list
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(ForumListActivity.this, "Failed to add post. Please try again.", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Error adding document", e);
+                });
     }
 
     private void startNewActivity(Class<?> cls) {

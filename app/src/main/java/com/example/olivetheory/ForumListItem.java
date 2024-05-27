@@ -10,7 +10,8 @@ public class ForumListItem {
     private String date;
     private String dislikes;
 
-    public ForumListItem(String pushId, String uid, String forumText, long l){}
+    public ForumListItem() {
+    }
 
     public ForumListItem(String userId, String name, String userImage, String post, String time, String date, String dislikes) {
         this.userId = userId;
