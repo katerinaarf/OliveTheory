@@ -64,4 +64,5 @@ public class ForumListAdapter extends ArrayAdapter<ForumListItem> {
         return convertView;
     }
 
+
 }

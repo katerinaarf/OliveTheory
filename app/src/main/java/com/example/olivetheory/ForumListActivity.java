@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -54,7 +55,6 @@ public class ForumListActivity extends AppCompatActivity {
             mCurrentUserId = mAuth.getCurrentUser().getUid();
         } else {
             Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
-            return;
         }
     }
 
@@ -132,25 +132,53 @@ public class ForumListActivity extends AppCompatActivity {
     }
 
     private void addNewPost(String postContent) {
-        Map<String, Object> post = new HashMap<>();
-        post.put("userId", mCurrentUserId);
-        post.put("post", postContent);
-        post.put("time", new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date()));
-        post.put("date", new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
-        post.put("dislikes", "0");
+        DocumentReference userRef = db.collection("users").document(mCurrentUserId);
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                User user = documentSnapshot.toObject(User.class);
+                if (user != null) {
+                    String userName = user.getName();
+                    Log.d(TAG, "User name retrieved: " + userName);
 
-        db.collection("forumitems")
-                .add(post)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(ForumListActivity.this, "Post added successfully", Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "New post added successfully");
-                    loadForumList();  // Reload the forum list
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(ForumListActivity.this, "Failed to add post. Please try again.", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Error adding document", e);
-                });
+                    // Fallback to userId if name is not available
+                    if (userName == null || userName.isEmpty()) {
+                        userName = mCurrentUserId;
+                    }
+
+                    Map<String, Object> post = new HashMap<>();
+                    post.put("userId", mCurrentUserId);
+                    post.put("name", userName);
+                    post.put("post", postContent);
+                    post.put("time", new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date()));
+                    post.put("date", new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
+                    post.put("dislikes", "0");
+
+                    db.collection("forumitems")
+                            .add(post)
+                            .addOnSuccessListener(documentReference -> {
+                                Toast.makeText(ForumListActivity.this, "Post added successfully", Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "New post added successfully");
+                                loadForumList();  // Reload the forum list
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(ForumListActivity.this, "Failed to add post. Please try again.", Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "Error adding document", e);
+                            });
+                } else {
+                    Toast.makeText(ForumListActivity.this, "Failed to retrieve user data.", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "User object is null");
+                }
+            } else {
+                Toast.makeText(ForumListActivity.this, "User document does not exist.", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "User document does not exist");
+            }
+        }).addOnFailureListener(e -> {
+            Toast.makeText(ForumListActivity.this, "Failed to retrieve user data.", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Error retrieving user document", e);
+        });
     }
+
+
 
     private void startNewActivity(Class<?> cls) {
         Intent intent = new Intent(ForumListActivity.this, cls);
