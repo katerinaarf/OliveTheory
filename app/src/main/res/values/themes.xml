@@ -17,9 +17,17 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="CalendarDateWithTask">
-        <item name="android:drawableRight">@drawable/tick</item>
+    <style name="CalenderViewCustom" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/first</item>
+        <item name="android:textColorPrimary">@color/first</item>
     </style>
+
+
+    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/first</item>
+    </style>
+
+
 
     <style name="Theme.OliveTheoryApp.NoActionBar">
         <item name="windowActionBar">false</item>
