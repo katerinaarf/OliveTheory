@@ -24,6 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         // Buttons
+        Button user = findViewById(R.id.user);
         Button settingButton = findViewById(R.id.settings);
         Button calendarButton = findViewById(R.id.calendar);
         Button weatherButton = findViewById(R.id.weather);
@@ -31,8 +32,18 @@ public class SettingsActivity extends AppCompatActivity {
         Button messageButton = findViewById(R.id.message);
         Button forumButton = findViewById(R.id.forum);
 
-
+        TextView usertext = findViewById(R.id.usertext);
+        TextView location = findViewById(R.id.location);
+        TextView history_work = findViewById(R.id.history_work);
+        TextView center_info = findViewById(R.id.center_info);
         //Change Activity
+
+        user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(UserProfile.class);
+            }
+        });
 
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +84,34 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startNewActivity(ForumListActivity.class);
+            }
+        });
+
+        usertext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(UserProfile.class);
+            }
+        });
+
+        location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(Location.class);
+            }
+        });
+
+        history_work.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(HistoryWorkActivity.class);
+            }
+        });
+
+        center_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(InfoActivity.class);
             }
         });
     }
