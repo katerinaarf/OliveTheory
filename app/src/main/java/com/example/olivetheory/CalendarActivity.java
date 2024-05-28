@@ -1,16 +1,18 @@
 package com.example.olivetheory;
 
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.Calendar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -22,6 +24,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class CalendarActivity extends AppCompatActivity {
@@ -30,132 +39,107 @@ public class CalendarActivity extends AppCompatActivity {
     private DatabaseReference suggestRef;
     private ArrayList<String> suggestWorkList;
     private ArrayAdapter<String> suggestAdapter;
+    private CalendarView calendarView;
+    private String selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        // Firebase references
+
         workRef = FirebaseDatabase.getInstance().getReference().child("work_history");
         suggestRef = FirebaseDatabase.getInstance().getReference().child("suggestions");
 
-        // Buttons
-        Button calendar = findViewById(R.id.calendar_second);
         Button user = findViewById(R.id.user);
         Button calendarButton = findViewById(R.id.calendar);
         Button weatherButton = findViewById(R.id.weather);
         ImageButton problemsButton = findViewById(R.id.problems);
         Button messageButton = findViewById(R.id.message);
         Button forumButton = findViewById(R.id.forum);
+        Button historyButton = findViewById(R.id.history_work);
 
-        TextView suggestButton = findViewById(R.id.suggest);
-        TextView addButton = findViewById(R.id.add);
-        TextView historyButton = findViewById(R.id.history_work);
 
-        // Change Activity
-        user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(UserProfile.class);
-            }
-        });
+        Button suggestButton = findViewById(R.id.suggest);
 
-        calendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(CalendarActivity.class);
-            }
-        });
-
-        calendarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(CalendarActivity.class);
-            }
-        });
-
-        weatherButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(WeatherActivity.class);
-            }
-        });
-
-        problemsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(ProblemsActivity.class);
-            }
-        });
-
-        messageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(ChatListActivity.class);
-            }
-        });
-
-        forumButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(ForumListActivity.class);
-            }
-        });
-
-        historyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(HistoryWorkActivity.class);
-            }
-        });
-
+        user.setOnClickListener(v -> startNewActivity(UserProfile.class));
+        calendarButton.setOnClickListener(v -> startNewActivity(CalendarActivity.class));
+        weatherButton.setOnClickListener(v -> startNewActivity(WeatherActivity.class));
+        problemsButton.setOnClickListener(v -> startNewActivity(ProblemsActivity.class));
+        messageButton.setOnClickListener(v -> startNewActivity(ChatListActivity.class));
+        forumButton.setOnClickListener(v -> startNewActivity(ForumListActivity.class));
+        historyButton.setOnClickListener(v -> startNewActivity(HistoryWorkActivity.class));
         suggestButton.setOnClickListener(v -> suggestWork());
-        addButton.setOnClickListener(v -> addWork());
+
+        calendarView = findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+                showAddWorkDialog(selectedDate);
+            }
+        });
+
     }
 
-    private void addWork() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Προσθήκη Εργασίας");
+    private void startNewActivity(Class<?> cls) {
+        Intent intent = new Intent(CalendarActivity.this, cls);
+        startActivity(intent);
+    }
 
-        View viewInflated = getLayoutInflater().inflate(R.layout.add_work, null);
-        final EditText addwork = viewInflated.findViewById(R.id.add_work_txt);
-        Button send = viewInflated.findViewById(R.id.add);
-        builder.setView(viewInflated);
+    private void showAddWorkDialog(String date) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.add_work, null);
+        dialogBuilder.setView(dialogView);
 
-        builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-            dialog.dismiss();
+        EditText addwork = dialogView.findViewById(R.id.add_work_txt);
+        Button add = dialogView.findViewById(R.id.add);
+        Button cancel = dialogView.findViewById(R.id.cancel);
+        AlertDialog alertDialog = dialogBuilder.create();
+
+        add.setOnClickListener(v -> {
             String work = addwork.getText().toString();
             if (!work.isEmpty()) {
-                workRef.push().setValue(work);
+                if (date != null) {
+                    workRef.child(date).push().setValue(work);
+                    alertDialog.dismiss();
+                } else {
+                    workRef.push().setValue(work);
+                }
                 Toast.makeText(CalendarActivity.this, "Εργασία προστέθηκε", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(CalendarActivity.this, "Το πεδίο δεν μπορεί να είναι κενό", Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
 
-        builder.show();
+        cancel.setOnClickListener(v -> alertDialog.cancel());
+
+        alertDialog.show();
     }
 
     private void suggestWork() {
         suggestWorkList = new ArrayList<>();
         suggestAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, suggestWorkList);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Προτεινόμενες Εργασίες");
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.activity_suggest, null);
+        dialogBuilder.setView(dialogView);
 
-        View viewInflated = getLayoutInflater().inflate(R.layout.activity_suggest, null);
-        final ListView suggest = viewInflated.findViewById(R.id.suggestText);
-        Button close = viewInflated.findViewById(R.id.close);
+        ListView suggest = dialogView.findViewById(R.id.suggestText);
+        Button close = dialogView.findViewById(R.id.close);
         suggest.setAdapter(suggestAdapter);
 
-        builder.setView(viewInflated);
+        AlertDialog alertDialog = dialogBuilder.create();
+
+
+        suggestWorkList.addAll(readSuggestedWorkFromJSON());
+        suggestAdapter.notifyDataSetChanged();
 
         suggestRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                suggestWorkList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String suggestion = snapshot.getValue(String.class);
                     suggestWorkList.add(suggestion);
@@ -169,13 +153,37 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
-        builder.setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss());
 
-        builder.show();
+        close.setOnClickListener(v -> alertDialog.dismiss());
+
+
+        alertDialog.setView(dialogView);
+        alertDialog.show();
     }
 
-    private void startNewActivity(Class<?> cls) {
-        Intent intent = new Intent(CalendarActivity.this, cls);
-        startActivity(intent);
+
+
+
+    private ArrayList<String> readSuggestedWorkFromJSON() {
+        ArrayList<String> suggestedWorkList = new ArrayList<>();
+        try {
+            InputStream is = getAssets().open("olive.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            String json = new String(buffer, StandardCharsets.UTF_8);
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray oliveArray = jsonObject.getJSONArray("olive");
+
+            for (int i = 0; i < oliveArray.length(); i++) {
+                JSONObject oliveObject = oliveArray.getJSONObject(i);
+                String work = oliveObject.getString("work");
+                suggestedWorkList.add(work);
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return suggestedWorkList;
     }
 }

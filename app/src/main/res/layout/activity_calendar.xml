@@ -40,30 +40,28 @@
         android:layout_marginTop="16dp" />
 
 
-    <TextView
+    <Button
         android:id="@+id/suggest"
         android:layout_width="237dp"
         android:layout_height="41dp"
         android:layout_marginTop="40dp"
         android:text="Προτείνεται Σήμερα   >"
-        android:textColor="@color/first"
-        android:textSize="20dp"
+        android:background="@drawable/custom_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendar_second" />
 
-    <TextView
-        android:id="@+id/add"
-        android:layout_width="237dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="152dp"
-        android:text="Προσθήκη εργασίας   >"
-        android:textColor="@color/first"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/suggest" />
+<!--    <Button-->
+<!--        android:id="@+id/add"-->
+<!--        android:layout_width="237dp"-->
+<!--        android:layout_height="41dp"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:layout_marginEnd="152dp"-->
+<!--        android:text="Προσθήκη εργασίας   >"-->
+<!--        android:background="@drawable/custom_button"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/suggest" />-->
 
     <LinearLayout
         android:id="@+id/bottom_icons"
@@ -128,21 +126,22 @@
         android:id="@+id/calendarView"
         android:layout_width="368dp"
         android:layout_height="269dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
+        android:theme="@style/CalenderViewCustom"
+        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add" />
+        app:layout_constraintTop_toBottomOf="@+id/suggest" />
 
-    <TextView
+    <Button
         android:id="@+id/history_work"
         android:layout_width="237dp"
         android:layout_height="41dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="152dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="156dp"
+        android:background="@drawable/custom_button"
         android:text="Ιστορικό Εργασιών   >"
-        android:textColor="@color/first"
-        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
