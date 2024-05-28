@@ -1,16 +1,18 @@
 package com.example.olivetheory;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.Calendar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -30,15 +32,26 @@ public class CalendarActivity extends AppCompatActivity {
     private DatabaseReference suggestRef;
     private ArrayList<String> suggestWorkList;
     private ArrayAdapter<String> suggestAdapter;
+    private CalendarView calendarView;
+    private String selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        // Firebase references
         workRef = FirebaseDatabase.getInstance().getReference().child("work_history");
         suggestRef = FirebaseDatabase.getInstance().getReference().child("suggestions");
+
+
+        calendarView = findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+                showAddWorkDialog(selectedDate);
+            }
+        });
 
         // Buttons
         Button calendar = findViewById(R.id.calendar_second);
@@ -49,93 +62,52 @@ public class CalendarActivity extends AppCompatActivity {
         Button messageButton = findViewById(R.id.message);
         Button forumButton = findViewById(R.id.forum);
 
-        TextView suggestButton = findViewById(R.id.suggest);
-        TextView addButton = findViewById(R.id.add);
-        TextView historyButton = findViewById(R.id.history_work);
+        Button suggestButton = findViewById(R.id.suggest);
+
+        Button historyButton = findViewById(R.id.history_work);
 
         // Change Activity
-        user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(UserProfile.class);
-            }
-        });
-
-        calendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(CalendarActivity.class);
-            }
-        });
-
-        calendarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(CalendarActivity.class);
-            }
-        });
-
-        weatherButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(WeatherActivity.class);
-            }
-        });
-
-        problemsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(ProblemsActivity.class);
-            }
-        });
-
-        messageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(ChatListActivity.class);
-            }
-        });
-
-        forumButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(ForumListActivity.class);
-            }
-        });
-
-        historyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(HistoryWorkActivity.class);
-            }
-        });
+        user.setOnClickListener(v -> startNewActivity(UserProfile.class));
+        calendar.setOnClickListener(v -> startNewActivity(CalendarActivity.class));
+        calendarButton.setOnClickListener(v -> startNewActivity(CalendarActivity.class));
+        weatherButton.setOnClickListener(v -> startNewActivity(WeatherActivity.class));
+        problemsButton.setOnClickListener(v -> startNewActivity(ProblemsActivity.class));
+        messageButton.setOnClickListener(v -> startNewActivity(ChatListActivity.class));
+        forumButton.setOnClickListener(v -> startNewActivity(ForumListActivity.class));
+        historyButton.setOnClickListener(v -> startNewActivity(HistoryWorkActivity.class));
 
         suggestButton.setOnClickListener(v -> suggestWork());
-        addButton.setOnClickListener(v -> addWork());
     }
 
-    private void addWork() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Προσθήκη Εργασίας");
+    private void showAddWorkDialog(String date) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.add_work, null);
+        dialogBuilder.setView(dialogView);
 
-        View viewInflated = getLayoutInflater().inflate(R.layout.add_work, null);
-        final EditText addwork = viewInflated.findViewById(R.id.add_work_txt);
-        Button send = viewInflated.findViewById(R.id.add);
-        builder.setView(viewInflated);
+        EditText addwork = dialogView.findViewById(R.id.add_work_txt);
+        Button add = dialogView.findViewById(R.id.add);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button cancel = dialogView.findViewById(R.id.cancel);
+        AlertDialog alertDialog = dialogBuilder.create();
 
-        builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-            dialog.dismiss();
+        add.setOnClickListener(v -> {
             String work = addwork.getText().toString();
             if (!work.isEmpty()) {
-                workRef.push().setValue(work);
+                if (date != null) {
+                    workRef.child(date).push().setValue(work);
+                    alertDialog.dismiss();
+                } else {
+                    workRef.push().setValue(work);
+                }
                 Toast.makeText(CalendarActivity.this, "Εργασία προστέθηκε", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(CalendarActivity.this, "Το πεδίο δεν μπορεί να είναι κενό", Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
 
-        builder.show();
+        cancel.setOnClickListener(v -> alertDialog.cancel());
+
+        alertDialog.show();
     }
 
     private void suggestWork() {
@@ -147,10 +119,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         View viewInflated = getLayoutInflater().inflate(R.layout.activity_suggest, null);
         final ListView suggest = viewInflated.findViewById(R.id.suggestText);
-        Button close = viewInflated.findViewById(R.id.close);
         suggest.setAdapter(suggestAdapter);
-
-        builder.setView(viewInflated);
 
         suggestRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

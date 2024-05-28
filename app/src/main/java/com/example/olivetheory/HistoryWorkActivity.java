@@ -106,9 +106,12 @@ public class HistoryWorkActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 workHistoryList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String work = snapshot.getValue(String.class);
-                    workHistoryList.add(work);
+                for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
+                    String date = dateSnapshot.getKey();
+                    for (DataSnapshot workSnapshot : dateSnapshot.getChildren()) {
+                        String work = workSnapshot.getValue(String.class);
+                        workHistoryList.add(date + ": " + work);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }

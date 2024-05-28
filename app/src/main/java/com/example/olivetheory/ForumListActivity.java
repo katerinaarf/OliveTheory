@@ -93,6 +93,7 @@ public class ForumListActivity extends AppCompatActivity {
                     for (DocumentSnapshot document : queryDocumentSnapshots) {
                         ForumListItem item = document.toObject(ForumListItem.class);
                         if (item != null) {
+                            item.setPostId(document.getId()); // Set postId from document ID
                             forumListItems.add(item);
                         }
                     }
@@ -105,7 +106,6 @@ public class ForumListActivity extends AppCompatActivity {
                     Log.e(TAG, "Error getting documents", e);
                 });
     }
-
 
     private void showAddDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -151,13 +151,13 @@ public class ForumListActivity extends AppCompatActivity {
                     post.put("post", postContent);
                     post.put("time", new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date()));
                     post.put("date", new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
-                    post.put("dislikes", "0");
+                    post.put("likes", 0L);
 
                     db.collection("forumitems")
                             .add(post)
                             .addOnSuccessListener(documentReference -> {
                                 Toast.makeText(ForumListActivity.this, "Post added successfully", Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, "New post added successfully");
+                                Log.d(TAG, "New post added successfully with ID: " + documentReference.getId());
                                 loadForumList();  // Reload the forum list
                             })
                             .addOnFailureListener(e -> {
@@ -177,8 +177,6 @@ public class ForumListActivity extends AppCompatActivity {
             Log.e(TAG, "Error retrieving user document", e);
         });
     }
-
-
 
     private void startNewActivity(Class<?> cls) {
         Intent intent = new Intent(ForumListActivity.this, cls);

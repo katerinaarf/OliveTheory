@@ -48,6 +48,7 @@
         <activity android:name=".ForumListActivity" />
         <activity android:name=".UserProfile" />
         <activity android:name=".SavedLocationsActivity" />
+        <activity android:name=".HistoryWorkActivity"/>
         <activity
             android:name=".MapsActivity"
             android:label="@string/activity_maps" /> <!-- Google Maps API Key -->

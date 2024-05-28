@@ -1,42 +1,29 @@
 package com.example.olivetheory;
 
 public class ForumListItem {
-
-    private String userId;
-    private String name;
-    private String userImage;
-    private String post;
-    private String time;
-    private String date;
-    private String dislikes;
+    private String userId, name, userImage, post, time, date, postId;
+    private Long likes;
 
     public ForumListItem() {
     }
 
-    public ForumListItem(String userId, String name, String userImage, String post, String time, String date, String dislikes) {
+    public ForumListItem(String userId, String name, String userImage, String post, String time, String date, Long likes) {
         this.userId = userId;
         this.name = name;
         this.userImage = userImage;
         this.post = post;
         this.time = time;
         this.date = date;
-        this.dislikes = dislikes;
+        this.likes = likes;
     }
 
-    public String getTime() {
-        return time;
+    // Getters and setters
+    public String getUserId() {
+        return userId;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -45,14 +32,6 @@ public class ForumListItem {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getUserImage() {
@@ -71,7 +50,35 @@ public class ForumListItem {
         this.post = post;
     }
 
-    public String getDislikes(){ return dislikes; }
+    public String getTime() {
+        return time;
+    }
 
-    public void setDislikes(String dislikes){this.dislikes = dislikes;}
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Long getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Long likes) {
+        this.likes = likes;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
 }
