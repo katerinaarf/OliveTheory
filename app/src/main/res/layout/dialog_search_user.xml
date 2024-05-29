@@ -11,7 +11,7 @@
         android:id="@+id/user_id_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/custom_edittext"
         android:hint="Enter User ID"
         android:inputType="text"
@@ -24,11 +24,13 @@
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:background="@drawable/custom_button"
-        android:textStyle="bold"
         android:text="Search"
-        app:layout_constraintTop_toBottomOf="@id/user_id_edit_text"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/user_id_edit_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
