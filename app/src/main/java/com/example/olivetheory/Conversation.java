@@ -1,31 +1,37 @@
 package com.example.olivetheory;
 
-public class ChatListItem {
-    private String userId, name, lastMessage;
+public class Conversation {
+    private String id, userId, lastMessage;
 
-    public ChatListItem(String userId, String name, String lastMessage) {
+    public Conversation() {
+    }
+
+    public Conversation(String id, String userId, String lastMessage) {
+        this.id = id;
         this.userId = userId;
-        this.name = name;
         this.lastMessage = lastMessage;
     }
 
     public String getUserId() {
         return userId;
     }
+
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLastMessage() {
         return lastMessage;
     }
+
     public void setLastMessage(String lastMessage) {
         this.lastMessage = lastMessage;
     }

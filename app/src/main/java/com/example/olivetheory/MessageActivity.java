@@ -1,4 +1,3 @@
-
 package com.example.olivetheory;
 
 import static com.example.olivetheory.R.id.userpro;
@@ -62,7 +61,8 @@ public class MessageActivity extends AppCompatActivity {
         mMessageEditText = findViewById(R.id.chatMessageView);
         mSendButton = findViewById(R.id.chatSendButton);
 
-        mMessageListAdapter = new MessageAdapter(this, mMessageList);
+
+        mMessageListAdapter = new MessageAdapter(this, mMessageList, mCurrentUserId);
         mChatListView.setAdapter(mMessageListAdapter);
 
         loadMessages();
@@ -72,7 +72,7 @@ public class MessageActivity extends AppCompatActivity {
         mainAppBar.addView(appbarView);
 
         ImageView user = appbarView.findViewById(R.id.userpro);
-        TextView textViewDisplayName = appbarView.findViewById(R.id.textView3);
+        //TextView textViewUserName = appbarView.findViewById(R.id.username);
         Button backButton = appbarView.findViewById(R.id.back_button);
 
 
@@ -89,34 +89,34 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     private void loadMessages() {
-        mDatabaseReference.child("messages").child(mCurrentUserId).child(mChatUserId)
-                .addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
-                        Message message = dataSnapshot.getValue(Message.class);
-                        if (message != null) {
-                            mMessageList.add(message);
-                            mMessageListAdapter.notifyDataSetChanged();
-                            mChatListView.setSelection(mMessageListAdapter.getCount() - 1);
-                        } else {
-                            showError("Δεν υπάρχουν δεδομένα.");
-                        }
-                    }
+        DatabaseReference chatRef = mDatabaseReference.child("messages").child(mCurrentUserId).child(mChatUserId);
+        chatRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
+                Message message = dataSnapshot.getValue(Message.class);
+                if (message != null) {
+                    mMessageList.add(message);
+                    mMessageListAdapter.notifyDataSetChanged();
+                    mChatListView.setSelection(mMessageListAdapter.getCount() - 1);
+                } else {
+                    showError("Δεν υπάρχουν δεδομένα.");
+                }
+            }
 
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s) {}
 
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
 
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s) {}
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        showError("Αποτυχία φόρτωσης του μηνύματος. Παρακαλώ ελέγξτε τη σύνδεσή σας.");
-                    }
-                });
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                showError("Αποτυχία φόρτωσης του μηνύματος. Παρακαλώ ελέγξτε τη σύνδεσή σας.");
+            }
+        });
     }
 
     private void sendMessage() {
