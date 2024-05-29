@@ -31,5 +31,6 @@
 
     <string name="search_location">Search Location</string>
     <string name="title_activity_menu">Menu</string>
+    <string name="title_activity_new_conversation">NewConversationActivity</string>
 
 </resources>

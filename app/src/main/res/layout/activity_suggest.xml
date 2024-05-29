@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
     android:padding="5dp">
 
@@ -15,7 +14,7 @@
         android:text="Προτείνεται Σήμερα"
         android:textSize="25sp"/>
 
-    <TextView
+    <ListView
         android:id="@+id/suggestText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,12 +22,7 @@
         android:paddingTop="10dp"
         android:paddingLeft="10dp"
         android:background="@drawable/custom_edittext"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Πρόταση...."
-        />
-
-
+        android:layout_marginTop="10dp" />
 
     <Button
         android:id="@+id/close"

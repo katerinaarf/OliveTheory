@@ -8,26 +8,14 @@
     android:background="@color/second"
     tools:context=".ChatListActivity">
 
-
     <Button
-        android:id="@+id/search"
+        android:id="@+id/add_chat_button"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/search"
+        android:background="@drawable/add"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="Μηνύματα  "
-        android:textColor="@color/first"
-        android:textSize="30dp"
-        app:layout_constraintStart_toEndOf="@+id/search"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

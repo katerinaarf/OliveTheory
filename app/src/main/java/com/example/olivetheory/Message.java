@@ -4,10 +4,8 @@ package com.example.olivetheory;
 import java.util.Date;
 
 public class Message {
-    private String content;
-    private String senderId;
-    private String recipientId;
-    private Date timestamp;
+    private String content, senderId, recipientId;
+    private long timestamp;
 
     public Message() {
 
@@ -17,7 +15,6 @@ public class Message {
         this.content = content;
         this.senderId = senderId;
         this.recipientId = recipientId;
-        this.timestamp = new Date();
     }
 
     public Message(String pushId, String uid, String messageText, long l) {
@@ -47,11 +44,11 @@ public class Message {
         this.recipientId = recipientId;
     }
 
-    public Date getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 }
