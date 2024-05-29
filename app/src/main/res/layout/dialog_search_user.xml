@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/second"
     android:padding="16dp">
 
     <EditText
@@ -24,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_button"
+        android:textStyle="bold"
         android:text="Search"
         app:layout_constraintTop_toBottomOf="@id/user_id_edit_text"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,116 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/second"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/second"
+    android:padding="16dp"
     tools:context=".SignUpActivity">
 
-
-
     <TextView
+        android:id="@+id/signupTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
         android:text="@string/signup"
         android:textColor="@color/first"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_edittext"
+        android:textColor="@color/first"
+        android:gravity="center"
+        android:hint="Όνομα"
+        android:minHeight="48dp"
+        app:layout_constraintTop_toBottomOf="@id/signupTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nameEditText"
-            android:background="@drawable/custom_edittext"
-            android:textColor="@color/first"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nameEditText"
-            android:layout_marginTop="16dp"
-            android:hint="Όνομα"
-            android:minHeight="48dp" />
-    </com.google.android.material.textfield.TextInputLayout>
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_edittext"
+        android:textColor="@color/first"
+        android:gravity="center"
+        android:hint="Email"
+        android:minHeight="48dp"
+        app:layout_constraintTop_toBottomOf="@id/nameEditText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nameEditText"
-            android:background="@drawable/custom_edittext"
-            android:textColor="@color/first"
-            android:layout_marginTop="16dp"
-            android:hint="Email"
-            android:minHeight="48dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_edittext"
-            android:textColor="@color/first"
-            android:layout_below="@id/nameEditText"
-            android:layout_marginTop="16dp"
-            android:hint="Κωδικός"
-            android:minHeight="48dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_edittext"
+        android:textColor="@color/first"
+        android:gravity="center"
+        android:hint="Κωδικός"
+        android:minHeight="48dp"
+        app:layout_constraintTop_toBottomOf="@id/emailEditText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp" />
 
     <RadioGroup
         android:id="@+id/userTypeRadioGroup"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/passwordEditText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp">
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
+        <RadioButton
             android:id="@+id/farmerRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/first"
             android:text="Αγρότης"/>
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
+        <RadioButton
             android:id="@+id/expertRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Γεωπόνος"
-            android:textColor="@color/first" />
+            android:textColor="@color/first"
+            android:text="Γεωπόνος" />
     </RadioGroup>
 
     <ProgressBar
-        android:id="@+id/progresBar"
-        android:visibility="gone"
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/userTypeRadioGroup"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"/>
 
     <Button
         android:id="@+id/signUpButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/expertRadioButton"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/custom_edittext"
-        android:textColor="@color/second"
-        android:backgroundTint="#4B7A5D"
-        android:text="Εγγραφή" />
+        android:background="@drawable/custom_button"
+        android:elevation="8dp"
+        android:text="Εγγραφή"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"/>
 
     <TextView
         android:id="@+id/loginNow"
-        android:textColor="@color/first"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
         android:text="Έχετε ήδη λογαριασμό; Συνδεθείτε εδώ!"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:textColor="@color/first"
+        android:textSize="14sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/signUpButton" />
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

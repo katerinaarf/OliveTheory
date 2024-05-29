@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/first"
         android:text="Username"
-        android:textSize="18sp"
         android:textStyle="bold"
+        android:textSize="18sp"
         android:layout_marginStart="8dp"/>
 
     <TextView
@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/first"
+        android:textStyle="bold"
         android:layout_below="@id/text_view_username"
         android:text="Last message"
         android:textSize="14sp"

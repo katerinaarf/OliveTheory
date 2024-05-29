@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@color/second"
     android:orientation="vertical"
     android:padding="5dp">
 
@@ -13,6 +13,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:textColor="@color/first"
+        android:textStyle="bold"
         android:text="Προσθήκη εργασίας"
         android:textSize="25sp"/>
 
@@ -36,11 +37,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:background="@drawable/custom_edittext"
+        android:background="@drawable/custom_button"
         android:textSize="18sp"
+        android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:text="Προθήκη"
-        android:textColor="@color/second" />
+        android:textColor="@color/white" />
 
 
     <Button
@@ -48,9 +50,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:background="@drawable/custom_edittext"
+        android:background="@drawable/custom_button"
         android:textSize="18sp"
+        android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:text="Ακύρωση"
-        android:textColor="@color/second" />
+        android:textColor="@color/white" />
 </LinearLayout>

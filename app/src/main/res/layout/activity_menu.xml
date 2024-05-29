@@ -40,12 +40,12 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp" />
 
-    <TextView
+    <Button
         android:id="@+id/suggest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Προτείνεται Σήμερα  >"
-        android:textColor="@color/first"
+        android:text="προτεινομενη ποικιλια"
+        android:background="@drawable/custom_button"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

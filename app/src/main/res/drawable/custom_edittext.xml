@@ -11,7 +11,7 @@
     <!-- EditText background -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#E0E0E0" /> <!-- EditText background color -->
+            <solid android:color="@color/second_white" /> <!-- EditText background color -->
             <corners android:radius="25dp" /> <!-- Rounded corners for EditText -->
         </shape>
     </item>

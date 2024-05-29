@@ -25,6 +25,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="Μηνύματα  "
+        android:textStyle="bold"
         android:textColor="@color/first"
         android:textSize="30dp"
         app:layout_constraintStart_toEndOf="@+id/search"

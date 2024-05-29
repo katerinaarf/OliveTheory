@@ -33,6 +33,7 @@
         android:layout_height="53dp"
         android:background="@color/second"
         android:gravity="center"
+        android:textStyle="bold"
         android:text="Όνομα Χρήστη"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"

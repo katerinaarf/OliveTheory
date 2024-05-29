@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-    TextInputEditText nameEditText, emailEditText, passwordEditText;
+    EditText nameEditText, emailEditText, passwordEditText;
     //RadioButton farmerRadioButton, expertRadioButton;
     Button btnLogin;
     FirebaseAuth mAuth;
