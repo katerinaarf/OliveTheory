@@ -28,10 +28,10 @@
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
+                android:layout_width="336dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="3dp"
                 android:background="@drawable/custom_edittext"
                 android:text="'Ονομα χρήστη"
                 android:textColor="@color/first"
@@ -56,10 +56,11 @@
 
             <TextView
                 android:id="@+id/Answer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="378dp"
+                android:layout_height="63dp"
                 android:layout_marginLeft="3dp"
                 android:background="@drawable/custom_edittext"
+                android:gravity="center"
                 android:text="Απαντηση"
                 android:textColor="@color/first"
                 android:textSize="12sp" />
