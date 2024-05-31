@@ -1,5 +1,6 @@
 [versions]
 agp = "8.4.0"
+firebaseStorage = "23.0.3"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
@@ -20,6 +21,7 @@ firebaseDatabase = "21.0.0"
 recyclerview = "1.3.2"
 
 [libraries]
+firebase-storage = { module = "com.google.firebase:firebase-storage", version.ref = "firebaseStorage" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

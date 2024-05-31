@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -31,10 +32,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class SignUpActivity extends AppCompatActivity {
-    TextInputEditText nameEditText, emailEditText, passwordEditText;
+    EditText nameEditText, emailEditText, passwordEditText;
     Button btnSignUp;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
@@ -71,8 +73,9 @@ public class SignUpActivity extends AppCompatActivity {
         userTypeGroup = findViewById(R.id.userTypeRadioGroup);
         farmerRadioButton = findViewById(R.id.farmerRadioButton);
         expertRadioButton = findViewById(R.id.expertRadioButton);
-        progressBar = findViewById(R.id.progresBar);
+        progressBar = findViewById(R.id.progresBar); // Ensure the ID is correct
         textview = findViewById(R.id.loginNow);
+
         textview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -85,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE); // This line causes the NPE if progressBar is null
                 String name, email, password;
                 name = String.valueOf(nameEditText.getText());
                 email = String.valueOf(emailEditText.getText());
@@ -94,26 +97,31 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(name)) {
                     Toast.makeText(SignUpActivity.this, "Εισάγετε το όνομά σας!", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(SignUpActivity.this, "Εισάγετε το email σας!", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(SignUpActivity.this, "Εισάγετε τον κωδικό σας!", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
                 if (password.length() < 6) {
                     Toast.makeText(SignUpActivity.this, "Πολύ μικρός κωδικός, εισάγετε τουλάχιστον 6 χαρακτήρες!", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
                 if (type == -1) {
                     Toast.makeText(getApplicationContext(), "Επιλέξτε τον τύπο χρήστη!", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
@@ -124,36 +132,48 @@ public class SignUpActivity extends AppCompatActivity {
                 } else if (type == R.id.expertRadioButton) {
                     userType = "Γεωπόνος";
                 } else {
-                    // This should never happen, but if it does, handle it accordingly
                     userType = "Unknown";
                 }
 
-
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                // Check if the username already exists
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("users").whereEqualTo("name", name).get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                                    if (firebaseUser != null) {
-                                        // Generate a unique userid
-                                        String userid = firebaseUser.getUid();
-
-                                        // Save additional user data to Firestore
-                                        User user = new User(name, email, userType, userid);
-                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                        db.collection("users")
-                                                .document(userid)
-                                                .set(user)
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    if (!task.getResult().isEmpty()) {
+                                        progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(SignUpActivity.this, "Το όνομα υπάρχει ήδη, επιλέξτε ένα διαφορετικό όνομα!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // Proceed with registration
+                                        mAuth.createUserWithEmailAndPassword(email, password)
+                                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                                     @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                                        progressBar.setVisibility(View.GONE);
                                                         if (task.isSuccessful()) {
-                                                            Toast.makeText(SignUpActivity.this, "Επιτυχής εγγραφή χρήστη!", Toast.LENGTH_SHORT).show();
-                                                            Intent intent = new Intent(SignUpActivity.this, MenuActivity.class);
-                                                            startActivity(intent);
-                                                            finish();
+                                                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                                                            if (firebaseUser != null) {
+                                                                String userid = firebaseUser.getUid();
+                                                                User user = new User(name, email, userType, userid);
+                                                                db.collection("users")
+                                                                        .document(userid)
+                                                                        .set(user)
+                                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                if (task.isSuccessful()) {
+                                                                                    Toast.makeText(SignUpActivity.this, "Επιτυχής εγγραφή χρήστη!", Toast.LENGTH_SHORT).show();
+                                                                                    Intent intent = new Intent(SignUpActivity.this, MenuActivity.class);
+                                                                                    startActivity(intent);
+                                                                                    finish();
+                                                                                } else {
+                                                                                    Toast.makeText(SignUpActivity.this, "Ανεπιτυχής εγγραφή χρήστη.", Toast.LENGTH_SHORT).show();
+                                                                                }
+                                                                            }
+                                                                        });
+                                                            }
                                                         } else {
                                                             Toast.makeText(SignUpActivity.this, "Ανεπιτυχής εγγραφή χρήστη.", Toast.LENGTH_SHORT).show();
                                                         }
@@ -161,9 +181,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                 });
                                     }
                                 } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(SignUpActivity.this, "Ανεπιτυχής εγγραφή χρήστη.",
-                                            Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(SignUpActivity.this, "Σφάλμα κατά τον έλεγχο του ονόματος.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

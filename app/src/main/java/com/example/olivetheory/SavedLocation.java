@@ -2,8 +2,7 @@ package com.example.olivetheory;
 
 public class SavedLocation {
     private String name;
-    private double latitude;
-    private double longitude;
+    private double latitude, longitude;
 
     public SavedLocation() {
         // Default constructor required for Firestore
@@ -40,6 +39,6 @@ public class SavedLocation {
 
     @Override
     public String toString() {
-        return "Lat: " + latitude + ", Lng: " + longitude;
+        return name + "\n" + "Lat: " + latitude + ", Lng: " + longitude;
     }
 }
