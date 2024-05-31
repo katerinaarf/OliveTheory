@@ -70,32 +70,17 @@
         app:layout_constraintTop_toBottomOf="@+id/usertext" />
 
     <TextView
-        android:id="@+id/history_sick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Ιστορικό Ασθενειών   >"
-        android:textStyle="bold"
-        android:textColor="@color/first"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.095"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location" />
-
-    <TextView
         android:id="@+id/history_work"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
         android:text="Ιστορικό Εργασιών   >"
-        android:textStyle="bold"
         android:textColor="@color/first"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/history_sick" />
+        tools:layout_editor_absoluteY="340dp" />
 
     <TextView
         android:id="@+id/center_info"
