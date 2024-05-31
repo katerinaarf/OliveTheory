@@ -3,6 +3,7 @@ package com.example.olivetheory;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -144,6 +145,7 @@ public class MenuActivity extends AppCompatActivity {
             BufferedReader reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8))));
             String line;
             while ((line = reader.readLine()) != null) {
+                Log.d("loadOliveVarieties", "Loaded variety: " + line.trim());
                 oliveVarieties.add(line.trim());
             }
             reader.close();
@@ -191,6 +193,4 @@ public class MenuActivity extends AppCompatActivity {
         alertDialog.setView(dialogView);
         alertDialog.show();
     }
-
-
 }
