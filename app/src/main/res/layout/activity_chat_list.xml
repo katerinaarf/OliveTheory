@@ -10,7 +10,7 @@
 
 
     <Button
-        android:id="@+id/search"
+        android:id="@+id/add_chat_button"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
@@ -28,7 +28,7 @@
         android:textStyle="bold"
         android:textColor="@color/first"
         android:textSize="30dp"
-        app:layout_constraintStart_toEndOf="@+id/search"
+        app:layout_constraintStart_toEndOf="@+id/add_chat_button"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

@@ -1,42 +1,87 @@
 package com.example.olivetheory;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.List;
 
 public class SavedLocationsActivity extends AppCompatActivity {
+
+    private static final String TAG = "SavedLocationsActivity";
+
+    private User currentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_locations);
 
-        // Assuming you have a ListView in your layout file with the id "savedLocationsListView"
+        getSavedLocationsFromFirestore();
+    }
+
+    // Method to retrieve saved locations from Firestore
+    private void getSavedLocationsFromFirestore() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+            String userId = firebaseUser.getUid();
+
+            DocumentReference userRef = FirebaseFirestore.getInstance().collection("users").document(userId);
+
+            userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.exists()) {
+                        currentUser = documentSnapshot.toObject(User.class);
+                        if (currentUser != null && currentUser.getSavedLocations() != null) {
+                            updateListView(currentUser.getSavedLocations());
+                        } else {
+                            Log.d(TAG, "User has no saved locations");
+                            // Inform the user that there are no saved locations
+                            Toast.makeText(SavedLocationsActivity.this, "No saved locations found", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Log.d(TAG, "User document does not exist");
+                        // Inform the user that their document doesn't exist
+                        Toast.makeText(SavedLocationsActivity.this, "User document does not exist", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.e(TAG, "Error retrieving user document", e);
+                    // Inform the user about the error
+                    Toast.makeText(SavedLocationsActivity.this, "Failed to retrieve user document", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Log.e(TAG, "Current user is null");
+            // Inform the user that there's no authenticated user
+            Toast.makeText(SavedLocationsActivity.this, "No authenticated user", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Method to update the ListView with saved locations
+    private void updateListView(List<SavedLocation> savedLocations) {
         ListView savedLocationsListView = findViewById(R.id.savedLocationsListView);
 
-        // Get the list of saved locations from the intent or from a ViewModel or any other way you manage data
-        List<SavedLocation> savedLocations = getSavedLocations(); // Get the actual list of saved locations
-
-        // Create an ArrayAdapter to display the saved locations in the ListView
         ArrayAdapter<SavedLocation> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, savedLocations);
 
-        // Set the adapter to the ListView
         savedLocationsListView.setAdapter(adapter);
-    }
-
-    // Mock method to get saved locations, replace with actual data retrieval logic
-    private List<SavedLocation> getSavedLocations() {
-        List<SavedLocation> savedLocations = new ArrayList<>();
-        // Add some mock data
-        savedLocations.add(new SavedLocation(37.9838, 23.7275)); // Athens, Greece
-        savedLocations.add(new SavedLocation(40.7128, -74.0060)); // New York, USA
-        return savedLocations;
     }
 }

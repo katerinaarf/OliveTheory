@@ -92,7 +92,7 @@
     </RadioGroup>
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progresBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
@@ -110,7 +110,7 @@
         android:text="Εγγραφή"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        app:layout_constraintTop_toBottomOf="@id/progresBar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="16dp"/>
