@@ -2,7 +2,6 @@ package com.example.olivetheory;
 
 import static android.content.ContentValues.TAG;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,24 +15,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-
 
 public class SignUpActivity extends AppCompatActivity {
     EditText nameEditText, emailEditText, passwordEditText;
@@ -44,22 +35,6 @@ public class SignUpActivity extends AppCompatActivity {
     private RadioGroup userTypeGroup;
     private RadioButton farmerRadioButton, expertRadioButton;
 
-
-// opote anoigei h efarmogh tha zhtaei aposundesh
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser != null){
-//            Intent intent = new Intent(SignUpActivity.this, LogOutActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//    }
-
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         textview.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -88,11 +63,10 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE); // This line causes the NPE if progressBar is null
-                String name, email, password;
-                name = String.valueOf(nameEditText.getText());
-                email = String.valueOf(emailEditText.getText());
-                password = String.valueOf(passwordEditText.getText());
+                progressBar.setVisibility(View.VISIBLE);
+                String name = nameEditText.getText().toString();
+                String email = emailEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
                 int type = userTypeGroup.getCheckedRadioButtonId();
 
                 if (TextUtils.isEmpty(name)) {
@@ -125,7 +99,6 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Convert the selected radio button ID to user type
                 String userType;
                 if (type == R.id.farmerRadioButton) {
                     userType = "Αγρότης";
@@ -135,7 +108,6 @@ public class SignUpActivity extends AppCompatActivity {
                     userType = "Unknown";
                 }
 
-                // Check if the username already exists
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 db.collection("users").whereEqualTo("name", name).get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -146,7 +118,6 @@ public class SignUpActivity extends AppCompatActivity {
                                         progressBar.setVisibility(View.GONE);
                                         Toast.makeText(SignUpActivity.this, "Το όνομα υπάρχει ήδη, επιλέξτε ένα διαφορετικό όνομα!", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        // Proceed with registration
                                         mAuth.createUserWithEmailAndPassword(email, password)
                                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                                     @Override
@@ -169,18 +140,21 @@ public class SignUpActivity extends AppCompatActivity {
                                                                                     startActivity(intent);
                                                                                     finish();
                                                                                 } else {
+                                                                                    Log.e(TAG, "User registration failed: " + task.getException().getMessage());
                                                                                     Toast.makeText(SignUpActivity.this, "Ανεπιτυχής εγγραφή χρήστη.", Toast.LENGTH_SHORT).show();
                                                                                 }
                                                                             }
                                                                         });
                                                             }
                                                         } else {
+                                                            Log.e(TAG, "Authentication failed: " + task.getException().getMessage());
                                                             Toast.makeText(SignUpActivity.this, "Ανεπιτυχής εγγραφή χρήστη.", Toast.LENGTH_SHORT).show();
                                                         }
                                                     }
                                                 });
                                     }
                                 } else {
+                                    Log.e(TAG, "Name check failed: " + task.getException().getMessage());
                                     progressBar.setVisibility(View.GONE);
                                     Toast.makeText(SignUpActivity.this, "Σφάλμα κατά τον έλεγχο του ονόματος.", Toast.LENGTH_SHORT).show();
                                 }
