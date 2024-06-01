@@ -120,22 +120,18 @@ public class CalendarActivity extends AppCompatActivity {
 
     private void suggestWork() {
         suggestWorkList = new ArrayList<>();
-        suggestAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, suggestWorkList);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.activity_suggest, null);
         dialogBuilder.setView(dialogView);
 
-        ListView suggest = dialogView.findViewById(R.id.suggestText);
+        TextView suggestTextView = dialogView.findViewById(R.id.suggestText);
         Button close = dialogView.findViewById(R.id.close);
-        suggest.setAdapter(suggestAdapter);
 
         AlertDialog alertDialog = dialogBuilder.create();
 
-
         suggestWorkList.addAll(readSuggestedWorkFromJSON());
-        suggestAdapter.notifyDataSetChanged();
 
         suggestRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -144,25 +140,24 @@ public class CalendarActivity extends AppCompatActivity {
                     String suggestion = snapshot.getValue(String.class);
                     suggestWorkList.add(suggestion);
                 }
-                suggestAdapter.notifyDataSetChanged();
+                if (!suggestWorkList.isEmpty()) {
+                    String randomSuggestion = suggestWorkList.get((int) (Math.random() * suggestWorkList.size()));
+                    suggestTextView.setText(randomSuggestion);
+                } else {
+                    suggestTextView.setText("No suggestions available.");
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(CalendarActivity.this, "Αποτυχία φόρτωσης δεδομένων. Προσπαθήστε ξανά.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CalendarActivity.this, "Failed to load data. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
 
-
         close.setOnClickListener(v -> alertDialog.dismiss());
 
-
-        alertDialog.setView(dialogView);
         alertDialog.show();
     }
-
-
-
 
     private ArrayList<String> readSuggestedWorkFromJSON() {
         ArrayList<String> suggestedWorkList = new ArrayList<>();
