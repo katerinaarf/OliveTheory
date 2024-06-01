@@ -51,7 +51,7 @@
         <activity android:name="WeatherSavedLocations"/>
         <activity
             android:name=".MapsActivity"
-            android:label="@string/activity_maps" /> <!-- Google Maps API Key -->
+            android:label="@string/activity_maps" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

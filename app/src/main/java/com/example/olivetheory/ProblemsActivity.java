@@ -78,7 +78,7 @@ public class ProblemsActivity extends AppCompatActivity {
     private String loadJSONFromAsset() {
         String json = null;
         try {
-            InputStream is = getAssets().open("diseases.json");
+            InputStream is = getAssets().open("disease.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

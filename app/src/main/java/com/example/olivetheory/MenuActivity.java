@@ -45,6 +45,7 @@ public class MenuActivity extends AppCompatActivity {
         ImageButton logoutButton = findViewById(R.id.logout);
         Button messageButton = findViewById(R.id.message);
         Button suggestVariety = findViewById(R.id.suggest);
+        TextView problemsButton = findViewById(R.id.problemsText);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView maps = findViewById(R.id.mapsselection);
         Button forumButton = findViewById(R.id.forum);
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -93,12 +94,12 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-//        problemsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startNewActivity(ProblemsActivity.class);
-//            }
-//        });
+        problemsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(ProblemsActivity.class);
+            }
+        });
 
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
