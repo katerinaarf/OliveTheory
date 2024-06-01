@@ -9,12 +9,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -28,6 +35,7 @@ import java.util.Random;
 public class MenuActivity extends AppCompatActivity {
     private ArrayList<String> oliveVarieties;
     private ArrayAdapter<String> suggestAdapter;
+    private String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,33 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         oliveVarieties = loadOliveVarieties();
+
+        // Initialize Firebase Auth
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+        if (firebaseUser != null) {
+            String userId = firebaseUser.getUid();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("users").document(userId).get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    userType = document.getString("userType");
+                                } else {
+                                    userType = "Unknown";
+                                }
+                            } else {
+                                userType = "Unknown";
+                            }
+                        }
+                    });
+        } else {
+            userType = "Unknown";
+        }
 
         initializeUI();
         setButtonListeners();
@@ -63,7 +98,15 @@ public class MenuActivity extends AppCompatActivity {
         findViewById(R.id.problemsText).setOnClickListener(v -> startNewActivity(ProblemsActivity.class));
         findViewById(R.id.message).setOnClickListener(v -> startNewActivity(ChatListActivity.class));
         findViewById(R.id.forum).setOnClickListener(v -> startNewActivity(ForumListActivity.class));
-        findViewById(R.id.suggest).setOnClickListener(v -> suggestVariety());
+        findViewById(R.id.suggest).setOnClickListener(v -> {
+            if ("Γεωπόνος".equals(userType)) {
+                Toast.makeText(MenuActivity.this, "Οι γεωπόνοι δεν έχουν πρόσβαση στην πρόταση ποικιλίας.", Toast.LENGTH_SHORT).show();
+            } else if ("Αγρότης".equals(userType)) {
+                suggestVariety();
+            } else {
+                Toast.makeText(MenuActivity.this, "Άγνωστος τύπος χρήστη.", Toast.LENGTH_SHORT).show();
+            }
+        });
         findViewById(R.id.mapsselection).setOnClickListener(v -> startNewActivity(MapsActivity.class));
 
         findViewById(R.id.logout).setOnClickListener(v -> {
