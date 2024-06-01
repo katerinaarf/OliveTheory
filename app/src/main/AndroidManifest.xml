@@ -40,9 +40,7 @@
         <activity
             android:name=".WeatherActivity"
             tools:ignore="Instantiatable" />
-        <activity
-            android:name=".ProblemsActivity"
-            tools:ignore="Instantiatable" />
+        <activity android:name=".ProblemsActivity"/>
         <activity android:name=".MessageActivity" />
         <activity android:name=".ChatListActivity" />
         <activity android:name=".ForumActivity" />
