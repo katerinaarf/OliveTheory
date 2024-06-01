@@ -28,6 +28,8 @@
     <string name="auth_failed">Αποτυχία ταυτοποίησης. Ελέγξτε τον κωδικό ή το email σας. Αλλιώς κάντε εγγραφή!</string>
 
     <string name="google_maps_key" translatable="false">AIzaSyAdE_38Qvtj9lKTAV_9iERwakL5X3cVyyc</string>
+    <string name="geocoding_api_key" translatable="false">AIzaSyBa6L-Fnc7BGwybb8SI_gQ4v-5_bXZpZBA</string>
+    <string name="openWeather_map_key" translatable="false">90ff947bb8a861cf1b5094e4d5fc12c5</string>
 
     <string name="search_location">Search Location</string>
     <string name="title_activity_menu">Menu</string>

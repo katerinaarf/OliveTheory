@@ -1,135 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/second"
-    tools:context=".WeatherActivity">
-
-
-    <!-- Top row with settings and user buttons -->
-    <Button
-        android:id="@+id/weather2"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:background="@drawable/weather"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp" />
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/second">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="Καιρός  "
-        android:textStyle="bold"
+        android:text="Καιρός"
         android:textColor="@color/first"
         android:textSize="30dp"
-        app:layout_constraintStart_toEndOf="@+id/weather2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/user"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:background="@drawable/userprof"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp" />
-
-    <TextView
-        android:id="@+id/tvCurrentWeather"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Current Weather: "
-        android:textSize="18sp" />
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/weather_title"
+        android:layout_marginTop="64dp"/>
 
     <EditText
-        android:id="@+id/etCity"
+        android:id="@+id/searchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter city name" />
+        android:hint="Enter Location"
+        android:layout_below="@id/weather_title"
+        android:layout_margin="16dp" />
 
     <Button
-        android:id="@+id/btnSearch"
+        android:id="@+id/searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/searchEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="136dp"
         android:text="Search" />
 
     <TextView
-        android:id="@+id/tvSearchResult"
+        android:id="@+id/locationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchButton"
+        android:layout_marginTop="16dp"
+        android:text="Location"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/temperatureTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationTextView"
+        android:layout_marginTop="8dp"
+        android:text="Temperature"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/humidityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/temperatureTextView"
+        android:layout_marginTop="8dp"
+        android:text="Humidity"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/savedloc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/humidityTextView"
+        android:layout_marginTop="24dp"
+        android:text="Saved Locations"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"/>
+
+    <ListView
+        android:id="@+id/savedLocationsListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search Result: "
-        android:textSize="18sp" />
+        android:layout_below="@id/savedloc"
+        android:layout_marginTop="8dp"
+        android:divider="@null"/>
 
-    <LinearLayout
-        android:id="@+id/bottom_icons"
-        android:layout_width="389dp"
-        android:layout_height="134dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <Button
-            android:id="@+id/calendar"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/calendar" />
-
-        <View
-            android:layout_width="16dp"
-            android:layout_height="134dp" />
-
-
-        <Button
-            android:id="@+id/weather"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/weather" />
-
-
-        <View
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
-
-
-        <ImageButton
-            android:id="@+id/problems"
-            android:layout_width="65dp"
-            android:layout_height="73dp"
-            android:background="@drawable/olivetheory" />
-
-
-        <View
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/message"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/message" />
-
-
-        <View
-            android:layout_width="20dp"
-            android:layout_height="103dp" />
-
-        <Button
-            android:id="@+id/forum"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/forum" />
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

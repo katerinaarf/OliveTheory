@@ -51,12 +51,10 @@ public class SavedLocationsActivity extends AppCompatActivity {
                             updateListView(currentUser.getSavedLocations());
                         } else {
                             Log.d(TAG, "User has no saved locations");
-                            // Inform the user that there are no saved locations
                             Toast.makeText(SavedLocationsActivity.this, "No saved locations found", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Log.d(TAG, "User document does not exist");
-                        // Inform the user that their document doesn't exist
                         Toast.makeText(SavedLocationsActivity.this, "User document does not exist", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -70,7 +68,6 @@ public class SavedLocationsActivity extends AppCompatActivity {
             });
         } else {
             Log.e(TAG, "Current user is null");
-            // Inform the user that there's no authenticated user
             Toast.makeText(SavedLocationsActivity.this, "No authenticated user", Toast.LENGTH_SHORT).show();
         }
     }

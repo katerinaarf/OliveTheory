@@ -73,7 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         fabSavedLocations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Open an activity or fragment to display saved locations
+                // Open an activity_weather_loc.xml or fragment to display saved locations
                 Intent intent = new Intent(MapsActivity.this, SavedLocationsActivity.class);
                 startActivity(intent);
             }

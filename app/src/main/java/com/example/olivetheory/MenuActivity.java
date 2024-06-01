@@ -127,7 +127,7 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
-    // Method to start a new activity
+    // Method to start a new activity_weather_loc.xml
     private void startNewActivity(Class<?> cls) {
         Intent intent = new Intent(MenuActivity.this, cls);
         startActivity(intent);
