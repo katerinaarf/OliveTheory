@@ -34,10 +34,14 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        loadOliveVarieties();
-        TextView weather = findViewById(R.id.weatherText);
+        oliveVarieties = loadOliveVarieties();
 
-        // Initialize buttons
+        initializeUI();
+        setButtonListeners();
+    }
+
+    private void initializeUI() {
+        TextView weather = findViewById(R.id.weatherText);
         Button settingButton = findViewById(R.id.settings);
         Button user = findViewById(R.id.user);
         Button calendarButton = findViewById(R.id.calendar);
@@ -48,92 +52,32 @@ public class MenuActivity extends AppCompatActivity {
         TextView problemsButton = findViewById(R.id.problemsText);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView maps = findViewById(R.id.mapsselection);
         Button forumButton = findViewById(R.id.forum);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), LogOutActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+    }
 
+    private void setButtonListeners() {
+        findViewById(R.id.weatherText).setOnClickListener(v -> startNewActivity(WeatherActivity.class));
+        findViewById(R.id.settings).setOnClickListener(v -> startNewActivity(SettingsActivity.class));
+        findViewById(R.id.user).setOnClickListener(v -> startNewActivity(UserProfile.class));
+        findViewById(R.id.calendar).setOnClickListener(v -> startNewActivity(CalendarActivity.class));
+        findViewById(R.id.weather).setOnClickListener(v -> startNewActivity(WeatherActivity.class));
+        findViewById(R.id.problemsText).setOnClickListener(v -> startNewActivity(ProblemsActivity.class));
+        findViewById(R.id.message).setOnClickListener(v -> startNewActivity(ChatListActivity.class));
+        findViewById(R.id.forum).setOnClickListener(v -> startNewActivity(ForumListActivity.class));
+        findViewById(R.id.suggest).setOnClickListener(v -> suggestVariety());
+        findViewById(R.id.mapsselection).setOnClickListener(v -> startNewActivity(MapsActivity.class));
 
-        weather.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(WeatherActivity.class);
-            }
-        });
-
-        // Set click listeners for each button
-        settingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(SettingsActivity.class);
-            }
-        });
-
-        user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(UserProfile.class);
-            }
-        });
-
-        calendarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(CalendarActivity.class);
-            }
-        });
-
-        weatherButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(WeatherActivity.class);
-            }
-        });
-
-        problemsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(ProblemsActivity.class);
-            }
-        });
-
-        messageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(ChatListActivity.class);
-            }
-        });
-
-        forumButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(ForumListActivity.class);
-            }
-        });
-
-        suggestVariety.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                suggestVariety();
-            }
-        });
-        maps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(MapsActivity.class);
-            }
+        findViewById(R.id.logout).setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), LogOutActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 
-    // Method to start a new activity_weather_loc.xml
     private void startNewActivity(Class<?> cls) {
         Intent intent = new Intent(MenuActivity.this, cls);
         startActivity(intent);
     }
+
     private ArrayList<String> loadOliveVarieties() {
         ArrayList<String> oliveVarieties = new ArrayList<>();
         try {
@@ -156,38 +100,27 @@ public class MenuActivity extends AppCompatActivity {
         return oliveVarieties;
     }
 
-
     private void suggestVariety() {
         oliveVarieties = loadOliveVarieties();
-        suggestAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, oliveVarieties);
+
+        if (oliveVarieties == null || oliveVarieties.isEmpty()) {
+            Toast.makeText(this, "Η λίστα ποικιλιών είναι άδεια ή δεν φορτώθηκε σωστά.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Random random = new Random();
+        String randomVariety = oliveVarieties.get(random.nextInt(oliveVarieties.size()));
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.activity_variety, null);
         dialogBuilder.setView(dialogView);
 
-        ListView varietyListView = dialogView.findViewById(R.id.variety);
+        TextView varietyTextView = dialogView.findViewById(R.id.variety); // TextView to display the random variety
         Button closeButton = dialogView.findViewById(R.id.close);
-        Button suggestButton = dialogView.findViewById(R.id.choice);
-        varietyListView.setAdapter(suggestAdapter);
+        varietyTextView.setText("Προτεινόμενη ποικιλία ελιάς: " + randomVariety);
 
         AlertDialog alertDialog = dialogBuilder.create();
-
-        suggestButton.setOnClickListener(v -> {
-            if (!oliveVarieties.isEmpty()) {
-                Random random = new Random();
-                String randomVariety = oliveVarieties.get(random.nextInt(oliveVarieties.size()));
-
-                // Εμφανίζουμε την τυχαία επιλεγμένη ποικιλία
-                Toast.makeText(this, "Προτεινόμενη ποικιλία ελιάς: " + randomVariety, Toast.LENGTH_SHORT).show();
-
-                // Εδώ μπορείτε να προσθέσετε λογική για να αποθηκεύσετε την επιλεγμένη ποικιλία στη βάση δεδομένων
-                // Παράδειγμα:
-                // saveVarietyToDatabase(randomVariety);
-            } else {
-                Toast.makeText(this, "Η λίστα ποικιλιών είναι άδεια.", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         closeButton.setOnClickListener(v -> alertDialog.dismiss());
 

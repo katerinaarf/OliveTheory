@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,8 +40,12 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_sign_up);
-        mAuth = FirebaseAuth.getInstance();
+        Log.d(TAG, "onCreate: Started");
 
+        // Initialize Firebase
+        FirebaseApp.initializeApp(this);
+
+        mAuth = FirebaseAuth.getInstance();
         nameEditText = findViewById(R.id.nameEditText);
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
@@ -48,12 +53,16 @@ public class SignUpActivity extends AppCompatActivity {
         userTypeGroup = findViewById(R.id.userTypeRadioGroup);
         farmerRadioButton = findViewById(R.id.farmerRadioButton);
         expertRadioButton = findViewById(R.id.expertRadioButton);
-        progressBar = findViewById(R.id.progresBar); // Ensure the ID is correct
+        progressBar = findViewById(R.id.progresBar);
         textview = findViewById(R.id.loginNow);
+
+        // Add log for each findViewById
+        Log.d(TAG, "onCreate: Views initialized");
 
         textview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "onClick: LoginNow clicked");
                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -63,11 +72,18 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "onClick: SignUpButton clicked");
                 progressBar.setVisibility(View.VISIBLE);
-                String name = nameEditText.getText().toString();
-                String email = emailEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+                String name = String.valueOf(nameEditText.getText());
+                String email = String.valueOf(emailEditText.getText());
+                String password = String.valueOf(passwordEditText.getText());
                 int type = userTypeGroup.getCheckedRadioButtonId();
+
+                // More log statements for debugging
+                Log.d(TAG, "onClick: Name: " + name);
+                Log.d(TAG, "onClick: Email: " + email);
+                Log.d(TAG, "onClick: Password: " + password);
+                Log.d(TAG, "onClick: User Type: " + type);
 
                 if (TextUtils.isEmpty(name)) {
                     Toast.makeText(SignUpActivity.this, "Εισάγετε το όνομά σας!", Toast.LENGTH_SHORT).show();
@@ -140,21 +156,18 @@ public class SignUpActivity extends AppCompatActivity {
                                                                                     startActivity(intent);
                                                                                     finish();
                                                                                 } else {
-                                                                                    Log.e(TAG, "User registration failed: " + task.getException().getMessage());
                                                                                     Toast.makeText(SignUpActivity.this, "Ανεπιτυχής εγγραφή χρήστη.", Toast.LENGTH_SHORT).show();
                                                                                 }
                                                                             }
                                                                         });
                                                             }
                                                         } else {
-                                                            Log.e(TAG, "Authentication failed: " + task.getException().getMessage());
                                                             Toast.makeText(SignUpActivity.this, "Ανεπιτυχής εγγραφή χρήστη.", Toast.LENGTH_SHORT).show();
                                                         }
                                                     }
                                                 });
                                     }
                                 } else {
-                                    Log.e(TAG, "Name check failed: " + task.getException().getMessage());
                                     progressBar.setVisibility(View.GONE);
                                     Toast.makeText(SignUpActivity.this, "Σφάλμα κατά τον έλεγχο του ονόματος.", Toast.LENGTH_SHORT).show();
                                 }
