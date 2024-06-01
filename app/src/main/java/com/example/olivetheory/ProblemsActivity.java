@@ -87,11 +87,16 @@ public class ProblemsActivity extends AppCompatActivity {
                 for (Disease disease : diseases) {
                     for (String keyword : disease.getKeywords()) {
                         if (userInput.contains(keyword.toLowerCase())) {
-                            resultView.setText(disease.getName() );
+                            resultView.setText(disease.getName());
                             treatment.setText("Αντιμετώπιση: " + disease.getTreatment());
 
                             int resourceId = getResources().getIdentifier(disease.getImage(), "drawable", getPackageName());
-                            Glide.with(ProblemsActivity.this).load(resourceId).into(diseaseImage);
+
+                            if (resourceId != 0) {
+                                Glide.with(ProblemsActivity.this).load(resourceId).into(diseaseImage);
+                            } else {
+                                diseaseImage.setImageResource(0); // Καθαρισμός της εικόνας αν δεν βρεθεί
+                            }
 
                             found = true;
                             break;
@@ -108,6 +113,7 @@ public class ProblemsActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     private String loadJSONFromAsset() {
