@@ -18,7 +18,7 @@
     </style>
 
     <style name="CalenderViewCustom" parent="Theme.AppCompat">
-        <item name="colorAccent">@color/first</item>
+        <item name="colorAccent">@color/button</item>
         <item name="android:textColorPrimary">@color/first</item>
     </style>
 
