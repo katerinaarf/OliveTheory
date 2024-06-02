@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,8 +65,8 @@ public class ProblemsActivity extends AppCompatActivity {
         resultView = findViewById(R.id.result_view);
         diseaseImage = findViewById(R.id.disease_image);
         treatment = findViewById(R.id.treatment);
-        Button postButton = findViewById(R.id.post_button);
-        Button back = findViewById(R.id.back);
+        ImageButton postButton = findViewById(R.id.post_button);
+        ImageButton back = findViewById(R.id.back);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

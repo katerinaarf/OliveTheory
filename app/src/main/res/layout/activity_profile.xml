@@ -7,9 +7,10 @@
     android:background="@color/second"
     tools:context=".UserProfile">
 
-    <Button
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="28dp"

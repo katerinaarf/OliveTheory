@@ -24,13 +24,13 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         // Buttons
-        Button user = findViewById(R.id.user);
-        Button settingButton = findViewById(R.id.settings);
-        Button calendarButton = findViewById(R.id.calendar);
-        Button weatherButton = findViewById(R.id.weather);
+        ImageButton user = findViewById(R.id.user);
+        ImageButton settingButton = findViewById(R.id.settings);
+        ImageButton calendarButton = findViewById(R.id.calendar);
+        ImageButton weatherButton = findViewById(R.id.weather);
         ImageButton problemsButton = findViewById(R.id.problems);
-        Button messageButton = findViewById(R.id.message);
-        Button forumButton = findViewById(R.id.forum);
+        ImageButton messageButton = findViewById(R.id.message);
+        ImageButton forumButton = findViewById(R.id.forum);
 
         TextView usertext = findViewById(R.id.usertext);
         TextView location = findViewById(R.id.location);

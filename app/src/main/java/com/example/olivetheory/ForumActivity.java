@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -41,8 +42,8 @@ public class ForumActivity extends AppCompatActivity {
 
         mForumListView = findViewById(R.id.forum_list_view);
         mForumEditText = findViewById(R.id.answer_view);
-        Button mPostButton = findViewById(R.id.post_button);
-        Button back = findViewById(R.id.back);
+        ImageButton mPostButton = findViewById(R.id.post_button);
+        ImageButton back = findViewById(R.id.back);
 
         mForumListAdapter = new ForumAdapter(this, mForumList);
         mForumListView.setAdapter(mForumListAdapter);

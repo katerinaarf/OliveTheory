@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class UserProfile extends AppCompatActivity {
         user = auth.getCurrentUser();
 
         ImageView displayimage = findViewById(R.id.displayimage);
+        ImageButton back = findViewById(R.id.back);
         Button buttonChangeImage = findViewById(R.id.buttonChangeImage);
         Button buttonChangeName = findViewById(R.id.buttonChangeName);
         Button buttonChangeEmail = findViewById(R.id.buttonChangeEmail);
@@ -60,6 +62,13 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 changeUserEmail();
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(MenuActivity.class);
             }
         });
 

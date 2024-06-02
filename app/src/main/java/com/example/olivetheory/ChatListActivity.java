@@ -48,17 +48,17 @@ public class ChatListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_list);
 
         mChatListView = findViewById(R.id.chat_list_view);
-        Button addChatButton = findViewById(R.id.add_chat_button);
+        ImageButton addChatButton = findViewById(R.id.add_chat_button);
         mChatListItems = new ArrayList<>();
         mChatListAdapter = new ChatListAdapter(this, mChatListItems);
         mChatListView.setAdapter(mChatListAdapter);
         mFirestore = FirebaseFirestore.getInstance();
 
-        Button user = findViewById(R.id.user);
-        Button calendarButton = findViewById(R.id.calendar);
-        Button weatherButton = findViewById(R.id.weather);
-        ImageButton logoutButton = findViewById(R.id.logout);
-        Button forumButton = findViewById(R.id.forum);
+        ImageButton user = findViewById(R.id.user);
+        ImageButton calendarButton = findViewById(R.id.calendar);
+        ImageButton weatherButton = findViewById(R.id.weather);
+        ImageButton logoutButton = findViewById(R.id.problems);
+        ImageButton forumButton = findViewById(R.id.forum);
 
         mAuth = FirebaseAuth.getInstance();
         mCurrentUserId = mAuth.getCurrentUser().getUid();

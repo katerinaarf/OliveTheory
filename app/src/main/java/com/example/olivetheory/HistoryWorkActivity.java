@@ -63,13 +63,13 @@ public class HistoryWorkActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_historywork);
 
-        Button backButton = findViewById(R.id.back_button);
-        Button user = findViewById(R.id.user);
-        Button calendarButton = findViewById(R.id.calendar);
-        Button weatherButton = findViewById(R.id.weather);
+        ImageButton backButton = findViewById(R.id.back_button);
+        ImageButton user = findViewById(R.id.user);
+        ImageButton calendarButton = findViewById(R.id.calendar);
+        ImageButton weatherButton = findViewById(R.id.weather);
         ImageButton problemsButton = findViewById(R.id.problems);
-        Button messageButton = findViewById(R.id.message);
-        Button forumButton = findViewById(R.id.forum);
+        ImageButton messageButton = findViewById(R.id.message);
+        ImageButton forumButton = findViewById(R.id.forum);
 
         workHistoryRef = FirebaseDatabase.getInstance().getReference().child("work_history");
 

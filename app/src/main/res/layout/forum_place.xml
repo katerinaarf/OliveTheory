@@ -9,10 +9,10 @@
     tools:context=".ForumListActivity">
 
 
-    <Button
+    <ImageButton
         android:id="@+id/add"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/add"
@@ -31,10 +31,10 @@
         app:layout_constraintStart_toEndOf="@+id/add"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/user"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
         android:background="@drawable/userprof"
@@ -56,23 +56,20 @@
 
     <LinearLayout
         android:id="@+id/bottom_icons"
-        android:layout_width="412dp"
-        android:layout_height="133dp"
+        android:layout_width="389dp"
+        android:layout_height="134dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forum_list_view"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintStart_toStartOf="parent">
 
 
-        <Button
+        <ImageButton
             android:id="@+id/calendar"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:background="@drawable/calendar" />
 
         <View
@@ -80,33 +77,33 @@
             android:layout_height="134dp" />
 
 
-        <Button
+        <ImageButton
             android:id="@+id/weather"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:background="@drawable/weather" />
 
 
         <View
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="15dp"
+            android:layout_height="98dp" />
 
 
         <ImageButton
-            android:id="@+id/logout"
+            android:id="@+id/problems"
             android:layout_width="65dp"
-            android:layout_height="73dp"
-            android:background="@drawable/olivetheory" />
+            android:layout_height="65dp"
+            android:background="@drawable/question" />
 
 
         <View
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="17dp"
+            android:layout_height="98dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/message"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:background="@drawable/message" />
 
 
@@ -114,10 +111,10 @@
             android:layout_width="20dp"
             android:layout_height="103dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/forum"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:background="@drawable/forum" />
 
     </LinearLayout>

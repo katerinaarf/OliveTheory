@@ -71,17 +71,18 @@ public class ForumListActivity extends AppCompatActivity {
     }
 
     private void setupListeners() {
-        Button user = findViewById(R.id.user);
-        Button calendarButton = findViewById(R.id.calendar);
-        Button weatherButton = findViewById(R.id.weather);
-        Button messageButton = findViewById(R.id.message);
-        ImageButton logoutButton = findViewById(R.id.logout);
-        Button add = findViewById(R.id.add);
+        ImageButton user = findViewById(R.id.user);
+        ImageButton calendarButton = findViewById(R.id.calendar);
+        ImageButton weatherButton = findViewById(R.id.weather);
+        ImageButton messageButton = findViewById(R.id.message);
+        ImageButton problems = findViewById(R.id.problems);
+        ImageButton add = findViewById(R.id.add);
 
         user.setOnClickListener(v -> startNewActivity(UserProfile.class));
         calendarButton.setOnClickListener(v -> startNewActivity(CalendarActivity.class));
         weatherButton.setOnClickListener(v -> startNewActivity(WeatherActivity.class));
         messageButton.setOnClickListener(v -> startNewActivity(ChatListActivity.class));
+        problems.setOnClickListener(v -> startNewActivity(ProblemsActivity.class));
         add.setOnClickListener(v -> showAddDialog());
     }
 

@@ -77,16 +77,16 @@ public class MenuActivity extends AppCompatActivity {
 
     private void initializeUI() {
         TextView weather = findViewById(R.id.weatherText);
-        Button settingButton = findViewById(R.id.settings);
-        Button user = findViewById(R.id.user);
-        Button calendarButton = findViewById(R.id.calendar);
-        Button weatherButton = findViewById(R.id.weather);
+        ImageButton settingButton = findViewById(R.id.settings);
+        ImageButton user = findViewById(R.id.user);
+        ImageButton calendarButton = findViewById(R.id.calendar);
+        ImageButton weatherButton = findViewById(R.id.weather);
         ImageButton logoutButton = findViewById(R.id.logout);
-        Button messageButton = findViewById(R.id.message);
+        ImageButton messageButton = findViewById(R.id.message);
         Button suggestVariety = findViewById(R.id.suggest);
         TextView problemsButton = findViewById(R.id.problemsText);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView maps = findViewById(R.id.mapsselection);
-        Button forumButton = findViewById(R.id.forum);
+        ImageButton forumButton = findViewById(R.id.forum);
     }
 
     private void setButtonListeners() {

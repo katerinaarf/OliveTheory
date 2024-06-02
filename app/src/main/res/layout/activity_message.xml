@@ -18,14 +18,14 @@
         android:padding="8dp"/>
 
 
-
     <ListView
         android:id="@+id/chat_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="400dp"
+        android:layout_height="615dp"
         android:layout_above="@id/linearLayout"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
+        android:layout_below="@+id/sender_name_text_view"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="19dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp"
         android:padding="10dp"

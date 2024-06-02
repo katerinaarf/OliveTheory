@@ -7,10 +7,10 @@
     android:background="@color/second"
     tools:context=".ProblemsActivity">
 
-    <Button
+    <ImageButton
         android:id="@+id/back"
-        android:layout_width="37dp"
-        android:layout_height="41dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:background="@drawable/back"
         tools:layout_editor_absoluteX="4dp"
         tools:layout_editor_absoluteY="30dp" />
@@ -45,10 +45,10 @@
         app:layout_constraintTop_toBottomOf="@+id/treatment"
         app:layout_constraintVertical_bias="0.851" />
 
-    <Button
+    <ImageButton
         android:id="@+id/post_button"
-        android:layout_width="33dp"
-        android:layout_height="39dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_alignParentEnd="true"
         android:layout_margin="5dp"
         android:layout_marginEnd="16dp"
