@@ -19,9 +19,12 @@
 
     <TextView
         android:id="@+id/variety"
+        android:layout_gravity="center"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:background="@drawable/custom_edittext"
         android:ems="10"
         android:hint="Ποικιλία"
@@ -29,27 +32,29 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp" />
 
-    <Button
+    <TextView
         android:id="@+id/choice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="342dp"
+        android:layout_height="46dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/custom_button"
         android:text="Επιλογή"
-        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_gravity="center"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="20dp"
         android:textStyle="bold" />
 
-    <Button
+    <TextView
         android:id="@+id/close"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="342dp"
+        android:layout_height="46dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/custom_button"
+        android:gravity="center"
+        android:layout_gravity="center"
         android:text="Κλείσιμο"
-        android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="20dp"
         android:textStyle="bold" />
 </LinearLayout>

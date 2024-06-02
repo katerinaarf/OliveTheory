@@ -24,7 +24,7 @@
         android:layout_marginTop="16dp"
         android:text="Ημερολόγιο  "
         android:textSize="30dp"
-        android:textColor="@color/first"
+        android:textColor="@color/ic_launcher_background"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/calendar_second"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,12 +41,15 @@
         android:layout_marginTop="16dp" />
 
 
-    <Button
+    <TextView
         android:id="@+id/suggest"
         android:layout_width="237dp"
         android:layout_height="41dp"
         android:layout_marginTop="40dp"
-        android:text="Προτείνεται Σήμερα   >"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:text="Προτείνεται Σήμερα"
         android:background="@drawable/custom_button"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,14 +138,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/suggest" />
 
-    <Button
+    <TextView
         android:id="@+id/history_work"
         android:layout_width="237dp"
         android:layout_height="41dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="152dp"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@color/white"
         android:background="@drawable/custom_button"
-        android:text="Ιστορικό Εργασιών   >"
+        android:text="Ιστορικό Εργασιών"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />

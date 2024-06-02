@@ -26,16 +26,18 @@
         android:background="@drawable/custom_edittext"
         android:layout_marginTop="10dp" />
 
-    <Button
+    <TextView
         android:id="@+id/close"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:background="@drawable/custom_button"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:layout_width="142dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:background="@drawable/custom_button"
+        android:gravity="center"
         android:text="Κλείσιμο"
-        android:textColor="@color/white" />
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
 </LinearLayout>

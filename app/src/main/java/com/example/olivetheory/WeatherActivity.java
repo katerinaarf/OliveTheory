@@ -35,8 +35,7 @@ import java.util.concurrent.Future;
 public class WeatherActivity extends AppCompatActivity {
 
     private EditText searchEditText;
-    private Button searchButton;
-    private TextView locationTextView, temperatureTextView, humidityTextView, savedLocationsTextView;
+    private TextView locationTextView, temperatureTextView, humidityTextView, savedLocationsTextView, searchButton;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     String openWeatherMapApiKey, geocodingApiKey;

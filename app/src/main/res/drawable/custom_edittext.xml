@@ -4,7 +4,7 @@
     <item android:right="2dp" android:left="2dp" android:top="2dp" android:bottom="2dp">
         <shape android:shape="rectangle">
             <solid android:color="#60000000" /> <!-- Shadow color -->
-            <corners android:radius="25dp" /> <!-- Rounded corners for shadow -->
+            <corners android:radius="5dp" /> <!-- Rounded corners for shadow -->
         </shape>
     </item>
 
@@ -12,7 +12,7 @@
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@color/second_white" /> <!-- EditText background color -->
-            <corners android:radius="25dp" /> <!-- Rounded corners for EditText -->
+            <corners android:radius="5dp" /> <!-- Rounded corners for EditText -->
         </shape>
     </item>
 </layer-list>

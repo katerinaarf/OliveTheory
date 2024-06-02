@@ -14,14 +14,17 @@
         android:scrollbars="vertical"
         android:transcriptMode="alwaysScroll" />
 
-    <Button
+    <TextView
         android:id="@+id/addCommentButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="263dp"
+        android:layout_height="41dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@color/white"
         android:background="@drawable/custom_button"
-        android:text="Add Comment"
+        android:text="Προσθήκη Σχολιου"
         android:textStyle="bold" />
 
 </LinearLayout>

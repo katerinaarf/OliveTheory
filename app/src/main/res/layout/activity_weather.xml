@@ -2,8 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/second">
 
     <TextView
@@ -21,20 +19,24 @@
         android:id="@+id/searchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Location"
+        android:hint="Εισάγετε Τοποθεσία"
         android:layout_below="@id/weather_title"
         android:layout_margin="16dp" />
 
-    <Button
+    <TextView
         android:id="@+id/searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="189dp"
+        android:layout_height="45dp"
         android:layout_below="@id/searchEditText"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="136dp"
-        android:text="Search" />
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="111dp"
+        android:background="@drawable/custom_button"
+        android:gravity="center"
+        android:text="Αναζήτηση"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/locationTextView"
@@ -42,8 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/searchButton"
         android:layout_marginTop="16dp"
-        android:text="Location"
-        android:textSize="18sp"
+        android:text="Τοποθεσία"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:layout_marginStart="16dp"/>
 
@@ -53,8 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/locationTextView"
         android:layout_marginTop="8dp"
-        android:text="Temperature"
-        android:textSize="18sp"
+        android:text="Θερμοκρασία"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:layout_marginStart="16dp"/>
 
@@ -64,8 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/temperatureTextView"
         android:layout_marginTop="8dp"
-        android:text="Humidity"
-        android:textSize="18sp"
+        android:text="Υγρασία"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:layout_marginStart="16dp"/>
 
@@ -75,8 +77,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/humidityTextView"
         android:layout_marginTop="24dp"
-        android:text="Saved Locations"
-        android:textSize="18sp"
+        android:text="Αποθηκευμένες Τοποθεσίες"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:layout_marginStart="16dp"/>
 

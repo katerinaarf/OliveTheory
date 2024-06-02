@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -116,7 +117,7 @@ public class ChatListActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         EditText userIdEditText = dialogView.findViewById(R.id.user_id_edit_text);
-        Button searchButton = dialogView.findViewById(R.id.search_button);
+        TextView searchButton = dialogView.findViewById(R.id.search_button);
 
         AlertDialog alertDialog = dialogBuilder.create();
 

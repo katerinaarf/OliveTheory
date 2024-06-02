@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -115,7 +116,7 @@ public class ForumListActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         EditText postText = dialogView.findViewById(R.id.add_post_txt);
-        Button add = dialogView.findViewById(R.id.add);
+        TextView add = dialogView.findViewById(R.id.add);
 
         AlertDialog alertDialog = dialogBuilder.create();
 

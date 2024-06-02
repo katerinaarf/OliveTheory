@@ -18,8 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class LogOutActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
-    Button button;
-    TextView textview;
+    //Button button;
+    TextView textview, logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class LogOutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log_out);
 
         auth = FirebaseAuth.getInstance();
-        button = findViewById(R.id.logout);
+        logout = findViewById(R.id.logout);
         textview = findViewById(R.id.user_details);
         user = auth.getCurrentUser();
         if (user == null) {
@@ -37,7 +37,7 @@ public class LogOutActivity extends AppCompatActivity {
         } else {
             textview.setText(user.getEmail());
         }
-        button.setOnClickListener(new View.OnClickListener() {
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 FirebaseAuth.getInstance().signOut();

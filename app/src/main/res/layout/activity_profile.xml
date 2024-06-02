@@ -41,68 +41,92 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/displayimage" />
 
-    <Button
+    <TextView
         android:id="@+id/buttonChangeImage"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
+        android:gravity="center"
         android:background="@drawable/custom_button"
         android:text="Αλλαγή Εικόνας Προφιλ"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textColor="@color/white"
         app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDisplayname" />
 
-    <Button
+    <TextView
         android:id="@+id/buttonChangeName"
         android:layout_width="258dp"
         android:layout_height="48dp"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:background="@drawable/custom_button"
-        android:text="Αλλαγη Ονοματος Χρηστη"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Αλλαγή Ονόματος Χρήστη"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonChangeImage" />
 
-    <Button
+    <TextView
         android:id="@+id/buttonChangeEmail"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:text="Αλλαγη Email"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="Αλλαγή Email"
         android:background="@drawable/custom_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonChangeName" />
 
-    <Button
+    <TextView
         android:id="@+id/buttonChangePassword"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:text="αλλαγη κωδικου χρηστη"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="Αλλαγή Κωδικού Χρήστη"
         android:background="@drawable/custom_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonChangeEmail" />
 
-    <Button
+    <TextView
         android:id="@+id/buttonLogout"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:text="αποσυνδεση"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="Αποσύνδεση"
         android:background="@drawable/custom_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonChangePassword" />
 
-    <Button
+    <TextView
         android:id="@+id/buttonDeleteAccount"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:text="διαγραφη λογαριασμου"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="Διαγραφή Λογαριασμού"
         android:background="@drawable/custom_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

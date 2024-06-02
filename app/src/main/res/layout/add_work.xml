@@ -31,29 +31,32 @@
         />
 
 
-
-    <Button
+    <TextView
         android:id="@+id/add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:background="@drawable/custom_button"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:layout_width="263dp"
+        android:layout_height="41dp"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:background="@drawable/custom_button"
+        android:gravity="center"
         android:text="Προθήκη"
-        android:textColor="@color/white" />
-
-
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:background="@drawable/custom_button"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="263dp"
+        android:layout_height="41dp"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:background="@drawable/custom_button"
+        android:gravity="center"
         android:text="Ακύρωση"
-        android:textColor="@color/white" />
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 </LinearLayout>

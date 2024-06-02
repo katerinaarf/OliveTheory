@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <TextView
         android:id="@+id/search_button"
         android:layout_width="137dp"
         android:layout_height="45dp"
@@ -29,6 +29,9 @@
         android:background="@drawable/custom_button"
         android:text="Αναζήτηση"
         android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_id_edit_text" />
