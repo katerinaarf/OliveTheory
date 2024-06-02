@@ -81,7 +81,7 @@ public class MenuActivity extends AppCompatActivity {
         ImageButton user = findViewById(R.id.user);
         ImageButton calendarButton = findViewById(R.id.calendar);
         ImageButton weatherButton = findViewById(R.id.weather);
-        ImageButton logoutButton = findViewById(R.id.logout);
+        ImageButton problems = findViewById(R.id.problems);
         ImageButton messageButton = findViewById(R.id.message);
         Button suggestVariety = findViewById(R.id.suggest);
         TextView problemsButton = findViewById(R.id.problemsText);
@@ -97,6 +97,7 @@ public class MenuActivity extends AppCompatActivity {
         findViewById(R.id.weather).setOnClickListener(v -> startNewActivity(WeatherActivity.class));
         findViewById(R.id.problemsText).setOnClickListener(v -> startNewActivity(ProblemsActivity.class));
         findViewById(R.id.message).setOnClickListener(v -> startNewActivity(ChatListActivity.class));
+        findViewById(R.id.problems).setOnClickListener(v -> startNewActivity(ProblemsActivity.class));
         findViewById(R.id.forum).setOnClickListener(v -> startNewActivity(ForumListActivity.class));
         findViewById(R.id.suggest).setOnClickListener(v -> {
             if ("Γεωπόνος".equals(userType)) {
@@ -109,11 +110,6 @@ public class MenuActivity extends AppCompatActivity {
         });
         findViewById(R.id.mapsselection).setOnClickListener(v -> startNewActivity(MapsActivity.class));
 
-        findViewById(R.id.logout).setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), LogOutActivity.class);
-            startActivity(intent);
-            finish();
-        });
     }
 
     private void startNewActivity(Class<?> cls) {
