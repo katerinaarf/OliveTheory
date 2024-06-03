@@ -140,7 +140,6 @@ public class ForumListActivity extends AppCompatActivity {
                     String userName = user.getName();
                     Log.d(TAG, "User name retrieved: " + userName);
 
-                    // Fallback to userId if name is not available
                     if (userName == null || userName.isEmpty()) {
                         userName = mCurrentUserId;
                     }
@@ -158,7 +157,7 @@ public class ForumListActivity extends AppCompatActivity {
                             .addOnSuccessListener(documentReference -> {
                                 Toast.makeText(ForumListActivity.this, "Post added successfully", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "New post added successfully with ID: " + documentReference.getId());
-                                loadForumList();  // Reload the forum list
+                                loadForumList();
                             })
                             .addOnFailureListener(e -> {
                                 Toast.makeText(ForumListActivity.this, "Failed to add post. Please try again.", Toast.LENGTH_SHORT).show();

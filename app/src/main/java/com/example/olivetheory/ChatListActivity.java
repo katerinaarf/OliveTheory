@@ -141,6 +141,7 @@ public class ChatListActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                             String userId = documentSnapshot.getId();
                             String userName = documentSnapshot.getString("name");
+                            String userType = documentSnapshot.getString("type");
                             showUserFoundDialog(userId, userName, alertDialog);
                             return;
                         }
@@ -158,7 +159,7 @@ public class ChatListActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Θέλετε να ξεκινήσετε συνομιλία με τον χρήστη:");
-        builder.setMessage(name + ";");
+        builder.setMessage(name);
         builder.setPositiveButton("Ναι", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -172,13 +173,13 @@ public class ChatListActivity extends AppCompatActivity {
         builder.show();
     }
 
-
     private void loadLastMessage(String chatUserId) {
         mFirestore.collection("users").document(chatUserId)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         String userName = documentSnapshot.getString("name");
+                        String userType = documentSnapshot.getString("userType");
                         if (userName != null) {
                             mDatabaseReference.child("messages").child(mCurrentUserId).child(chatUserId).limitToLast(1)
                                     .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -188,7 +189,7 @@ public class ChatListActivity extends AppCompatActivity {
                                                 for (DataSnapshot messageSnapshot : snapshot.getChildren()) {
                                                     String lastMessage = messageSnapshot.child("content").getValue(String.class);
                                                     Log.d("ChatListActivity", "Last message: " + lastMessage);
-                                                    mChatListItems.add(new ChatListItem(chatUserId, userName, lastMessage));
+                                                    mChatListItems.add(new ChatListItem(chatUserId, userName, lastMessage, userType));
                                                     mChatListAdapter.notifyDataSetChanged();
                                                 }
                                             }

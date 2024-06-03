@@ -8,24 +8,24 @@
         android:id="@+id/main_app_bar"
         layout="@layout/app_bar"/>
 
+
     <TextView
         android:id="@+id/sender_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         android:text="Sender's Name"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:padding="8dp"/>
-
-
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/chat_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="650dp"
         android:layout_above="@id/linearLayout"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="79dp"
+        android:layout_marginBottom="32dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp"
         android:padding="10dp"

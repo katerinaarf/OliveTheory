@@ -24,14 +24,17 @@ public class ChatListAdapter extends ArrayAdapter<ChatListItem> {
         ChatListItem chatListItem = getItem(position);
 
         TextView userNameTextView = convertView.findViewById(R.id.user_name);
+        TextView userTypeTextView = convertView.findViewById(R.id.user_type); // Assuming you have a TextView for user type
         TextView lastMessageTextView = convertView.findViewById(R.id.last_message);
 
         // Bind data to views
         if (chatListItem != null) {
             userNameTextView.setText(chatListItem.getName());
+            userTypeTextView.setText(chatListItem.getUsertype()); // Set user type here
             lastMessageTextView.setText(chatListItem.getLastMessage());
         }
 
         return convertView;
     }
+
 }
