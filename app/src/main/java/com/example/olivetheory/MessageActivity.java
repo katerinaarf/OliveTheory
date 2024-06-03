@@ -84,7 +84,7 @@ public class MessageActivity extends AppCompatActivity {
         mainAppBar.addView(appbarView);
 
         ImageView user = appbarView.findViewById(R.id.userpro);
-        Button backButton = appbarView.findViewById(R.id.back_button);
+        ImageView backButton = appbarView.findViewById(R.id.back_button);
 
         backButton.setOnClickListener(view -> finish());
         mSendButton.setOnClickListener(view -> sendMessage());
@@ -105,11 +105,6 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -120,6 +115,12 @@ public class MessageActivity extends AppCompatActivity {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
     }
 
     @Override

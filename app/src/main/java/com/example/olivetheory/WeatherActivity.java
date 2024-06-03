@@ -120,7 +120,7 @@ public class WeatherActivity extends AppCompatActivity {
                                 double latitude = locationObject.getDouble("lat");
                                 double longitude = locationObject.getDouble("lng");
 
-                                locationTextView.setText("Latitude: " + latitude + ", Longitude: " + longitude);
+                                locationTextView.setText("Γεωγραφικό πλάτος: " + latitude + ", Γεωγραφικό μήκος: " + longitude);
                                 getWeatherData(latitude, longitude);
                             } else {
                                 // Handle case where no results are returned
@@ -164,7 +164,7 @@ public class WeatherActivity extends AppCompatActivity {
             if (data != null) {
                 double latitude = data.getDoubleExtra("latitude", 0);
                 double longitude = data.getDoubleExtra("longitude", 0);
-                locationTextView.setText("Latitude: " + latitude + ", Longitude: " + longitude);
+                locationTextView.setText("Γεωγραφικό πλάτος: " + latitude + ", Γεωραφικό μήκος: " + longitude);
                 getWeatherData(latitude, longitude);
             }
         }
@@ -234,8 +234,8 @@ public class WeatherActivity extends AppCompatActivity {
                                     double temperatureCelsius = temperatureKelvin - 273.15; // Conversion to Celsius
                                     double humidity = mainObject.getDouble("humidity");
 
-                                    temperatureTextView.setText("Temperature: " + temperatureCelsius + "°C"); // Display in Celsius
-                                    humidityTextView.setText("Humidity: " + humidity + "%");
+                                    temperatureTextView.setText("Θερμοκρασία: " + temperatureCelsius + "°C"); // Display in Celsius
+                                    humidityTextView.setText("Υγρασία: " + humidity + "%");
                                 } catch (JSONException e) {
                                     Log.e("WeatherActivity", "Error parsing JSON", e);
                                     Toast.makeText(WeatherActivity.this, "Error parsing weather data", Toast.LENGTH_SHORT).show();

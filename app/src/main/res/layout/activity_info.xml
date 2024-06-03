@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/second"
+    tools:context=".InfoActivity">
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/back"
+        app:layout_constraintEnd_toStartOf="@+id/contact_us_title"
+        app:layout_constraintHorizontal_bias="0.64"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/contact_us_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="36dp"
+        android:text="Επικοινωνήστε μαζί μας"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/linkedinvas_button"
+        android:layout_width="69dp"
+        android:layout_height="69dp"
+        android:layout_below="@id/contact_us_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="116dp"
+        android:background="@drawable/linkedin"
+        app:layout_constraintEnd_toStartOf="@+id/linkedinkat_button"
+        app:layout_constraintHorizontal_bias="0.28"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contact_us_title" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="Βασιλική Λιάκου, \np3200094"
+        android:textSize="17dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linkedinvas_button" />
+
+    <ImageView
+        android:id="@+id/linkedinkat_button"
+        android:layout_width="69dp"
+        android:layout_height="69dp"
+        android:layout_below="@id/contact_us_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="84dp"
+        android:background="@drawable/linkedin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contact_us_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="Κατερίνα Αρφάνη, \np3200010"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.612"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/linkedinkat_button" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@
     android:background="@color/second"
     >
 
-    <ImageButton
+    <ImageView
         android:id="@+id/back_button"
         android:layout_width="45dp"
         android:layout_height="45dp"
