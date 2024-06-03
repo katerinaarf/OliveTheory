@@ -19,6 +19,7 @@ activity = "1.9.0"
 firebaseInappmessaging = "21.0.0"
 firebaseDatabase = "21.0.0"
 recyclerview = "1.3.2"
+firebaseStorageVersion = "21.0.0"
 
 [libraries]
 firebase-storage = { module = "com.google.firebase:firebase-storage", version.ref = "firebaseStorage" }
@@ -39,6 +40,7 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 firebase-inappmessaging = { group = "com.google.firebase", name = "firebase-inappmessaging", version.ref = "firebaseInappmessaging" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+google-firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorageVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

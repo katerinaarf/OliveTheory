@@ -31,17 +31,18 @@
         />
 
 
-
-    <Button
+    <TextView
         android:id="@+id/add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:background="@drawable/custom_button"
-        android:textStyle="bold"
-        android:textSize="18sp"
+        android:layout_width="227dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:background="@drawable/custom_button"
+        android:gravity="center"
         android:text="Προθήκη"
-        android:textColor="@color/white" />
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
 </LinearLayout>

@@ -27,24 +27,11 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
     EditText nameEditText, emailEditText, passwordEditText;
     //RadioButton farmerRadioButton, expertRadioButton;
-    Button btnLogin;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
-    TextView textview;
+    TextView textview, btnLogin;
 
-// opote anoigei h efarmogh tha zhtaei aposundesh
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser != null){
-//            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

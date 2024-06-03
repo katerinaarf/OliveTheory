@@ -82,16 +82,16 @@ public class CalendarActivity extends AppCompatActivity {
         workRef = FirebaseDatabase.getInstance().getReference().child("work_history");
         suggestRef = FirebaseDatabase.getInstance().getReference().child("suggestions");
 
-        Button user = findViewById(R.id.user);
-        Button calendarButton = findViewById(R.id.calendar);
-        Button weatherButton = findViewById(R.id.weather);
+        ImageButton user = findViewById(R.id.user);
+        ImageButton calendarButton = findViewById(R.id.calendar);
+        ImageButton weatherButton = findViewById(R.id.weather);
         ImageButton problemsButton = findViewById(R.id.problems);
-        Button messageButton = findViewById(R.id.message);
-        Button forumButton = findViewById(R.id.forum);
-        Button historyButton = findViewById(R.id.history_work);
+        ImageButton messageButton = findViewById(R.id.message);
+        ImageButton forumButton = findViewById(R.id.forum);
+        TextView historyButton = findViewById(R.id.history_work);
 
 
-        Button suggestButton = findViewById(R.id.suggest);
+        TextView suggestButton = findViewById(R.id.suggest);
 
         user.setOnClickListener(v -> startNewActivity(UserProfile.class));
         calendarButton.setOnClickListener(v -> startNewActivity(CalendarActivity.class));
@@ -125,8 +125,8 @@ public class CalendarActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         EditText addwork = dialogView.findViewById(R.id.add_work_txt);
-        Button add = dialogView.findViewById(R.id.add);
-        Button cancel = dialogView.findViewById(R.id.cancel);
+        TextView add = dialogView.findViewById(R.id.add);
+        TextView cancel = dialogView.findViewById(R.id.cancel);
         AlertDialog alertDialog = dialogBuilder.create();
 
         add.setOnClickListener(v -> {
@@ -158,7 +158,7 @@ public class CalendarActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         TextView suggestTextView = dialogView.findViewById(R.id.suggestText);
-        Button close = dialogView.findViewById(R.id.close);
+        TextView close = dialogView.findViewById(R.id.close);
 
         AlertDialog alertDialog = dialogBuilder.create();
 

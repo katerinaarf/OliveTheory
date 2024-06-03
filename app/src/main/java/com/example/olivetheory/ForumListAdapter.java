@@ -170,7 +170,7 @@ public class ForumListAdapter extends ArrayAdapter<ForumListItem> {
         View dialogView = inflater.inflate(R.layout.dialog_comments, null);
 
         RecyclerView recyclerView = dialogView.findViewById(R.id.recyclerView);
-        Button addCommentButton = dialogView.findViewById(R.id.addCommentButton);
+        TextView addCommentButton = dialogView.findViewById(R.id.addCommentButton);
 
         // Set up RecyclerView with comments adapter and fetch comments
         CommentsAdapter adapter = new CommentsAdapter(context, new ArrayList<>());

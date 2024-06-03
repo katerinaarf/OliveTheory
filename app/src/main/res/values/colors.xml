@@ -8,4 +8,5 @@
 
     <color name="grey">#5A5660</color>
     <color name="second_white">#75FFFFFF</color>
+    <color name="button">#29CD68</color>
 </resources>

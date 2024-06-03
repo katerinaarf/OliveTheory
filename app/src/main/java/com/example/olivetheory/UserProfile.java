@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class UserProfile extends AppCompatActivity {
 
@@ -42,12 +42,13 @@ public class UserProfile extends AppCompatActivity {
         user = auth.getCurrentUser();
 
         ImageView displayimage = findViewById(R.id.displayimage);
-        Button buttonChangeImage = findViewById(R.id.buttonChangeImage);
-        Button buttonChangeName = findViewById(R.id.buttonChangeName);
-        Button buttonChangeEmail = findViewById(R.id.buttonChangeEmail);
-        Button buttonChangePassword = findViewById(R.id.buttonChangePassword);
-        Button buttonLogout = findViewById(R.id.buttonLogout);
-        Button buttonDeleteAccount = findViewById(R.id.buttonDeleteAccount);
+        ImageButton back = findViewById(R.id.back);
+        TextView buttonChangeImage = findViewById(R.id.buttonChangeImage);
+        TextView buttonChangeName = findViewById(R.id.buttonChangeName);
+        TextView buttonChangeEmail = findViewById(R.id.buttonChangeEmail);
+        TextView buttonChangePassword = findViewById(R.id.buttonChangePassword);
+        TextView buttonLogout = findViewById(R.id.buttonLogout);
+        TextView buttonDeleteAccount = findViewById(R.id.buttonDeleteAccount);
 
         buttonChangeName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +61,13 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 changeUserEmail();
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(MenuActivity.class);
             }
         });
 

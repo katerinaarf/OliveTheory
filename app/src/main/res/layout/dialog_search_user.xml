@@ -9,27 +9,30 @@
 
     <EditText
         android:id="@+id/user_id_edit_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="366dp"
+        android:layout_height="37dp"
         android:layout_marginTop="36dp"
+        android:gravity="center"
         android:background="@drawable/custom_edittext"
-        android:hint="Enter User ID"
+        android:hint="Εισάγετε το όνομα χρήστη"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <TextView
         android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="137dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/custom_button"
-        android:text="Search"
+        android:text="Αναζήτηση"
         android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_id_edit_text" />
 

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -48,17 +49,17 @@ public class ChatListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_list);
 
         mChatListView = findViewById(R.id.chat_list_view);
-        Button addChatButton = findViewById(R.id.add_chat_button);
+        ImageButton addChatButton = findViewById(R.id.add_chat_button);
         mChatListItems = new ArrayList<>();
         mChatListAdapter = new ChatListAdapter(this, mChatListItems);
         mChatListView.setAdapter(mChatListAdapter);
         mFirestore = FirebaseFirestore.getInstance();
 
-        Button user = findViewById(R.id.user);
-        Button calendarButton = findViewById(R.id.calendar);
-        Button weatherButton = findViewById(R.id.weather);
-        ImageButton logoutButton = findViewById(R.id.logout);
-        Button forumButton = findViewById(R.id.forum);
+        ImageButton user = findViewById(R.id.user);
+        ImageButton calendarButton = findViewById(R.id.calendar);
+        ImageButton weatherButton = findViewById(R.id.weather);
+        ImageButton logoutButton = findViewById(R.id.problems);
+        ImageButton forumButton = findViewById(R.id.forum);
 
         mAuth = FirebaseAuth.getInstance();
         mCurrentUserId = mAuth.getCurrentUser().getUid();
@@ -116,7 +117,7 @@ public class ChatListActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         EditText userIdEditText = dialogView.findViewById(R.id.user_id_edit_text);
-        Button searchButton = dialogView.findViewById(R.id.search_button);
+        TextView searchButton = dialogView.findViewById(R.id.search_button);
 
         AlertDialog alertDialog = dialogBuilder.create();
 

@@ -4,155 +4,168 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/second"
-    tools:context=".MenuActivity">
+    tools:context=".SettingsActivity">
 
-    <Button
-        android:id="@+id/settings"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:background="@drawable/settings"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:text="Ρυθμίσεις  "
-        android:textStyle="bold"
-        android:textSize="30dp"
-        android:textColor="@color/first"
-        app:layout_constraintStart_toEndOf="@+id/settings"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/user"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:background="@drawable/userprof"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp" />
-
-    <!-- Bottom icons -->
-
-    <TextView
-        android:id="@+id/usertext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:text="Ο Λογαριασμός μου  >"
-        android:textStyle="bold"
-        android:textColor="@color/first"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.082"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings" />
-
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Η Τοποθεσία μου   >"
-        android:textStyle="bold"
-        android:textColor="@color/first"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usertext" />
-
-    <TextView
-        android:id="@+id/history_work"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ιστορικό Εργασιών   >"
-        android:textColor="@color/first"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="340dp" />
-
-    <TextView
-        android:id="@+id/center_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Κέντρο Πληροφοριών   >"
-        android:textStyle="bold"
-        android:textColor="@color/first"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/history_work" />
+    <FrameLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <LinearLayout
-        android:id="@+id/bottom_icons"
-        android:layout_width="389dp"
-        android:layout_height="134dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
 
-        <Button
-            android:id="@+id/calendar"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/calendar" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/settings_panel"
+            android:layout_width="304dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/second">
 
-        <View
-            android:layout_width="16dp"
-            android:layout_height="134dp" />
 
-        <Button
-            android:id="@+id/weather"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/weather" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="136dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="32dp"
+                android:text="Ρυθμίσεις  "
+                android:textColor="@color/first"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
+            <ImageButton
+                android:id="@+id/user"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/userprof"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/problems"
-            android:layout_width="65dp"
-            android:layout_height="73dp"
-            android:background="@drawable/olivetheory" />
 
-        <View
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
+            <ImageButton
+                android:id="@+id/user2"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="116dp"
+                android:background="@drawable/userprof"
+                app:layout_constraintEnd_toStartOf="@+id/usertext"
+                app:layout_constraintHorizontal_bias="0.516"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settings" />
 
-        <Button
-            android:id="@+id/message"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/message" />
+            <TextView
+                android:id="@+id/usertext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="136dp"
+                android:text="Ο Λογαριασμός μου"
+                android:textColor="@color/first"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.716"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <View
-            android:layout_width="20dp"
-            android:layout_height="103dp" />
+            <ImageButton
+                android:id="@+id/loc"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/location"
+                app:layout_constraintEnd_toStartOf="@+id/location"
+                app:layout_constraintHorizontal_bias="0.516"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user2" />
 
-        <Button
-            android:id="@+id/forum"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/forum" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:text="Η Τοποθεσία μου"
+                android:textColor="@color/first"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.598"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/usertext" />
+
+            <ImageButton
+                android:id="@+id/history"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/history"
+                app:layout_constraintEnd_toStartOf="@+id/history_work"
+                app:layout_constraintTop_toBottomOf="@+id/loc" />
+
+            <TextView
+                android:id="@+id/history_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ιστορικό Εργασιών"
+                android:textColor="@color/first"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.655"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="334dp" />
+
+            <ImageButton
+                android:id="@+id/info"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/info"
+                app:layout_constraintEnd_toStartOf="@+id/center_info"
+                app:layout_constraintTop_toBottomOf="@+id/history" />
+
+            <TextView
+                android:id="@+id/center_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Κέντρο Πληροφοριών"
+                android:textColor="@color/first"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.833"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/history_work" />
+
+            <ImageButton
+                android:id="@+id/settings"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/settings"
+                tools:layout_editor_absoluteX="6dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+            <TextView
+                android:id="@+id/back"
+                android:layout_width="64dp"
+                android:layout_height="66dp"
+                android:background="@drawable/custom_button"
+                android:text=">"
+                android:textSize="40dp"
+                android:gravity="center"
+                android:textColor="@color/second"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="125dp"
+                tools:layout_editor_absoluteY="547dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
