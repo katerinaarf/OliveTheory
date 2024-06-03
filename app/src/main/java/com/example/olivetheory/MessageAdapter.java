@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,10 +33,20 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         View listViewItem = inflater.inflate(R.layout.item_message, null, true);
 
         TextView textViewMessage = listViewItem.findViewById(R.id.text_view_message);
+        ImageView imageViewMessage = listViewItem.findViewById(R.id.image_view_message);
         TextView textViewDate = listViewItem.findViewById(R.id.date);
 
         Message message = messageList.get(position);
-        textViewMessage.setText(message.getContent());
+
+        if (message.getContent() != null && !message.getContent().isEmpty()) {
+            textViewMessage.setText(message.getContent());
+            textViewMessage.setVisibility(View.VISIBLE);
+            imageViewMessage.setVisibility(View.GONE);
+        } else if (message.getImageUrl() != null && !message.getImageUrl().isEmpty()) {
+            Glide.with(context).load(message.getImageUrl()).into(imageViewMessage);
+            imageViewMessage.setVisibility(View.VISIBLE);
+            textViewMessage.setVisibility(View.GONE);
+        }
 
         // Set background drawable based on sender (current user or other user)
         if (message.getSenderId().equals(currentUserId)) {

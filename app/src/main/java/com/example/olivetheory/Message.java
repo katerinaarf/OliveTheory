@@ -1,23 +1,29 @@
 package com.example.olivetheory;
 
-
-import java.util.Date;
-
 public class Message {
-    private String content, senderId, recipientId;
+    private String content;
+    private String senderId;
+    private String recipientId;
     private long timestamp;
+    private String imageUrl;  // Προσθήκη του URL της εικόνας
 
     public Message() {
-
+        // Default constructor required for calls to DataSnapshot.getValue(Message.class)
     }
 
-    public Message(String content, String senderId, String recipientId) {
+    public Message(String content, String senderId, String recipientId, long timestamp) {
         this.content = content;
         this.senderId = senderId;
         this.recipientId = recipientId;
+        this.timestamp = timestamp;
     }
 
-    public Message(String pushId, String uid, String messageText, long l) {
+    public Message(String content, String senderId, String recipientId, long timestamp, String imageUrl) {
+        this.content = content;
+        this.senderId = senderId;
+        this.recipientId = recipientId;
+        this.timestamp = timestamp;
+        this.imageUrl = imageUrl;
     }
 
     public String getContent() {
@@ -50,5 +56,13 @@ public class Message {
 
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.firebase.inappmessaging)
     implementation(libs.firebase.database)
+    implementation(libs.google.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -58,7 +59,6 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation ("com.google.android.gms:play-services-location:21.2.0")
     implementation ("com.google.android.libraries.places:places:2.4.0")
-//    implementation ("com.google.android.libraries.places:places-widgets:2.4.0")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
 
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
