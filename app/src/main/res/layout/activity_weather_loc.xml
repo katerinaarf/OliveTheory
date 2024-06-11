@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:background="@color/second"
-    tools:context=".SavedLocationsActivity">
+    tools:context=".gui.mainactivities.SavedLocationsActivity">
 
     <TextView
         android:layout_width="wrap_content"

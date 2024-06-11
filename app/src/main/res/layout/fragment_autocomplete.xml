@@ -3,5 +3,5 @@
     android:id="@+id/autocomplete_fragment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".MapsActivity"
+    tools:context=".gui.mainactivities.MapsActivity"
     android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"/>
