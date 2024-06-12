@@ -2,18 +2,14 @@ package com.example.olivetheory.models;
 
 public class Post {
 
-    private String userId;
-    private String name;
-    private String date;
-    private String time;
-    private String userImage;
-    private String answer;
+    private String userId, name, userType, date, time, userImage, answer;
 
     public Post(String pushId, String uid, String forumText, long l){}
 
-    public Post(String userId, String name, String date, String time, String userImage, String answer){
+    public Post(String userId, String name, String userType, String date, String time, String userImage, String answer){
         this.userId = userId;
         this.name = name;
+        this.userType = userType;
         this.date = date;
         this.time = time;
         this.userImage = userImage;
@@ -68,6 +64,13 @@ public class Post {
         this.answer = answer;
     }
 
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
 }
 
 

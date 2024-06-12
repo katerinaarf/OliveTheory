@@ -43,8 +43,8 @@
 
     <ListView
         android:id="@+id/chat_list_view"
-        android:layout_width="374dp"
-        android:layout_height="503dp"
+        android:layout_width="365dp"
+        android:layout_height="463dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

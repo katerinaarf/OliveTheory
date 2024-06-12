@@ -47,14 +47,14 @@ public class ForumListAdapter extends ArrayAdapter<ForumListItem> {
     }
 
     public void setData(List<ForumListItem> forumListItems) {
-        // Fetch the latest data from Firestore
         db.collection("forumitems").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 this.forumListItems.clear();
                 for (DocumentSnapshot document : task.getResult()) {
                     ForumListItem item = document.toObject(ForumListItem.class);
                     if (item != null) {
-                        item.setPostId(document.getId()); // Set postId from document ID
+                        item.setPostId(document.getId());
+                        Log.d(TAG, "Post fetched: " + item.getPost());
                         this.forumListItems.add(item);
                     }
                 }
@@ -66,7 +66,7 @@ public class ForumListAdapter extends ArrayAdapter<ForumListItem> {
     }
 
     static class ViewHolder {
-        TextView name, post, date, time, likes;
+        TextView name, userType, post, date, time, likes;
         ImageButton likeButton, commentButton;
     }
 
@@ -99,6 +99,7 @@ public class ForumListAdapter extends ArrayAdapter<ForumListItem> {
         viewHolder.time.setText(item.getTime());
         viewHolder.likes.setText(item.getLikes() + " Likes");
 
+        // Like button listener
         viewHolder.likeButton.setOnClickListener(v -> {
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             if (currentUser != null) {
@@ -109,9 +110,8 @@ public class ForumListAdapter extends ArrayAdapter<ForumListItem> {
             }
         });
 
-        viewHolder.commentButton.setOnClickListener(v -> {
-            showCommentsDialog(item);
-        });
+        // Comment button listener
+        viewHolder.commentButton.setOnClickListener(v -> showCommentsDialog(item));
 
         return convertView;
     }
@@ -192,6 +192,28 @@ public class ForumListAdapter extends ArrayAdapter<ForumListItem> {
         dialog.show();
     }
 
+    private void fetchCommentsFromFirestore(ForumListItem item, CommentsAdapter adapter) {
+        String postId = item.getPostId();
+        if (postId != null) {
+            db.collection("forumitems").document(postId).collection("comments")
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        List<Comment> comments = new ArrayList<>();
+                        for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                            Comment comment = document.toObject(Comment.class);
+                            comments.add(comment);
+                        }
+                        adapter.setData(comments);
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(context, "Failed to fetch comments. Please try again.", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "Error fetching comments", e);
+                    });
+        } else {
+            Toast.makeText(context, "Post ID is null. Unable to fetch comments.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void showAddCommentDialog(ForumListItem item) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Add Comment");
@@ -227,23 +249,24 @@ public class ForumListAdapter extends ArrayAdapter<ForumListItem> {
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        // Get the username from the document
+                        // Get the username and user type from the document
                         String userName = documentSnapshot.getString("name");
-                        if (userName != null) {
-                            // Create the comment with the username
+                        String userType = documentSnapshot.getString("userType");
+                        if (userName != null && userType != null) {
+                            // Create the comment with the username and user type
                             Comment newComment = new Comment(commentText, new Timestamp(new Date()), userName);
                             // Add the comment to Firestore
                             addCommentToFirestore(item, newComment);
                         } else {
-                            Toast.makeText(context, "Username not found.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "User details not found.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(context, "User not found.", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(context, "Failed to fetch username: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Error fetching username", e);
+                    Toast.makeText(context, "Failed to fetch user details: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Error fetching user details", e);
                 });
     }
 
@@ -259,25 +282,4 @@ public class ForumListAdapter extends ArrayAdapter<ForumListItem> {
                 });
     }
 
-    private void fetchCommentsFromFirestore(ForumListItem item, CommentsAdapter adapter) {
-        String postId = item.getPostId();
-        if (postId != null) {
-            db.collection("forumitems").document(postId).collection("comments")
-                    .get()
-                    .addOnSuccessListener(queryDocumentSnapshots -> {
-                        List<Comment> comments = new ArrayList<>();
-                        for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-                            Comment comment = document.toObject(Comment.class);
-                            comments.add(comment);
-                        }
-                        adapter.setData(comments);
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(context, "Failed to fetch comments. Please try again.", Toast.LENGTH_SHORT).show();
-                        Log.e(TAG, "Error fetching comments", e);
-                    });
-        } else {
-            Toast.makeText(context, "Post ID is null. Unable to fetch comments.", Toast.LENGTH_SHORT).show();
-        }
-    }
 }

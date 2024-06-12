@@ -14,7 +14,7 @@
 
 
     <application
-        android:name=".util.OliveTheoryApp"
+        android:name=".OliveTheoryApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -26,7 +26,7 @@
         tools:targetApi="31">
         <!-- MainActivity -->
         <activity
-            android:name=".gui.usermanagment.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,25 +34,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- Other Activities -->
-        <activity android:name=".gui.usermanagment.LogOutActivity" />
-        <activity android:name=".gui.usermanagment.SignUpActivity" />
-        <activity android:name=".gui.usermanagment.LoginActivity" />
-        <activity android:name=".gui.mainactivities.MenuActivity" />
-        <activity android:name=".gui.mainactivities.CalendarActivity" />
+        <activity android:name=".LogOutActivity" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".CalendarActivity" />
         <activity
-            android:name=".gui.mainactivities.WeatherActivity"
+            android:name=".WeatherActivity"
             tools:ignore="Instantiatable" />
-        <activity android:name=".gui.mainactivities.ProblemsActivity"/>
-        <activity android:name=".gui.mainactivities.MessageActivity" />
-        <activity android:name=".gui.mainactivities.ChatListActivity" />
-        <activity android:name=".gui.mainactivities.ForumActivity" />
-        <activity android:name=".gui.mainactivities.ForumListActivity" />
-        <activity android:name=".gui.usermanagment.UserProfile" />
-        <activity android:name=".gui.mainactivities.SavedLocationsActivity" />
-        <activity android:name=".gui.mainactivities.HistoryWorkActivity" />
-        <activity android:name=".gui.mainactivities.WeatherSavedLocations"/>
+        <activity android:name=".ProblemsActivity"/>
+        <activity android:name=".MessageActivity" />
+        <activity android:name=".ChatListActivity" />
+        <activity android:name=".ForumActivity" />
+        <activity android:name=".ForumListActivity" />
+        <activity android:name=".UserProfile" />
+        <activity android:name=".SavedLocationsActivity" />
+        <activity android:name=".HistoryWorkActivity" />
+        <activity android:name="WeatherSavedLocations"/>
+        <activity android:name="InfoActivity"/>
         <activity
-            android:name=".gui.mainactivities.MapsActivity"
+            android:name=".MapsActivity"
             android:label="@string/activity_maps" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"

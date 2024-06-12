@@ -1,13 +1,13 @@
 package com.example.olivetheory.models;
 
 public class ForumListItem {
-    private String userId, name, userImage, post, time, date, postId;
+    private String userId, name, userImage, post, time, date, postId, userType;
     private Long likes;
 
     public ForumListItem() {
     }
 
-    public ForumListItem(String userId, String name, String userImage, String post, String time, String date, Long likes) {
+    public ForumListItem(String userId, String name,String userType, String userImage, String post, String time, String date, Long likes) {
         this.userId = userId;
         this.name = name;
         this.userImage = userImage;
@@ -81,4 +81,5 @@ public class ForumListItem {
     public void setPostId(String postId) {
         this.postId = postId;
     }
+
 }

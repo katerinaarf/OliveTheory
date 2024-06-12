@@ -24,7 +24,6 @@ public class SettingsActivity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_settings, container, false);
 
-        ImageButton user = view.findViewById(R.id.user);
         ImageButton settingButton = view.findViewById(R.id.settings);
         ImageButton user2 = view.findViewById(R.id.user2);
         ImageButton loc = view.findViewById(R.id.loc);
@@ -36,7 +35,7 @@ public class SettingsActivity extends Fragment {
         TextView center_info = view.findViewById(R.id.center_info);
         TextView back = view.findViewById(R.id.back);
 
-        user.setOnClickListener(v -> startNewActivity(UserProfile.class));
+
         user2.setOnClickListener(v -> startNewActivity(UserProfile.class));
         settingButton.setOnClickListener(v -> startNewActivity(SettingsActivity.class));
         loc.setOnClickListener(v -> startNewActivity(Location.class));
