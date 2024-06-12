@@ -23,7 +23,7 @@ public class InfoActivity extends AppCompatActivity {
         linkedinButtonvas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "www.linkedin.com/in/vasiliki-liakou-20924a307";
+                String url = "https://www.linkedin.com/in/vasiliki-liakou-20924a307";
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
                 startActivity(intent);
@@ -33,7 +33,7 @@ public class InfoActivity extends AppCompatActivity {
         linkedinButtonkat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "www.linkedin.com/in/katerina-arfani-4267402b8";
+                String url = "https://www.linkedin.com/in/katerina-arfani-4267402b8";
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
                 startActivity(intent);
