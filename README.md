@@ -5,7 +5,7 @@ Table of Contents
 
 - [Installation](#Installation)
 - [Usage](#Usage)
-- [Team](#The Team Behind OliveTheory)
+- [Team](#TheTeamBehindOliveTheory)
 
 
 ## Installation
