@@ -35,8 +35,8 @@ The purpose of OliveTheory is to provide a platform for olive producers and agro
 
 
 ## Team 
-- **[Κατερίνα Αρφάνη](https://github.com/katerinaarf):** 
-- **[Βασιλική Λιάκου](https://github.com/VasoLiak):** 
+- **[Katerina Arfani](https://github.com/katerinaarf):** 
+- **[Vasiliki Liakou](https://github.com/VasoLiak):** 
 
 
 
