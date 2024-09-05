@@ -34,7 +34,7 @@ The purpose of OliveTheory is to provide a platform for olive producers and agro
 - **Private Messaging:** Send personal messages to other users.
 
 
-## Team :
+## Team 
 - **[Κατερίνα Αρφάνη](https://github.com/katerinaarf):** 
 - **[Βασιλική Λιάκου](https://github.com/VasoLiak):** 
 
